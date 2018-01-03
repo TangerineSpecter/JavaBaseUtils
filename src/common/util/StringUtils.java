@@ -4,6 +4,8 @@ import java.util.Random;
 
 /**
  * 字符串处理工具类
+ * 
+ * @author TangerineSpecter
  */
 public class StringUtils {
 
@@ -32,5 +34,5 @@ public class StringUtils {
 		}
 		return new String(randBuffer);
 	}
-	
+
 }

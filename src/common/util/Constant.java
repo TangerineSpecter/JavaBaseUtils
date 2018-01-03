@@ -2,6 +2,8 @@ package common.util;
 
 /**
  * 参数常量类
+ * 
+ * @author TangerineSpecter
  */
 public class Constant {
 

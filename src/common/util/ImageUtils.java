@@ -9,6 +9,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * 图片处理工具类
@@ -128,5 +131,41 @@ public class ImageUtils {
 	 */
 	public int getWatermarkLength(String waterMarkContent, Graphics2D g) {
 		return g.getFontMetrics(g.getFont()).charsWidth(waterMarkContent.toCharArray(), 0, waterMarkContent.length());
+	}
+
+	/**
+	 * @description 获取图片的二进制数据
+	 * @param imagePath
+	 *            图片的绝对路径地址
+	 * @return
+	 */
+	public static byte[] getPicData(String imagePath) {
+		byte[] data = null;
+		try {
+			FileInputStream fi = new FileInputStream(imagePath);
+			int length = fi.available();
+			data = new byte[length];
+			fi.read(data);
+			fi.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return data;
+	}
+
+	/**
+	 * 读取文件并压缩数据然后转Base64编码
+	 * 
+	 * @param imagePath
+	 *            图片的绝对路径地址
+	 * @return
+	 */
+	public static String base64(String imagePath) {
+		byte[] data = getPicData(imagePath);
+		if (data == null) {
+			return null;
+		}
+		byte[] zipData = RarUtils.gZip(data);
+		return Base64.encodeBase64String(zipData);
 	}
 }

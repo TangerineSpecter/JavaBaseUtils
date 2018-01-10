@@ -7,19 +7,28 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * 图片处理工具类
@@ -66,6 +75,50 @@ public class ImageUtils {
 				e.printStackTrace();
 				System.out.println("IO异常...");
 			}
+		}
+	}
+
+	/**
+	 * 传入要下载的图片的url以及保存地址，将图片下载到本地
+	 * 
+	 * @param imageUrl
+	 *            图片地址
+	 * @param imagePath
+	 *            图片保存路径
+	 */
+	public static void downloadPicture(String imageUrl, String imagePath) {
+		String fileName = imageUrl.substring(imageUrl.lastIndexOf("/"));
+
+		try {
+			// 创建文件目录
+			File files = new File(imagePath);
+			// 判断是否存在文件夹
+			if (!files.exists()) {
+				files.mkdirs();
+			}
+			// 获取下载地址
+			URL url = new URL(imageUrl);
+			// 连接网络地址
+			HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+			// 获取连接的输出流
+			InputStream is = huc.getInputStream();
+			// 创建文件
+			File file = new File(imagePath + fileName);
+			// 创建输入流，写入文件
+			FileOutputStream out = null;
+			if (file.getName().endsWith("jpg") || file.getName().endsWith("png") || file.getName().endsWith("jpeg")
+					|| file.getName().endsWith("jpg")) {
+				out = new FileOutputStream(file);
+				int i = 0;
+				while ((i = is.read()) != -1) {
+					out.write(i);
+				}
+				is.close();
+				out.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -167,5 +220,74 @@ public class ImageUtils {
 		}
 		byte[] zipData = RarUtils.gZip(data);
 		return Base64.encodeBase64String(zipData);
+	}
+
+	/**
+	 * 获取网页所有图片并下载
+	 * 
+	 * @param url
+	 *            网页地址
+	 * @param encoding
+	 *            网页编码
+	 * @param path
+	 *            存放图片地址
+	 */
+	public static void getWebImage(String url, String encoding, String path) {
+		String htmlResouce = gethtmlResourceByURL(url, encoding);
+		// 解析网页源代码
+		Document document = Jsoup.parse(htmlResouce);
+		// 获取所以图片的地址<img src="" alt= "" width= "" height=""/>
+		Elements elements = document.getElementsByTag("img");
+		for (Element element : elements) {
+			String imgSrc = element.attr("src");
+			if (!"".equals(imgSrc) && imgSrc.startsWith("http://")) {
+				System.out.println("下载图片的地址===" + imgSrc);
+				downloadPicture(path, imgSrc);
+			}
+		}
+	}
+
+	/**
+	 * 根据网站的地址和页面的编码集来获取网页的源代码
+	 * 
+	 * @param url
+	 *            网址路径
+	 * @param encoding
+	 *            编码集
+	 * @return String 网页的源代码
+	 */
+	public static String gethtmlResourceByURL(String url, String encoding) {
+		// 用于存储网页源代码
+		StringBuffer buf = new StringBuffer();
+		URL urlObj = null;
+		URLConnection uc = null;
+		InputStreamReader isr = null;
+		BufferedReader buffer = null;
+		try {
+			// 建立网络连接
+			urlObj = new URL(url);
+			// 打开网络连接
+			uc = urlObj.openConnection();
+			// 将连接网络的输入流转换
+			isr = new InputStreamReader(uc.getInputStream(), encoding);
+			// 建立缓冲写入流
+			buffer = new BufferedReader(isr);
+			String line = null;
+			while ((line = buffer.readLine()) != null) {
+				buf.append(line + "\n");
+			}
+		} catch (Exception e) {
+			System.out.println("test");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (isr != null) {
+					isr.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return buf.toString();
 	}
 }

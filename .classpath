@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="src/common/lib/httpcore-4.4.7.jar"/>
 	<classpathentry kind="lib" path="src/common/lib/commons-codec-1.11.jar"/>
 	<classpathentry kind="lib" path="src/common/lib/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="src/common/lib/jsoup-1.11.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

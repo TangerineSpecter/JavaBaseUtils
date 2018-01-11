@@ -80,7 +80,7 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
-	public static Long getCurrentTimestamp() {
+	public static Long getCurrentTimes() {
 		return System.currentTimeMillis();
 	}
 
@@ -129,8 +129,17 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
-	public static String getPayCurrTs() {
+	public static String getSimpleFormat() {
 		return new SimpleDateFormat("yyyyMMdd").format(new Date());
+	}
+
+	/**
+	 * 获取当前年份 格式:YYYYMMDD
+	 * 
+	 * @return
+	 */
+	public static String getCurrentYear() {
+		return new SimpleDateFormat("yyyy").format(new Date());
 	}
 
 	/**
@@ -168,5 +177,25 @@ public class TimeUtils {
 			}
 		}
 		return time;
+	}
+
+	/**
+	 * 获取距离某个日期的天数 格式：yyyy-MM-dd
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static Integer getDisparityDay(String time) {
+		Integer days = null;
+		if (null != time) {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				long millionSeconds = sdf.parse(time).getTime();
+				days = Math.abs((int) ((System.currentTimeMillis() - millionSeconds) / 1000 / 60 / 60 / 24));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return days;
 	}
 }

@@ -1,5 +1,7 @@
 package common.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +12,12 @@ import java.util.Date;
  * @author TangerineSpecter
  */
 public class TimeUtils {
+	/** 默认格式 */
+	private static final String DEFAULT_FORMAT = "yyyy-MM-dd";
+	/** 时间格式——精确到秒 */
+	private static final String DEFAULT_FORMAT_SECOND = "yyyy-MM-dd HH:mm:ss";
+	/** 星期数 */
+	private static final String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
 
 	/**
 	 * 将时间转换成指定格式 yyyy-MM-dd HH:mm:ss
@@ -18,10 +26,10 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
-	public static String timeFormat(Date datetime) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		if (datetime != null) {
-			return format.format(datetime);
+	public static String timeFormat(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat(DEFAULT_FORMAT_SECOND);
+		if (date != null) {
+			return format.format(date);
 		}
 		return "";
 	}
@@ -52,10 +60,10 @@ public class TimeUtils {
 	 * @param datetime
 	 * @return
 	 */
-	public static String timeFormatToDay(Date datetime) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		if (datetime != null) {
-			return format.format(datetime);
+	public static String timeFormatToDay(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat(DEFAULT_FORMAT);
+		if (date != null) {
+			return format.format(date);
 		}
 		return "";
 	}
@@ -67,10 +75,10 @@ public class TimeUtils {
 	 * @param model
 	 * @return
 	 */
-	public static String timeFormat(Date datetime, String model) {
+	public static String timeFormat(Date date, String model) {
 		SimpleDateFormat format = new SimpleDateFormat(model);
-		if (datetime != null) {
-			return format.format(datetime);
+		if (date != null) {
+			return format.format(date);
 		}
 		return "";
 	}
@@ -134,7 +142,7 @@ public class TimeUtils {
 	}
 
 	/**
-	 * 获取当前年份 格式:YYYYMMDD
+	 * 获取当前年份
 	 * 
 	 * @return
 	 */
@@ -169,7 +177,7 @@ public class TimeUtils {
 		Long time = null;
 		if (null != date && !date.isEmpty()) {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT_SECOND);
 				long millionSeconds = sdf.parse(date.toString()).getTime();// 毫秒
 				time = millionSeconds;
 			} catch (Exception e) {
@@ -180,16 +188,17 @@ public class TimeUtils {
 	}
 
 	/**
-	 * 获取距离某个日期的天数 格式：yyyy-MM-dd
+	 * 获取距离某个日期的天数
 	 * 
 	 * @param time
+	 *            格式：yyyy-MM-dd
 	 * @return
 	 */
 	public static Integer getDisparityDay(String time) {
 		Integer days = null;
 		if (null != time) {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
 				long millionSeconds = sdf.parse(time).getTime();
 				days = Math.abs((int) ((System.currentTimeMillis() - millionSeconds) / 1000 / 60 / 60 / 24));
 			} catch (Exception e) {
@@ -197,5 +206,96 @@ public class TimeUtils {
 			}
 		}
 		return days;
+	}
+
+	/**
+	 * 获取某天的星期
+	 * 
+	 * @param date
+	 *            格式：yyyy-MM-dd
+	 * @return
+	 */
+	public static String getWeekDays(String date) {
+		DateFormat df = new SimpleDateFormat(DEFAULT_FORMAT);
+		try {
+			Date time = df.parse(date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(time);
+			int weekDay = cal.get(Calendar.DAY_OF_WEEK) - 1;
+			return weekDays[weekDay];
+		} catch (ParseException e) {
+			System.out.println("转换异常...");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 获取某年某月最后一天
+	 * 
+	 * @param year
+	 *            年份
+	 * @param month
+	 *            月份
+	 * @return
+	 */
+	public static Integer getFinalDay(Integer year, Integer month) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		Date time = cal.getTime();
+		Integer finalDay = Integer.valueOf(new SimpleDateFormat("dd").format(time));
+		return finalDay;
+	}
+
+	/**
+	 * 获取某年某月第一天
+	 * 
+	 * @param date
+	 *            时间
+	 * @return
+	 */
+	public static String getStartDay(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH));
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		Date time = cal.getTime();
+		return new SimpleDateFormat("yyyy-MM-dd").format(time);
+	}
+
+	/**
+	 * 获取某年某月最后一天
+	 * 
+	 * @param date
+	 *            时间
+	 * @return
+	 */
+	public static String getFinalDay(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		Date time = cal.getTime();
+		return new SimpleDateFormat("yyyy-MM-dd").format(time);
+	}
+
+	/**
+	 * 判断某一年是否闰年
+	 * 
+	 * @param year
+	 *            年份
+	 * @return 闰年返回true
+	 */
+	public static Boolean judgeLeapYear(Integer year) {
+		if (getFinalDay(year, Constant.Date.MONTH_FEBRUARY).equals(Constant.Date.LEAP_YEAR_DAY)) {
+			return true;
+		}
+		return false;
 	}
 }

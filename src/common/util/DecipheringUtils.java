@@ -1,5 +1,6 @@
 package common.util;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,38 @@ public class DecipheringUtils {
 		for (String morse : morseArray) {
 			result += morseCodeMap.get(morse);
 		}
+		return result;
+	}
+
+	/**
+	 * 栅栏密码解密
+	 * 
+	 * @param railfence
+	 *            栅栏密码
+	 * @param number
+	 *            栅栏数
+	 * @return
+	 */
+	public static String getRailFenceResult(String railfence, Integer number) {
+		String result = Constant.NULL_KEY_STR;
+		String[] codes = new String[number];
+		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
+		Integer length = code.length();
+		Integer cutPoint = length % number == 0 ? (length / number) : (length / number) + 1;
+		for (int index = 0; index < number; index++) {
+			code.substring(index, index + 1);
+			Integer max = ((index + 1) * cutPoint) > length ? length : ((index + 1) * cutPoint);
+			codes[index] = code.substring(index * cutPoint, max);
+		}
+		System.out.println(Arrays.toString(codes));
+		for (int index = 0; index < codes[0].length(); index++) {
+			for (int count = 0; count < codes.length; count++) {
+				if ((index + 1) <= codes[count].length()) {
+					result += codes[count].substring(index, index + 1);
+				}
+			}
+		}
+		System.out.println(cutPoint);
 		return result;
 	}
 }

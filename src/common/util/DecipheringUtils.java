@@ -69,24 +69,23 @@ public class DecipheringUtils {
 	 */
 	public static String getRailFenceResult(String railfence, Integer number) {
 		String result = Constant.NULL_KEY_STR;
-		String[] codes = new String[number];
+		String codes = Constant.NULL_KEY_STR;
 		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
 		Integer length = code.length();
 		Integer cutPoint = length % number == 0 ? (length / number) : (length / number) + 1;
-		for (int index = 0; index < number; index++) {
-			code.substring(index, index + 1);
-			Integer max = ((index + 1) * cutPoint) > length ? length : ((index + 1) * cutPoint);
-			codes[index] = code.substring(index * cutPoint, max);
+		for (int index = 0; index < cutPoint; index++) {
+			Integer max = ((index + 1) * number) < length ? ((index + 1) * number) : length;
+			codes += code.substring(index * number, max) + ",";
 		}
-		System.out.println(Arrays.toString(codes));
-		for (int index = 0; index < codes[0].length(); index++) {
-			for (int count = 0; count < codes.length; count++) {
-				if ((index + 1) <= codes[count].length()) {
-					result += codes[count].substring(index, index + 1);
+		String[] codeArrays = codes.substring(0, codes.length() - 1).split(",");
+		System.out.println(Arrays.toString(codeArrays));
+		for (int index = 0; index < codeArrays[0].length(); index++) {
+			for (int count = 0; count < codeArrays.length; count++) {
+				if ((index + 1) <= codeArrays[count].length()) {
+					result += codeArrays[count].substring(index, index + 1);
 				}
 			}
 		}
-		System.out.println(cutPoint);
 		return result;
 	}
 }

@@ -59,7 +59,7 @@ public class DecipheringUtils {
 	}
 
 	/**
-	 * 栅栏密码解密
+	 * 栅栏密码加密
 	 * 
 	 * @param railfence
 	 *            栅栏密码
@@ -67,15 +67,15 @@ public class DecipheringUtils {
 	 *            栅栏数
 	 * @return
 	 */
-	public static String getRailFenceResult(String railfence, Integer number) {
+	public static String setRailFenceResult(String railfence, Integer key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
 		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
 		Integer length = code.length();
-		Integer cutPoint = length % number == 0 ? (length / number) : (length / number) + 1;
+		Integer cutPoint = length % key == 0 ? (length / key) : (length / key) + 1;
 		for (int index = 0; index < cutPoint; index++) {
-			Integer max = ((index + 1) * number) < length ? ((index + 1) * number) : length;
-			codes += code.substring(index * number, max) + ",";
+			Integer max = ((index + 1) * key) < length ? ((index + 1) * key) : length;
+			codes += code.substring(index * key, max) + ",";
 		}
 		String[] codeArrays = codes.substring(0, codes.length() - 1).split(",");
 		System.out.println(Arrays.toString(codeArrays));
@@ -87,5 +87,49 @@ public class DecipheringUtils {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * 字符串转unicode
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String string2Unicode(String str) {
+		StringBuffer unicode = new StringBuffer();
+
+		for (int i = 0; i < str.length(); i++) {
+			// 取出每一个字符
+			char c = str.charAt(i);
+			// 转换为unicode
+			unicode.append("\\u" + Integer.toHexString(c));
+		}
+
+		return unicode.toString();
+	}
+
+	/**
+	 * unicode转字符串
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String unicode2String(String str) {
+		int start = 0;
+		int end = 0;
+		final StringBuffer buffer = new StringBuffer();
+		while (start > -1) {
+			end = str.indexOf("\\u", start + 2);
+			String charStr = "";
+			if (end == -1) {
+				charStr = str.substring(start + 2, str.length());
+			} else {
+				charStr = str.substring(start + 2, end);
+			}
+			char letter = (char) Integer.parseInt(charStr, 16);
+			buffer.append(new Character(letter).toString());
+			start = end;
+		}
+		return buffer.toString();
 	}
 }

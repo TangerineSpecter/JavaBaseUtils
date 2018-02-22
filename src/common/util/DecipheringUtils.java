@@ -43,6 +43,28 @@ public class DecipheringUtils {
 	}
 
 	/**
+	 * 加密摩斯密码
+	 * 
+	 * @param content
+	 *            加密内容
+	 * @return
+	 */
+	public static String setMorseResult(String content) {
+		String result = Constant.NULL_KEY_STR;
+		String value = Constant.NULL_KEY_STR;
+		content = content.trim();
+		for (int index = 0; index < content.length(); index++) {
+			value = content.substring(index, index + 1);
+			for (String getKey : morseCodeMap.keySet()) {
+				if (morseCodeMap.get(getKey).equals(value)) {
+					result += getKey + "/";
+				}
+			}
+		}
+		return result.substring(0, result.length() - 1);
+	}
+
+	/**
 	 * 解密摩斯密码
 	 * 
 	 * @param morseCode
@@ -76,6 +98,37 @@ public class DecipheringUtils {
 		for (int index = 0; index < cutPoint; index++) {
 			Integer max = ((index + 1) * key) < length ? ((index + 1) * key) : length;
 			codes += code.substring(index * key, max) + ",";
+		}
+		String[] codeArrays = codes.substring(0, codes.length() - 1).split(",");
+		System.out.println(Arrays.toString(codeArrays));
+		for (int index = 0; index < codeArrays[0].length(); index++) {
+			for (int count = 0; count < codeArrays.length; count++) {
+				if ((index + 1) <= codeArrays[count].length()) {
+					result += codeArrays[count].substring(index, index + 1);
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 栅栏密码解密
+	 * 
+	 * @param railfence
+	 *            栅栏密码
+	 * @param number
+	 *            栅栏数
+	 * @return
+	 */
+	public static String getRailFenceResult(String railfence, Integer key) {
+		String result = Constant.NULL_KEY_STR;
+		String codes = Constant.NULL_KEY_STR;
+		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
+		Integer length = code.length();
+		Integer cutPoint = length % key == 0 ? (length / key) : (length / key) + 1;
+		for (int index = 0; index < key; index++) {
+			Integer max = ((index + 1) * cutPoint) < length ? ((index + 1) * cutPoint) : length;
+			codes += code.substring(index * cutPoint, max) + ",";
 		}
 		String[] codeArrays = codes.substring(0, codes.length() - 1).split(",");
 		System.out.println(Arrays.toString(codeArrays));

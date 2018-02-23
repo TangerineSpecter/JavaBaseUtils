@@ -80,4 +80,16 @@ public class Constant {
 		/** 数字3 */
 		public static final Integer COMMON_NUMBER_THIRD = 3;
 	}
+
+	/**
+	 * 加密类型
+	 */
+	public static class Deciphering {
+		/** 摩斯密码 */
+		public static final String MORSE_TYPE = "摩斯密码";
+		/** 栅栏密码 */
+		public static final String RAILFENCE_TYPE = "栅栏密码";
+		/** 手机九宫格 */
+		public static final String PHONE_TYPEWRITING_TYPE = "手机九宫格";
+	}
 }

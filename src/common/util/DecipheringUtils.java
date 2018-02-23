@@ -21,6 +21,11 @@ public class DecipheringUtils {
 	private static final String[] morse_value = "1,2,3,4,5,6,7,8,9,0,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
 			.split(",");
 
+	/** 手机九宫格 */
+	private static final String[][] typewriting_box = { { " " }, { "，", "。", "！", "?" }, { "A", "B", "C" },
+			{ "D", "E", "F" }, { "G", "H", "I" }, { "J", "K", "L" }, { "M", "N", "O" }, { "P", "Q", "R", "S" },
+			{ "T", "U", "V" }, { "W", "X", "Y", "Z" } };
+
 	static {
 		morseCodeMap = getMorseCode();
 	}
@@ -52,7 +57,7 @@ public class DecipheringUtils {
 	public static String setMorseResult(String content) {
 		String result = Constant.NULL_KEY_STR;
 		String value = Constant.NULL_KEY_STR;
-		content = content.trim();
+		content = content.replaceAll("\\s*", "").toUpperCase();
 		for (int index = 0; index < content.length(); index++) {
 			value = content.substring(index, index + 1);
 			for (String getKey : morseCodeMap.keySet()) {
@@ -68,14 +73,19 @@ public class DecipheringUtils {
 	 * 解密摩斯密码
 	 * 
 	 * @param morseCode
-	 *            摩斯密码
+	 *            摩斯密码 用 "/"进行分隔
 	 * @return
 	 */
 	public static String getMorseResult(String morseCode) {
 		String result = Constant.NULL_KEY_STR;
 		String[] morseArray = morseCode.split("/");
 		for (String morse : morseArray) {
-			result += morseCodeMap.get(morse);
+			if (morseCodeMap.get(morse) != null) {
+				result += morseCodeMap.get(morse);
+			}
+		}
+		if (Constant.NULL_KEY_STR.equals(result)) {
+			System.out.println(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
 		}
 		return result;
 	}
@@ -150,14 +160,12 @@ public class DecipheringUtils {
 	 */
 	public static String string2Unicode(String str) {
 		StringBuffer unicode = new StringBuffer();
-
 		for (int i = 0; i < str.length(); i++) {
 			// 取出每一个字符
 			char c = str.charAt(i);
 			// 转换为unicode
 			unicode.append("\\u" + Integer.toHexString(c));
 		}
-
 		return unicode.toString();
 	}
 
@@ -184,5 +192,64 @@ public class DecipheringUtils {
 			start = end;
 		}
 		return buffer.toString();
+	}
+
+	/**
+	 * 手机九宫格输入法解密
+	 * 
+	 * @param content
+	 *            内容
+	 * @return
+	 */
+	public static String getPhoneTypewritingResult(String content) {
+		String result = Constant.NULL_KEY_STR;
+		content = content.replaceAll("\\s*", "");
+		boolean isNumber = content.matches("[0-9]+");
+		String key = Constant.NULL_KEY_STR;
+		if (isNumber && content.length() % 2 == 0) {
+			try {
+				for (int index = 0; index < (content.length() / 2); index++) {
+					key = content.substring(index * 2, (index * 2) + 2);
+					result += typewriting_box[Integer
+							.valueOf(key.substring(0, 1))][(Integer.valueOf(key.substring(1, 2)) - 1)];
+				}
+			} catch (Exception e) {
+				System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+				return Constant.NULL_KEY_STR;
+			}
+		} else {
+			System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+		}
+		return result;
+	}
+
+	/**
+	 * 手机九宫格输入法加密
+	 * 
+	 * @param content
+	 *            内容
+	 * @return
+	 */
+	public static String setPhoneTypewritingResult(String content) {
+		String result = Constant.NULL_KEY_STR;
+		content = content.replaceAll("\\s*", "").toUpperCase();
+		for (int i = 0; i < content.length(); i++) {
+			for (int index = 0; index < typewriting_box.length; index++) {
+				for (int count = 0; count < typewriting_box[index].length; count++) {
+					if (typewriting_box[index][count].equals(content.substring(i, i + 1))) {
+						result += String.valueOf(index) + String.valueOf(count + 1);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 解密错误提示
+	 */
+	private static String getErrorMessage(String content, String type) {
+		String message = String.format("【错误提示】：[%s]不符合[%s]方式", content, type);
+		return message;
 	}
 }

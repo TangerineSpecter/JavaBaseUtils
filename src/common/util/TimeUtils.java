@@ -168,16 +168,16 @@ public class TimeUtils {
 	}
 
 	/**
-	 * 将yyyy-MM-dd格式 转为毫秒
+	 * 将指定格式 转为毫秒
 	 * 
 	 * @param date
 	 * @return
 	 */
-	public static Long getDatemill(String date) {
+	public static Long getDatemill(String date, String format) {
 		Long time = null;
 		if (null != date && !date.isEmpty()) {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT_SECOND);
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
 				long millionSeconds = sdf.parse(date.toString()).getTime();// 毫秒
 				time = millionSeconds;
 			} catch (Exception e) {

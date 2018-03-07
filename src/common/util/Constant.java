@@ -92,4 +92,14 @@ public class Constant {
 		/** 手机九宫格 */
 		public static final String PHONE_TYPEWRITING_TYPE = "手机九宫格";
 	}
+	
+	/** reids缓存相关配置 **/
+	public static class Redis {
+		public static String REDIS_IP = "127.0.0.1";
+		public static String REDIS_PASSWD = null;
+		public static int REIDS_MAX_ACTIVE = 100;
+		public static int REIDS_MAX_IDLE = 50;
+		public static int REIDS_MIN_IDLE = 20;
+		public static int REIDS_MAX_WAITTIME = 2000;
+	}
 }

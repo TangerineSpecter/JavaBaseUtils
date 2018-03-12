@@ -10,6 +10,12 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
+/**
+ * redis工具类
+ * 
+ * @author TangerineSpecter
+ *
+ */
 public class JedisTool {
 	private static Logger log = Logger.getLogger(JedisTool.class);
 

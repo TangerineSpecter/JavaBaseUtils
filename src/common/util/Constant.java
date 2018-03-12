@@ -91,8 +91,10 @@ public class Constant {
 		public static final String RAILFENCE_TYPE = "栅栏密码";
 		/** 手机九宫格 */
 		public static final String PHONE_TYPEWRITING_TYPE = "手机九宫格";
+		/** 键盘密码 */
+		public static final String KEYBOARD_TYPE = "键盘密码";
 	}
-	
+
 	/** reids缓存相关配置 **/
 	public static class Redis {
 		public static String REDIS_IP = "127.0.0.1";

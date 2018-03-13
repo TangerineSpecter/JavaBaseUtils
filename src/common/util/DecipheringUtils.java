@@ -1,6 +1,7 @@
 package common.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,10 +12,15 @@ import java.util.Map;
  */
 public class DecipheringUtils {
 
+	private final static Boolean ERROR_INFO = false;
+	/** 密码索引列表 */
+	private static final int[] PASSWORD_INDEX = { 0, 1, 2, 3, 4, 5 };
 	/** 摩斯密码 */
 	private static Map<String, Object> morseCodeMap = new HashMap<>();
 	/** 键盘密码 */
 	private static Map<String, Object> keyboardCodeMap = new HashMap<>();
+	/** 培根密码 */
+	private static Map<String, Object> baconCodeMap = new HashMap<>();
 	/** 摩斯key */
 	private static final String[] morse_key = ".----,..---,...--,....-,.....,-....,--...,---..,----.,-----,.-,-...,-.-.,-..,.,..-.,--.,....,..,.---,-.-,.-..,--,-.,---,.--.,--.-,.-.,...,-,..-,...-,.--,-..-,-.--,--.."
 			.split(",");
@@ -33,9 +39,14 @@ public class DecipheringUtils {
 	/** 键盘字母表 */
 	private static final String[] keyboard_value = "Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M".split(",");
 
+	/** 培根密码表 */
+	private static final String[] bacon_value = "aaaaa,aaaab,aaaba,aaabb,aabaa,aabab,aabba,aabbb,abaaa,abaab,ababa,ababb,abbaa,abbab,abbba,abbbb,baaaa,baaab,baaba,baabb,babaa,babab,babba,babbb,bbaaa,bbaab"
+			.split(",");
+
 	static {
 		morseCodeMap = getMorseCode();
 		keyboardCodeMap = getKeyboardCode();
+		baconCodeMap = getBaconCode();
 	}
 
 	/**
@@ -70,6 +81,75 @@ public class DecipheringUtils {
 			System.out.println("键盘密码key,value数量不对等!");
 		}
 		return keyboardMap;
+	}
+
+	/**
+	 * 获取培根密码
+	 * 
+	 * @return
+	 */
+	private static Map<String, Object> getBaconCode() {
+		Map<String, Object> baconMap = new HashMap<>();
+		if (alphabet.length == bacon_value.length) {
+			for (int index = 0; index < alphabet.length; index++) {
+				baconMap.put(alphabet[index], bacon_value[index]);
+			}
+		} else {
+			System.out.println("培根密码key,value数量不对等!");
+		}
+		return baconMap;
+	}
+
+	/**
+	 * 暴力破解密码
+	 * 
+	 * @param content
+	 *            破解内容
+	 * @param plies
+	 *            破解层数
+	 */
+	public static void rceAttack(String content, int plies) {
+		String result = Constant.NULL_KEY_STR;
+		// 初始化破解列表
+		List<List<Integer>> lists = NumberUtils.getFullPermutation(PASSWORD_INDEX, 4);
+		if (lists.isEmpty()) {
+			if (ERROR_INFO) {
+				System.out.println("---破解失败---");
+			}
+		}
+		for (List<Integer> list : lists) {
+			result = content;
+			for (Integer index : list) {
+				switch (index) {
+				case Constant.Deciphering.INDEX_MORSE:
+					result = getMorseResult(result);
+					break;
+				case Constant.Deciphering.INDEX_RAILFENCE:
+					result = getRailFenceResult(result, 2);
+					break;
+				case Constant.Deciphering.INDEX_PHONE_TYPEWRITING:
+					result = getPhoneTypewritingResult(result);
+					break;
+				case Constant.Deciphering.INDEX_KEYBOARD_TYPE:
+					result = getKeyboardResult(result);
+					break;
+				case Constant.Deciphering.INDEX_BACON:
+					result = getBaconResult(result);
+					break;
+				case Constant.Deciphering.INDEX_REVERSE_ORDER:
+					result = reverseOrder(result);
+					break;
+				default:
+					break;
+				}
+				if (StringUtils.isEmpty(result)) {
+					break;
+				}
+			}
+			if (!StringUtils.isEmpty(result)) {
+				System.out.println(getProcessInfo(list) + result.toLowerCase());
+			}
+		}
 	}
 
 	/**
@@ -110,7 +190,9 @@ public class DecipheringUtils {
 			}
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
-			System.out.println(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
+			if (ERROR_INFO) {
+				System.out.println(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
+			}
 		}
 		return result;
 	}
@@ -128,6 +210,9 @@ public class DecipheringUtils {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
 		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
+		if (StringUtils.isEmpty(code)) {
+			return result;
+		}
 		Integer length = code.length();
 		Integer cutPoint = length % key == 0 ? (length / key) : (length / key) + 1;
 		for (int index = 0; index < cutPoint; index++) {
@@ -237,11 +322,15 @@ public class DecipheringUtils {
 							.valueOf(key.substring(0, 1))][(Integer.valueOf(key.substring(1, 2)) - 1)];
 				}
 			} catch (Exception e) {
-				System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+				if (ERROR_INFO) {
+					System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+				}
 				return Constant.NULL_KEY_STR;
 			}
 		} else {
-			System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+			if (ERROR_INFO) {
+				System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+			}
 		}
 		return result;
 	}
@@ -279,13 +368,15 @@ public class DecipheringUtils {
 		String result = Constant.NULL_KEY_STR;
 		content = content.replaceAll("\\s*", "").toUpperCase();
 		String[] keyboardArray = content.split("");
-		for (String morse : keyboardArray) {
-			if (keyboardCodeMap.get(morse) != null) {
-				result += keyboardCodeMap.get(morse);
+		for (String keyboard : keyboardArray) {
+			if (keyboardCodeMap.get(keyboard) != null) {
+				result += keyboardCodeMap.get(keyboard);
 			}
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
-			System.out.println(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
+			if (ERROR_INFO) {
+				System.out.println(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
+			}
 		}
 		return result;
 	}
@@ -310,6 +401,91 @@ public class DecipheringUtils {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * 加密培根密码
+	 * 
+	 * @param content
+	 *            加密内容
+	 * @return
+	 */
+	public static String setBaconResult(String content) {
+		String result = Constant.NULL_KEY_STR;
+		content = content.replaceAll("\\s*", "").toUpperCase();
+		String[] baconArray = content.split("");
+		for (String bacon : baconArray) {
+			if (baconCodeMap.get(bacon) != null) {
+				result += baconCodeMap.get(bacon);
+			}
+		}
+		if (Constant.NULL_KEY_STR.equals(result)) {
+			if (ERROR_INFO) {
+				System.out.println(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 解密培根密码
+	 * 
+	 * @param baconCode
+	 *            培根密码
+	 * @return
+	 */
+	public static String getBaconResult(String baconCode) {
+		String result = Constant.NULL_KEY_STR;
+		String value = Constant.NULL_KEY_STR;
+		baconCode = baconCode.replaceAll("\\s*", "").toUpperCase();
+		for (int index = 0; index < baconCode.length(); index++) {
+			value = baconCode.substring(index, index + 1);
+			for (String getKey : baconCodeMap.keySet()) {
+				if (baconCodeMap.get(getKey).equals(value)) {
+					result += getKey;
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 倒序排列
+	 * 
+	 * @param content
+	 * @return
+	 */
+	public static String reverseOrder(String content) {
+		return new StringBuffer(content.replaceAll("\\s*", "")).reverse().toString();
+	}
+
+	private static String getProcessInfo(List<Integer> numbers) {
+		String info = Constant.NULL_KEY_STR;
+		for (int number : numbers) {
+			switch (number) {
+			case 0:
+				info += Constant.Deciphering.MORSE_TYPE + "->";
+				break;
+			case 1:
+				info += Constant.Deciphering.RAILFENCE_TYPE + "->";
+				break;
+			case 2:
+				info += Constant.Deciphering.PHONE_TYPEWRITING_TYPE + "->";
+				break;
+			case 3:
+				info += Constant.Deciphering.KEYBOARD_TYPE + "->";
+				break;
+			case 4:
+				info += Constant.Deciphering.BACON_TYPE + "->";
+				break;
+			case 5:
+				info += Constant.Deciphering.REVERSE_ORDER_TYPE + "->";
+				break;
+			default:
+				break;
+			}
+		}
+		return info;
 	}
 
 	/**

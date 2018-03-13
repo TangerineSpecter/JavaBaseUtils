@@ -93,6 +93,23 @@ public class Constant {
 		public static final String PHONE_TYPEWRITING_TYPE = "手机九宫格";
 		/** 键盘密码 */
 		public static final String KEYBOARD_TYPE = "键盘密码";
+		/** 培根密码 */
+		public static final String BACON_TYPE = "培根密码";
+		/** 倒序密码 */
+		public static final String REVERSE_ORDER_TYPE = "倒序密码";
+
+		/** 摩斯密码索引 */
+		public static final int INDEX_MORSE = 0;
+		/** 栅栏密码索引 */
+		public static final int INDEX_RAILFENCE = 1;
+		/** 手机九宫格索引 */
+		public static final int INDEX_PHONE_TYPEWRITING = 2;
+		/** 键盘密码索引 */
+		public static final int INDEX_KEYBOARD_TYPE = 3;
+		/** 培根密码索引 */
+		public static final int INDEX_BACON = 4;
+		/** 倒序密码索引 */
+		public static final int INDEX_REVERSE_ORDER = 5;
 	}
 
 	/** reids缓存相关配置 **/

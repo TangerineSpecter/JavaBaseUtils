@@ -1,156 +1,12 @@
 package common.util;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * 解密工具类
  * 
  * @author TangerineSpecter
  *
  */
-public class DecipheringUtils {
-
-	private final static Boolean ERROR_INFO = false;
-	/** 密码索引列表 */
-	private static final int[] PASSWORD_INDEX = { 0, 1, 2, 3, 4, 5 };
-	/** 摩斯密码 */
-	private static Map<String, Object> morseCodeMap = new HashMap<>();
-	/** 键盘密码 */
-	private static Map<String, Object> keyboardCodeMap = new HashMap<>();
-	/** 培根密码 */
-	private static Map<String, Object> baconCodeMap = new HashMap<>();
-	/** 摩斯key */
-	private static final String[] morse_key = ".----,..---,...--,....-,.....,-....,--...,---..,----.,-----,.-,-...,-.-.,-..,.,..-.,--.,....,..,.---,-.-,.-..,--,-.,---,.--.,--.-,.-.,...,-,..-,...-,.--,-..-,-.--,--.."
-			.split(",");
-	/** 摩斯value */
-	private static final String[] morse_value = "1,2,3,4,5,6,7,8,9,0,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
-			.split(",");
-
-	/** 手机九宫格 */
-	private static final String[][] typewriting_box = { { " " }, { "，", "。", "！", "?" }, { "A", "B", "C" },
-			{ "D", "E", "F" }, { "G", "H", "I" }, { "J", "K", "L" }, { "M", "N", "O" }, { "P", "Q", "R", "S" },
-			{ "T", "U", "V" }, { "W", "X", "Y", "Z" } };
-
-	/** 字母表 */
-	private static final String[] alphabet = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(",");
-
-	/** 键盘字母表 */
-	private static final String[] keyboard_value = "Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M".split(",");
-
-	/** 培根密码表 */
-	private static final String[] bacon_value = "aaaaa,aaaab,aaaba,aaabb,aabaa,aabab,aabba,aabbb,abaaa,abaab,ababa,ababb,abbaa,abbab,abbba,abbbb,baaaa,baaab,baaba,baabb,babaa,babab,babba,babbb,bbaaa,bbaab"
-			.split(",");
-
-	static {
-		morseCodeMap = getMorseCode();
-		keyboardCodeMap = getKeyboardCode();
-		baconCodeMap = getBaconCode();
-	}
-
-	/**
-	 * 获取摩斯密码
-	 * 
-	 * @return
-	 */
-	private static Map<String, Object> getMorseCode() {
-		Map<String, Object> morseMap = new HashMap<>();
-		if (morse_key.length == morse_value.length) {
-			for (int index = 0; index < morse_key.length; index++) {
-				morseMap.put(morse_key[index], morse_value[index]);
-			}
-		} else {
-			System.out.println("摩斯密码key,value数量不对等!");
-		}
-		return morseMap;
-	}
-
-	/**
-	 * 获取键盘密码
-	 * 
-	 * @return
-	 */
-	private static Map<String, Object> getKeyboardCode() {
-		Map<String, Object> keyboardMap = new HashMap<>();
-		if (alphabet.length == keyboard_value.length) {
-			for (int index = 0; index < alphabet.length; index++) {
-				keyboardMap.put(alphabet[index], keyboard_value[index]);
-			}
-		} else {
-			System.out.println("键盘密码key,value数量不对等!");
-		}
-		return keyboardMap;
-	}
-
-	/**
-	 * 获取培根密码
-	 * 
-	 * @return
-	 */
-	private static Map<String, Object> getBaconCode() {
-		Map<String, Object> baconMap = new HashMap<>();
-		if (alphabet.length == bacon_value.length) {
-			for (int index = 0; index < alphabet.length; index++) {
-				baconMap.put(alphabet[index], bacon_value[index]);
-			}
-		} else {
-			System.out.println("培根密码key,value数量不对等!");
-		}
-		return baconMap;
-	}
-
-	/**
-	 * 暴力破解密码
-	 * 
-	 * @param content
-	 *            破解内容
-	 * @param plies
-	 *            破解层数
-	 */
-	public static void rceAttack(String content, int plies) {
-		String result = Constant.NULL_KEY_STR;
-		// 初始化破解列表
-		List<List<Integer>> lists = NumberUtils.getFullPermutation(PASSWORD_INDEX, 4);
-		if (lists.isEmpty()) {
-			if (ERROR_INFO) {
-				System.out.println("---破解失败---");
-			}
-		}
-		for (List<Integer> list : lists) {
-			result = content;
-			for (Integer index : list) {
-				switch (index) {
-				case Constant.Deciphering.INDEX_MORSE:
-					result = getMorseResult(result);
-					break;
-				case Constant.Deciphering.INDEX_RAILFENCE:
-					result = getRailFenceResult(result, 2);
-					break;
-				case Constant.Deciphering.INDEX_PHONE_TYPEWRITING:
-					result = getPhoneTypewritingResult(result);
-					break;
-				case Constant.Deciphering.INDEX_KEYBOARD_TYPE:
-					result = getKeyboardResult(result);
-					break;
-				case Constant.Deciphering.INDEX_BACON:
-					result = getBaconResult(result);
-					break;
-				case Constant.Deciphering.INDEX_REVERSE_ORDER:
-					result = reverseOrder(result);
-					break;
-				default:
-					break;
-				}
-				if (StringUtils.isEmpty(result)) {
-					break;
-				}
-			}
-			if (!StringUtils.isEmpty(result)) {
-				System.out.println(getProcessInfo(list) + result.toLowerCase());
-			}
-		}
-	}
+public class DecipheringUtils extends DecipheringBaseUtils {
 
 	/**
 	 * 加密摩斯密码
@@ -457,35 +313,6 @@ public class DecipheringUtils {
 	 */
 	public static String reverseOrder(String content) {
 		return new StringBuffer(content.replaceAll("\\s*", "")).reverse().toString();
-	}
-
-	private static String getProcessInfo(List<Integer> numbers) {
-		String info = Constant.NULL_KEY_STR;
-		for (int number : numbers) {
-			switch (number) {
-			case 0:
-				info += Constant.Deciphering.MORSE_TYPE + "->";
-				break;
-			case 1:
-				info += Constant.Deciphering.RAILFENCE_TYPE + "->";
-				break;
-			case 2:
-				info += Constant.Deciphering.PHONE_TYPEWRITING_TYPE + "->";
-				break;
-			case 3:
-				info += Constant.Deciphering.KEYBOARD_TYPE + "->";
-				break;
-			case 4:
-				info += Constant.Deciphering.BACON_TYPE + "->";
-				break;
-			case 5:
-				info += Constant.Deciphering.REVERSE_ORDER_TYPE + "->";
-				break;
-			default:
-				break;
-			}
-		}
-		return info;
 	}
 
 	/**

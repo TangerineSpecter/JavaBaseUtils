@@ -16,8 +16,8 @@ public class NumberUtils {
 	/**
 	 * 从Array中拿出n个元素进行全排列
 	 * 
-	 * @param chars
-	 *            总的字符数组
+	 * @param number
+	 *            总的数字数组
 	 * @param n
 	 *            需要取出进行排列的元素个数
 	 * @return
@@ -40,7 +40,7 @@ public class NumberUtils {
 	 * 
 	 * @param list
 	 *            用于承载可能的排列情况的List
-	 * @param chars
+	 * @param number
 	 *            总的字符数组，长度为m
 	 * @param n
 	 *            从中取得字符个数

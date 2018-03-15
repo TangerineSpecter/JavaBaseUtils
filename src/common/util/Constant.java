@@ -22,31 +22,31 @@ public class Constant {
 	 */
 	public static class Date {
 		/** 一月 */
-		public static final Integer MONTH_JANUARY = 1;
+		public static final int MONTH_JANUARY = 1;
 		/** 二月 */
-		public static final Integer MONTH_FEBRUARY = 2;
+		public static final int MONTH_FEBRUARY = 2;
 		/** 三月 */
-		public static final Integer MONTH_MARCH = 3;
+		public static final int MONTH_MARCH = 3;
 		/** 四月 */
-		public static final Integer MONTH_APRIL = 4;
+		public static final int MONTH_APRIL = 4;
 		/** 五月 */
-		public static final Integer MONTH_MAY = 5;
+		public static final int MONTH_MAY = 5;
 		/** 六月 */
-		public static final Integer MONTH_JUNE = 6;
+		public static final int MONTH_JUNE = 6;
 		/** 七月 */
-		public static final Integer MONTH_JULY = 7;
+		public static final int MONTH_JULY = 7;
 		/** 八月 */
-		public static final Integer MONTH_AUGUST = 8;
+		public static final int MONTH_AUGUST = 8;
 		/** 九月 */
-		public static final Integer MONTH_SEPTEMBER = 9;
+		public static final int MONTH_SEPTEMBER = 9;
 		/** 十月 */
-		public static final Integer MONTH_OCTOBER = 10;
+		public static final int MONTH_OCTOBER = 10;
 		/** 十一月 */
-		public static final Integer MONTH_NOVEMBER = 11;
+		public static final int MONTH_NOVEMBER = 11;
 		/** 十二月 */
-		public static final Integer MONTH_December = 12;
+		public static final int MONTH_December = 12;
 		/** 润二月 */
-		public static final Integer LEAP_YEAR_DAY = 29;
+		public static final int LEAP_YEAR_DAY = 29;
 		/** 一秒相对的毫秒数 */
 		public static final Long ONE_SECOND = 1000L;
 		/** 一分钟相对的毫秒数 */
@@ -56,15 +56,15 @@ public class Constant {
 		/** 一天相对的毫秒数 */
 		public static final Long ONE_DAY = 24L * ONE_HOUR;
 		/** 一分钟相对的秒数 */
-		public static final Integer ONE_MINUTE_OF_SECONDS = 60;
+		public static final int ONE_MINUTE_OF_SECONDS = 60;
 		/** 一小时相对的秒数 */
-		public static final Integer ONE_HOUR_OF_SECONDS = 60 * ONE_MINUTE_OF_SECONDS;
+		public static final int ONE_HOUR_OF_SECONDS = 60 * ONE_MINUTE_OF_SECONDS;
 		/** 一天相对的秒数 */
-		public static final Integer ONE_DAY_OF_SECONDS = 24 * ONE_HOUR_OF_SECONDS;
+		public static final int ONE_DAY_OF_SECONDS = 24 * ONE_HOUR_OF_SECONDS;
 		/** 一个月相对的秒数 */
-		public static final Integer ONE_MONTH_OF_SECONDS = 30 * ONE_DAY_OF_SECONDS;
+		public static final int ONE_MONTH_OF_SECONDS = 30 * ONE_DAY_OF_SECONDS;
 		/** 一年相对的秒数 */
-		public static final Integer ONE_YEAR_OF_SECONDS = 12 * ONE_MONTH_OF_SECONDS;
+		public static final int ONE_YEAR_OF_SECONDS = 12 * ONE_MONTH_OF_SECONDS;
 	}
 
 	/**

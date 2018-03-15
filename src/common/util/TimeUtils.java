@@ -22,8 +22,8 @@ public class TimeUtils {
 	/**
 	 * 将时间转换成指定格式 yyyy-MM-dd HH:mm:ss
 	 * 
-	 * @param datetime
-	 * 
+	 * @param date
+	 *            时间
 	 * @return
 	 */
 	public static String timeFormat(Date date) {
@@ -57,7 +57,8 @@ public class TimeUtils {
 	/**
 	 * 将时间转换成指定格式 yyyy-MM-dd 精确到天
 	 * 
-	 * @param datetime
+	 * @param date
+	 *            时间
 	 * @return
 	 */
 	public static String timeFormatToDay(Date date) {
@@ -71,8 +72,10 @@ public class TimeUtils {
 	/**
 	 * 将时间转换成指定格式
 	 * 
-	 * @param datetime
+	 * @param date
+	 *            时间
 	 * @param model
+	 *            时间格式
 	 * @return
 	 */
 	public static String timeFormat(Date date, String model) {
@@ -133,12 +136,14 @@ public class TimeUtils {
 	}
 
 	/**
-	 * 获取当前时间戳 格式:YYYYMMDD
+	 * 获取指定格式的当前时间
 	 * 
+	 * @param format
+	 *            格式,如:yyyy-MM-dd
 	 * @return
 	 */
-	public static String getSimpleFormat() {
-		return new SimpleDateFormat("yyyyMMdd").format(new Date());
+	public static String getSimpleFormat(String format) {
+		return new SimpleDateFormat(format).format(new Date());
 	}
 
 	/**
@@ -171,6 +176,9 @@ public class TimeUtils {
 	 * 将指定格式 转为毫秒
 	 * 
 	 * @param date
+	 *            时间
+	 * @param format
+	 *            格式
 	 * @return
 	 */
 	public static Long getDatemill(String date, String format) {
@@ -194,7 +202,7 @@ public class TimeUtils {
 	 *            格式：yyyy-MM-dd
 	 * @return
 	 */
-	public static Integer getDisparityDay(String time) {
+	public static int getDisparityDay(String time) {
 		Integer days = null;
 		if (null != time) {
 			try {
@@ -239,7 +247,7 @@ public class TimeUtils {
 	 *            月份
 	 * @return
 	 */
-	public static Integer getFinalDay(Integer year, Integer month) {
+	public static int getFinalDay(int year, int month) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, month);
@@ -257,14 +265,13 @@ public class TimeUtils {
 	 *            时间
 	 * @return
 	 */
-	public static String getStartDay(Date date) {
+	public static Date getStartDay(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR));
 		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH));
 		cal.set(Calendar.DAY_OF_MONTH, 1);
-		Date time = cal.getTime();
-		return new SimpleDateFormat("yyyy-MM-dd").format(time);
+		return cal.getTime();
 	}
 
 	/**
@@ -274,15 +281,14 @@ public class TimeUtils {
 	 *            时间
 	 * @return
 	 */
-	public static String getFinalDay(Date date) {
+	public static Date getFinalDay(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR));
 		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		cal.add(Calendar.DAY_OF_MONTH, -1);
-		Date time = cal.getTime();
-		return new SimpleDateFormat("yyyy-MM-dd").format(time);
+		return cal.getTime();
 	}
 
 	/**
@@ -292,8 +298,8 @@ public class TimeUtils {
 	 *            年份
 	 * @return 闰年返回true
 	 */
-	public static Boolean judgeLeapYear(Integer year) {
-		if (getFinalDay(year, Constant.Date.MONTH_FEBRUARY).equals(Constant.Date.LEAP_YEAR_DAY)) {
+	public static Boolean judgeLeapYear(int year) {
+		if (getFinalDay(year, Constant.Date.MONTH_FEBRUARY) == Constant.Date.LEAP_YEAR_DAY) {
 			return true;
 		}
 		return false;

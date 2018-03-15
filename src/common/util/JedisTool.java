@@ -40,11 +40,21 @@ public class JedisTool {
 		return pool;
 	}
 
+	/**
+	 * 获取redis资源
+	 * 
+	 * @return
+	 */
 	public static Jedis getResource() {
 		Jedis jedis = getPool().getResource();
 		return jedis;
 	}
 
+	/**
+	 * 释放资源
+	 * 
+	 * @param redis
+	 */
 	@SuppressWarnings("deprecation")
 	public static void returnBrokenResource(Jedis redis) {
 		if (redis != null) {
@@ -52,6 +62,11 @@ public class JedisTool {
 		}
 	}
 
+	/**
+	 * 释放资源
+	 * 
+	 * @param redis
+	 */
 	@SuppressWarnings("deprecation")
 	public static void returnResource(Jedis redis) {
 		if (redis != null) {
@@ -172,7 +187,7 @@ public class JedisTool {
 	}
 
 	/**
-	 * 设置缓存 带缓存时间的
+	 * 设置缓存 多个二进制键值对
 	 * 
 	 * @param keyvalue
 	 */
@@ -288,7 +303,9 @@ public class JedisTool {
 	 * 设置过期时间
 	 * 
 	 * @param key
-	 * @param value
+	 *            key 值
+	 * @param seconds
+	 *            过期时间
 	 * @return
 	 */
 	public static int setExpire(String key, int seconds) {
@@ -318,7 +335,9 @@ public class JedisTool {
 	 * 当且仅当 key不存在, 将 key的值设为 value, 并返回1;若给定的 key已经存在,则 不做任何动作，并返回0,异常时返回2
 	 * 
 	 * @param key
-	 * @param values
+	 *            key值
+	 * @param byte[]
+	 *            二进制数据
 	 */
 	public static int setnx(String key, byte[] obj) {
 		Jedis jedis = null;

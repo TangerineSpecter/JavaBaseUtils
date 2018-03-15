@@ -77,7 +77,7 @@ public class RandomUtils {
 	}
 
 	/**
-	 * 返回Email
+	 * 随机生成Email
 	 * 
 	 * @param min
 	 *            最小长度

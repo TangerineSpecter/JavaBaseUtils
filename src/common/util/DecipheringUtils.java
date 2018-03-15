@@ -1,5 +1,7 @@
 package common.util;
 
+import org.apache.log4j.Logger;
+
 /**
  * 解密工具类
  * 
@@ -7,6 +9,8 @@ package common.util;
  *
  */
 public class DecipheringUtils extends DecipheringBaseUtils {
+
+	private static Logger log = Logger.getLogger(DecipheringBaseUtils.class);
 
 	/**
 	 * 加密摩斯密码
@@ -49,6 +53,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 			if (ERROR_INFO) {
 				System.out.println(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
 			}
+			log.info(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
 		}
 		return result;
 	}
@@ -62,7 +67,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            栅栏数
 	 * @return
 	 */
-	public static String getRailFenceResult(String railfence, Integer key) {
+	public static String getRailFenceResult(String railfence, int key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
 		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
@@ -95,7 +100,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            栅栏数
 	 * @return
 	 */
-	public static String setRailFenceResult(String railfence, Integer key) {
+	public static String setRailFenceResult(String railfence, int key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
 		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
@@ -181,12 +186,14 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 				if (ERROR_INFO) {
 					System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 				}
+				log.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 				return Constant.NULL_KEY_STR;
 			}
 		} else {
 			if (ERROR_INFO) {
 				System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 			}
+			log.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 		}
 		return result;
 	}
@@ -233,6 +240,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 			if (ERROR_INFO) {
 				System.out.println(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
 			}
+			log.info(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
 		}
 		return result;
 	}
@@ -279,6 +287,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 			if (ERROR_INFO) {
 				System.out.println(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
 			}
+			log.info(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
 		}
 		return result;
 	}

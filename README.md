@@ -59,8 +59,8 @@ judgeLeapYear | 判断某一年是否闰年  |int(年份)| Boolean(判断结果)
 
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-gZip | 压缩数据   |byte[](要压缩的二进制数据) | byte[](压缩后的数据)
-unGZip | 解压数据   |byte[](要解压的二进制数据) | byte[](解压后的数据)
+gZip | 压缩数据   |byte\[](要压缩的二进制数据) | byte\[](压缩后的数据)
+unGZip | 解压数据   |byte\[](要解压的二进制数据) | byte\[](解压后的数据)
 
 ## <a id= "Geting_QRCode"></a>二维码工具类 → [QRCodeUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/QRCodeUtils.java)
 
@@ -86,7 +86,7 @@ downloadPicture | 传入要下载的图片的url列表，将url所对应的图�
 downloadPicture | 传入要下载的图片的url以及保存地址，将图片下载到本地   |String(图片地址)、String(图片保存路径) | 无
 addWaterMark | 给图片加水印   |String(需要处理图片路径)、String(图片保存路径)、int(水印x坐标)、int(水印y坐标)、String(水印内容)、Font(水印字体)、Color(水印颜色) | 无
 getWatermarkLength | 获取水印文字总长度   |String(水印的文字)、Graphics2D(Graphics2D类) | 无
-getPicData | 获取图片的二进制数据   |String(图片的绝对路径地址) | byte[](图片二进制数据)
+getPicData | 获取图片的二进制数据   |String(图片的绝对路径地址) | byte\[](图片二进制数据)
 getWebImage | 获取网页所有图片并下载   |String(网页地址)、String(网页编码)、String(存放图片地址) | 无
 gethtmlResourceByURL | 根据网站的地址和页面的编码集来获取网页的源代码   |String(网页地址)、String(网页编码) | String(网页源代码)
 
@@ -95,8 +95,8 @@ gethtmlResourceByURL | 根据网站的地址和页面的编码集来获取网页
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 base64 | 读取文件并压缩数据然后转Base64编码   |String(文件的绝对路径地址) | String(Base64编码)
-base64 | 将二进制压缩数据转成Base64编码   |byte[](要解压的二进制数据) | String(Base64编码)
-writeFile | 二进制文件写入文件   |byte[](二进制数据)、String(文件名)、String(路径地址) | 无
+base64 | 将二进制压缩数据转成Base64编码   |byte\[](要解压的二进制数据) | String(Base64编码)
+writeFile | 二进制文件写入文件   |byte\[](二进制数据)、String(文件名)、String(路径地址) | 无
 decode | 把经过压缩过的base64串解码解压并写入打磁盘中   |String(压缩过的base64串)、String(文件名)、String(路径地址) | 无
 
 ## <a id= "Geting_Path"></a>路径处理工具类 → [DirUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/DirUtils.java)
@@ -120,16 +120,16 @@ setCache | 设置缓存  | String(key值)、String(value值) | 无
 setCache | 设置缓存  | String(key值)、Serializable(序列化结果) | 无
 setCache | 设置缓存  | String(key值)、String(value值)、int(秒) | 无
 setCache | 设置缓存  | String(key值)、Serializable(序列化结果)、int(秒) | 无
-setListCache | 设置缓存多个二进制键值对  | byte[](二进制数据) | 无
-setCache | 缓存二进制数据到关键字  | String(key值)、byte[](二进制数据) | 无
+setListCache | 设置缓存多个二进制键值对  | byte\[](二进制数据) | 无
+setCache | 缓存二进制数据到关键字  | String(key值)、byte\[](二进制数据) | 无
 setnx | 判断式设置缓存  | String(key值)、String(value值) | int(判断结果返回值)
 setnx | 判断式设置缓存  | String(key值)、Serializable(序列化结果) | int(判断结果返回值)
-setnx | 判断式设置缓存  | String(key值)、byte[](二进制数据) | int(判断结果返回值)
+setnx | 判断式设置缓存  | String(key值)、byte\[](二进制数据) | int(判断结果返回值)
 setExpire | 设置过期时间  | String(key值)、int(秒) | int(判断结果返回值)
 getset | 缓存字符串到关键字key 返回key上一次存储的字符串  | String(key值)、String(value值) | String(上一次缓存value值)
 getValCache | 获取缓存  | String(key值) | String(value值)
 getObjCache | 获取缓存  | String(key值) | Object(value值)
-getDataCache | 根据关键字获取二进制数据缓存  | String(key值) | byte[](二进制value值)
+getDataCache | 根据关键字获取二进制数据缓存  | String(key值) | byte\[](二进制value值)
 delCache | 删除缓存数据  | String(key值) | 无
 
 ## <a id= "Geting_Deciphering"></a>解密工具类 → [DecipheringUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/DecipheringUtils.java)

@@ -10,7 +10,7 @@
 
 最新版本更新记录
 
-- V0.7.4（2018-03-15）
+- V0.8.0（2018-03-26）
 	调整时间工具类返回结果
 ## <a id="Getting_Menu"></a> 目录
 
@@ -27,6 +27,7 @@
 	- [Redis工具类](#Geting_Redis)
 	- [解密工具类](#Geting_Deciphering)
 	- [随机工具类](#Geting_Random)
+	- [分词工具类](#Geting_Analyzer)
 
 ## <a id= "Geting_Api"></a> API
 
@@ -161,4 +162,9 @@ getEmail | 随机生成Email   | int(最小长度)、int(最大长度) | String(
 getDate | 随机生成时间   | 无 | String(时间字符串)
 getProvince | 随机生成省份   | 无 | String(省份)
 
+## <a id= "Geting_Analyzer"></a>分词工具类 → [IKTokenizerTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/IKTokenizerTool.java)
 
+方法名     | 说明     | 参数     | 返回结果
+------|------|-----|-----
+tokenizeKeyWord | 切分分词   |String(分词内容)、boolean(是否开启智能切分) | String(分词结果)
+tokenizeKeyWord | 切分分词   |String(分词内容)、boolean(是否开启智能切分) | List<String>(分词结果)

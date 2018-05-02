@@ -6,12 +6,6 @@
 ### Java基本工具包：
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
 
-[![LatestVersion](https://img.shields.io/badge/LatestVersion-0.7.3-orange.svg)](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/VERSION.md)
-
-最新版本更新记录
-
-- V0.8.0（2018-03-26）
-	调整时间工具类返回结果
 ## <a id="Getting_Menu"></a> 目录
 
 - [开始](#Getting_Menu)
@@ -99,6 +93,8 @@ base64 | 读取文件并压缩数据然后转Base64编码   |String(文件的绝
 base64 | 将二进制压缩数据转成Base64编码   |byte\[](要解压的二进制数据) | String(Base64编码)
 writeFile | 二进制文件写入文件   |byte\[](二进制数据)、String(文件名)、String(路径地址) | 无
 decode | 把经过压缩过的base64串解码解压并写入打磁盘中   |String(压缩过的base64串)、String(文件名)、String(路径地址) | 无
+getAllFilePath | 获取路径下的所有文件/文件夹   |String(文件目录地址)、boolean(是否添加子文件夹路径) | List<String>(文件路径集合)
+getAllFileName | 获取路径下的所有文件名   |String(文件目录地址)、boolean(是否切割后缀) | List<String>(文件名集合)
 
 ## <a id= "Geting_Path"></a>路径处理工具类 → [DirUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/DirUtils.java)
 

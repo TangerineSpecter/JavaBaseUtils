@@ -170,4 +170,4 @@ tokenizeKeyWord | 切分分词   |String(分词内容)、boolean(是否开启智
 
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-createExcel | 创建Excel文件   |String\[](表头), List<String\[]>(数据列表), boolean(生成格式：true:xlsx格式；false:xls格式) | 无
+createExcel | 创建Excel文件   |String\[](表头), List<String\[]>(数据列表), boolean(生成格式：true:xlsx格式；false:xls格式) | String(excel生成路径)

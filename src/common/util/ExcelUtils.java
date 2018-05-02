@@ -60,18 +60,21 @@ public class ExcelUtils {
 	 *            数据列表
 	 * @param isExcel
 	 *            （true:新版；false:旧版）
+	 * @return excel生成路径
 	 */
-	public static void createExcel(String[] tableHead, List<String[]> dataList, boolean isExcel) {
+	public static String createExcel(String[] tableHead, List<String[]> dataList, boolean isExcel) {
 		String savePath = Constant.FILE_SAVE_PATH + TimeUtils.getSimpleFormat("yyyy-MM-dd");
+		String excelPath = Constant.NULL_KEY_STR;
 		File dir = new File(savePath);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
 		if (isExcel) {
-			createExcelForXlsx(savePath, tableHead, dataList);
+			excelPath = createExcelForXlsx(savePath, tableHead, dataList);
 		} else {
-			createExcelForXls(savePath, tableHead, dataList);
+			excelPath = createExcelForXls(savePath, tableHead, dataList);
 		}
+		return excelPath;
 	}
 
 	/**
@@ -84,10 +87,12 @@ public class ExcelUtils {
 	 * @param dataList
 	 *            数据列表
 	 */
-	private static void createExcelForXlsx(String savePath, String[] tableHead, List<String[]> dataList) {
-		file = new File(savePath + "/" + UUID.randomUUID().toString() + ".xlsx");
+	private static String createExcelForXlsx(String savePath, String[] tableHead, List<String[]> dataList) {
+		String path = savePath + "/" + UUID.randomUUID().toString() + ".xlsx";
+		file = new File(path);
 		wb = new XSSFWorkbook();
 		createExcelData(tableHead, dataList);
+		return path;
 	}
 
 	/**
@@ -100,10 +105,12 @@ public class ExcelUtils {
 	 * @param dataList
 	 *            数据列表
 	 */
-	private static void createExcelForXls(String savePath, String[] tableHead, List<String[]> dataList) {
-		file = new File(savePath + "/" + UUID.randomUUID().toString() + ".xls");
+	private static String createExcelForXls(String savePath, String[] tableHead, List<String[]> dataList) {
+		String path = savePath + "/" + UUID.randomUUID().toString() + ".xls";
+		file = new File(path);
 		wb = new HSSFWorkbook();
 		createExcelData(tableHead, dataList);
+		return path;
 	}
 
 	/**

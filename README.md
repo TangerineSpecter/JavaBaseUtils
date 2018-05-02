@@ -22,6 +22,7 @@
 	- [解密工具类](#Geting_Deciphering)
 	- [随机工具类](#Geting_Random)
 	- [分词工具类](#Geting_Analyzer)
+	- [Excel工具类](#Geting_Excel)
 
 ## <a id= "Geting_Api"></a> API
 
@@ -164,3 +165,9 @@ getProvince | 随机生成省份   | 无 | String(省份)
 ------|------|-----|-----
 tokenizeKeyWord | 切分分词   |String(分词内容)、boolean(是否开启智能切分) | String(分词结果)
 tokenizeKeyWord | 切分分词   |String(分词内容)、boolean(是否开启智能切分) | List<String>(分词结果)
+
+## <a id= "Geting_Excel"></a>Excel工具类 → [ExcelUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ExcelUtils.java)
+
+方法名     | 说明     | 参数     | 返回结果
+------|------|-----|-----
+createExcel | 创建Excel文件   |String\[](表头), List<String\[]>(数据列表), boolean(生成格式：true:xlsx格式；false:xls格式) | 无

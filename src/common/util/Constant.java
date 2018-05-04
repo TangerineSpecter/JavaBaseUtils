@@ -14,7 +14,7 @@ public class Constant {
 	/**
 	 * 压缩文件存放地址
 	 */
-	public static final String ZIP_SAVE_PATH = "F:\\testFile\\zip";
+	public static final String ZIP_SAVE_PATH = "F:\\testFile\\zip\\";
 
 	/**
 	 * 空定义

@@ -57,6 +57,7 @@ judgeLeapYear | 判断某一年是否闰年  |int(年份)| Boolean(判断结果)
 ------|------|-----|-----
 gZip | 压缩数据   |byte\[](要压缩的二进制数据) | byte\[](压缩后的数据)
 unGZip | 解压数据   |byte\[](要解压的二进制数据) | byte\[](解压后的数据)
+compress | 解压数据   |String(源文件路径)、String(压缩文件路径) | 无
 
 ## <a id= "Geting_QRCode"></a>二维码工具类 → [QRCodeUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/QRCodeUtils.java)
 

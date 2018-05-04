@@ -63,8 +63,13 @@ public class ExcelUtils {
 	 * @return excel生成路径
 	 */
 	public static String createExcel(String[] tableHead, List<String[]> dataList, boolean isExcel) {
-		String savePath = Constant.FILE_SAVE_PATH + TimeUtils.getSimpleFormat("yyyy-MM-dd");
+		String dateName = TimeUtils.getSimpleFormat("yyyy-MM-dd");
+		String uuid = UUID.randomUUID().toString();
+		String savePath = Constant.FILE_SAVE_PATH + dateName + "/" + uuid + "/";
 		String excelPath = Constant.NULL_KEY_STR;
+		if (dataList.isEmpty()) {
+			return null;
+		}
 		File dir = new File(savePath);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();

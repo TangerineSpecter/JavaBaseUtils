@@ -12,7 +12,7 @@
 - [API](#Geting_Api)
 	- [常量基础工具类](#Geting_Constant)
 	- [时间工具类](#Geting_Time)
-	- [解压工具类](#Geting_Rar)
+	- [解压工具类](#Geting_Zip)
 	- [二维码工具类](#Geting_QRCode)
 	- [数字工具类](#Geting_Number)
 	- [图片工具类](#Geting_Image)
@@ -51,7 +51,7 @@ getStartDay | 获取某年某月第一天  |Date(时间)| Date(时间对象)
 getFinalDay | 获取某年某月最后一天  |Date(时间)| Date(时间对象)
 judgeLeapYear | 判断某一年是否闰年  |int(年份)| Boolean(判断结果)
 
-## <a id= "Geting_Rar"></a>解压工具类 → [RarUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/RarUtils.java)
+## <a id= "Geting_Zip"></a>解压工具类 → [ZipUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ZipUtils.java)
 
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----

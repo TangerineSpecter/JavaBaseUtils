@@ -11,7 +11,7 @@ import java.util.zip.GZIPOutputStream;
  * @author TangerineSpecter
  *
  */
-public class RarUtils {
+public class ZipUtils {
 
 	/***
 	 * 压缩数据

@@ -28,7 +28,7 @@ public class FileUtil {
 		if (data == null) {
 			return null;
 		}
-		byte[] zipData = RarUtils.gZip(data);
+		byte[] zipData = ZipUtils.gZip(data);
 		return Base64.encodeBase64String(zipData);
 	}
 
@@ -43,7 +43,7 @@ public class FileUtil {
 		if (data == null) {
 			return null;
 		}
-		byte[] zipData = RarUtils.gZip(data);
+		byte[] zipData = ZipUtils.gZip(data);
 		return Base64.encodeBase64String(zipData);
 	}
 
@@ -79,7 +79,7 @@ public class FileUtil {
 	public static void decode(String base64, String fileName, String path) {
 		// 解码
 		byte[] data = Base64.decodeBase64(base64);
-		data = RarUtils.unGZip(data);
+		data = ZipUtils.unGZip(data);
 		writeFile(data, fileName, path);
 	}
 

@@ -87,7 +87,7 @@ public class ImageUtils {
 	 *            图片保存路径
 	 */
 	public static void downloadPicture(String imageUrl, String imagePath) {
-		String fileName = imageUrl.substring(imageUrl.lastIndexOf("/"));
+		String fileName = imageUrl;
 
 		try {
 			// 创建文件目录
@@ -218,7 +218,7 @@ public class ImageUtils {
 		if (data == null) {
 			return null;
 		}
-		byte[] zipData = RarUtils.gZip(data);
+		byte[] zipData = ZipUtils.gZip(data);
 		return Base64.encodeBase64String(zipData);
 	}
 
@@ -240,9 +240,15 @@ public class ImageUtils {
 		Elements elements = document.getElementsByTag("img");
 		for (Element element : elements) {
 			String imgSrc = element.attr("src");
-			if (!"".equals(imgSrc) && imgSrc.startsWith("http://")) {
-				System.out.println("下载图片的地址===" + imgSrc);
-				downloadPicture(path, imgSrc);
+			if (!"".equals(imgSrc)) {
+				if(imgSrc.startsWith("http://")){
+					System.out.println("下载图片的地址===" + imgSrc);
+					downloadPicture(path, imgSrc);
+				}else{
+					imgSrc = "http:" + imgSrc;
+					System.out.println("下载图片的地址===" + imgSrc);
+					downloadPicture(path,imgSrc);
+				}
 			}
 		}
 	}
@@ -277,7 +283,6 @@ public class ImageUtils {
 				buf.append(line + "\n");
 			}
 		} catch (Exception e) {
-			System.out.println("test");
 			e.printStackTrace();
 		} finally {
 			try {

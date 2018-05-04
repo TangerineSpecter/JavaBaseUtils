@@ -25,6 +25,7 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,6 +37,8 @@ import org.jsoup.select.Elements;
  * @author TangerineSpecter
  */
 public class ImageUtils {
+
+	private static Logger logger = Logger.getLogger(ImageUtils.class);
 
 	/**
 	 * 传入要下载的图片的url列表，将url所对应的图片下载到本地
@@ -67,13 +70,13 @@ public class ImageUtils {
 				image.createNewFile();
 				dataInputStream.close();
 				fileOutputStream.close();
-				System.out.println("图片生成成功...");
+				logger.info("【图片生成成功...】");
 			} catch (MalformedURLException e) {
+				logger.error(String.format("【下载图片url地址错误】：%s", e));
 				e.printStackTrace();
-				System.out.println("url地址错误...");
 			} catch (IOException e) {
+				logger.error(String.format("【下载图片IO异常】：%s", e));
 				e.printStackTrace();
-				System.out.println("IO异常...");
 			}
 		}
 	}
@@ -118,6 +121,7 @@ public class ImageUtils {
 			}
 
 		} catch (Exception e) {
+			logger.error(String.format("【下载图片异常】：%s", e));
 			e.printStackTrace();
 		}
 	}
@@ -167,10 +171,10 @@ public class ImageUtils {
 			newImage.createNewFile();
 			outImgStream.flush();
 			outImgStream.close();
-			System.out.println("添加水印成功...");
+			logger.info("【图片添加水印成功...】");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("添加水印失败...");
+			logger.error(String.format("【图片添加水印失败】：%s", e));
 		}
 	}
 
@@ -201,6 +205,7 @@ public class ImageUtils {
 			fi.read(data);
 			fi.close();
 		} catch (Exception e) {
+			logger.error(String.format("【获取图片数据异常】：%s", e));
 			System.out.println(e);
 		}
 		return data;
@@ -241,13 +246,11 @@ public class ImageUtils {
 		for (Element element : elements) {
 			String imgSrc = element.attr("src");
 			if (!"".equals(imgSrc)) {
-				if(imgSrc.startsWith("http://")){
-					System.out.println("下载图片的地址===" + imgSrc);
+				if (imgSrc.startsWith("http://")) {
 					downloadPicture(path, imgSrc);
-				}else{
+				} else {
 					imgSrc = "http:" + imgSrc;
-					System.out.println("下载图片的地址===" + imgSrc);
-					downloadPicture(path,imgSrc);
+					downloadPicture(path, imgSrc);
 				}
 			}
 		}
@@ -289,7 +292,8 @@ public class ImageUtils {
 				if (isr != null) {
 					isr.close();
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
+				logger.error(String.format("【获取网页源代码异常】：%s", e));
 				e.printStackTrace();
 			}
 		}

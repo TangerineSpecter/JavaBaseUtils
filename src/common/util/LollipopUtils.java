@@ -2,6 +2,8 @@ package common.util;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * 甜点
  * 
@@ -9,6 +11,9 @@ import java.util.List;
  *
  */
 public class LollipopUtils extends DecipheringUtils {
+
+	private static Logger logger = Logger.getLogger(LollipopUtils.class);
+
 	/**
 	 * * 暴力破解密码
 	 * 
@@ -26,7 +31,7 @@ public class LollipopUtils extends DecipheringUtils {
 		List<List<Integer>> lists = NumberUtils.getFullPermutation(PASSWORD_INDEX, plies);
 		if (lists.isEmpty()) {
 			if (ERROR_INFO) {
-				System.out.println("---破解失败---");
+				logger.info("【暴戾破解密码失败】");
 			}
 		}
 		for (List<Integer> list : lists) {
@@ -59,7 +64,7 @@ public class LollipopUtils extends DecipheringUtils {
 				}
 			}
 			if (!StringUtils.isEmpty(result)) {
-				System.out.println(getProcessInfo(list) + result.toLowerCase());
+				logger.info(getProcessInfo(list) + result.toLowerCase());
 			}
 		}
 	}

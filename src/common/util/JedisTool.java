@@ -87,10 +87,10 @@ public class JedisTool {
 			jedis = getResource();
 			jedis.set(key, value);
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setCache fail: " + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -114,10 +114,10 @@ public class JedisTool {
 			jedis = getResource();
 			jedis.set(key.getBytes(), SerializationUtils.serialize(o));
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setCache fail: " + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -143,10 +143,10 @@ public class JedisTool {
 			jedis = getResource();
 			jedis.setex(key, seconds, value);
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setCache fail: " + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -172,10 +172,10 @@ public class JedisTool {
 			jedis = getResource();
 			jedis.setex(key.getBytes(), seconds, SerializationUtils.serialize(o));
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setCache fail: " + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -198,10 +198,10 @@ public class JedisTool {
 			jedis = getResource();
 			jedis.mset(keyvalue);
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setListCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setListCache fail: " + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -225,10 +225,10 @@ public class JedisTool {
 			jedis = getResource();
 			jedis.set(key.getBytes(), data);
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setCache fail" + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -254,10 +254,10 @@ public class JedisTool {
 			jedis = getResource();
 			flag = jedis.setnx(key, value).intValue();
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setnx conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setnx fail" + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -284,10 +284,10 @@ public class JedisTool {
 			jedis = getResource();
 			flag = jedis.setnx(key.getBytes(), SerializationUtils.serialize(o)).intValue();
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setCache conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setCache fail: " + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -316,10 +316,10 @@ public class JedisTool {
 			jedis = getResource();
 			flag = jedis.expire(key, seconds).intValue();
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setExpire conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setExpire fail" + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -347,10 +347,10 @@ public class JedisTool {
 			jedis = getResource();
 			flag = jedis.setnx(key.getBytes(), obj).intValue();
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis setnx conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis setnx fail" + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);
@@ -376,10 +376,10 @@ public class JedisTool {
 			jedis = getResource();
 			flag = jedis.getSet(key, value);
 		} catch (JedisConnectionException e1) {
-			log.warn("Redis getset conn fail: " + e1.toString());
+			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
 		} catch (Exception e) {
-			log.error("Redis getset fail" + e.toString(), e);
+			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
 			if (broken) {
 				returnBrokenResource(jedis);

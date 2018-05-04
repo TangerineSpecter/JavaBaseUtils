@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  */
 public class DecipheringUtils extends DecipheringBaseUtils {
 
-	private static Logger log = Logger.getLogger(DecipheringBaseUtils.class);
+	private static Logger logger = Logger.getLogger(DecipheringBaseUtils.class);
 
 	/**
 	 * 加密摩斯密码
@@ -51,9 +51,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
 			if (ERROR_INFO) {
-				System.out.println(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
+				logger.info(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
 			}
-			log.info(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
 		}
 		return result;
 	}
@@ -184,16 +183,14 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 				}
 			} catch (Exception e) {
 				if (ERROR_INFO) {
-					System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+					logger.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 				}
-				log.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 				return Constant.NULL_KEY_STR;
 			}
 		} else {
 			if (ERROR_INFO) {
-				System.out.println(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+				logger.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 			}
-			log.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
 		}
 		return result;
 	}
@@ -238,9 +235,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
 			if (ERROR_INFO) {
-				System.out.println(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
+				logger.info(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
 			}
-			log.info(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
 		}
 		return result;
 	}
@@ -285,9 +281,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
 			if (ERROR_INFO) {
-				System.out.println(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
+				logger.info(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
 			}
-			log.info(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
 		}
 		return result;
 	}

@@ -3,6 +3,8 @@ package common.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 /**
  * 解密工具基础类
  * 
@@ -11,7 +13,9 @@ import java.util.Map;
  */
 public class DecipheringBaseUtils {
 
-	/** 控制台输出信息开关 */
+	private static Logger logger = Logger.getLogger(DecipheringBaseUtils.class);
+
+	/** 日志输出信息开关 */
 	protected static Boolean ERROR_INFO = false;
 	/** 密码索引列表 */
 	protected static final int[] PASSWORD_INDEX = { 0, 1, 2, 3, 4, 5 };
@@ -61,7 +65,7 @@ public class DecipheringBaseUtils {
 				morseMap.put(morse_key[index], morse_value[index]);
 			}
 		} else {
-			System.out.println("摩斯密码key,value数量不对等!");
+			logger.warn("摩斯密码key,value数量不对等!");
 		}
 		return morseMap;
 	}
@@ -78,7 +82,7 @@ public class DecipheringBaseUtils {
 				keyboardMap.put(alphabet[index], keyboard_value[index]);
 			}
 		} else {
-			System.out.println("键盘密码key,value数量不对等!");
+			logger.warn("键盘密码key,value数量不对等!");
 		}
 		return keyboardMap;
 	}
@@ -95,7 +99,7 @@ public class DecipheringBaseUtils {
 				baconMap.put(alphabet[index], bacon_value[index]);
 			}
 		} else {
-			System.out.println("培根密码key,value数量不对等!");
+			logger.warn("培根密码key,value数量不对等!");
 		}
 		return baconMap;
 	}

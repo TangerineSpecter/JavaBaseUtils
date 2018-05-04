@@ -47,7 +47,6 @@ public class NumberUtils {
 	 */
 	public static void listAll(List<Integer> list, int[] number, int n) {
 		if (n == 0) {
-			// System.out.println(list);
 			List<Integer> li = new ArrayList<>();
 			li.addAll(list);
 			lists.add(li);// 添加一种可能的排列

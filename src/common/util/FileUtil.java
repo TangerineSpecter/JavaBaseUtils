@@ -1,12 +1,12 @@
 package common.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 文件操作工具类
@@ -15,6 +15,8 @@ import org.apache.commons.io.FileUtils;
  *
  */
 public class FileUtil {
+
+	private static Logger logger = Logger.getLogger(FileUtil.class);
 
 	/**
 	 * 读取文件并压缩数据然后转Base64编码
@@ -61,8 +63,8 @@ public class FileUtil {
 		try {
 			String url = path + "//" + fileName;
 			FileUtils.writeByteArrayToFile(new File(url), data);
-		} catch (IOException e) {
-			System.out.println("写文件出错:" + e);
+		} catch (Exception e) {
+			logger.error(String.format("【文件写入出错】：%s", e));
 		}
 	}
 

@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.apache.log4j.Logger;
+
 /**
  * 压缩和解压工具类
  * 
@@ -12,6 +14,7 @@ import java.util.zip.GZIPOutputStream;
  *
  */
 public class ZipUtils {
+	private static Logger logger = Logger.getLogger(ZipUtils.class);
 
 	/***
 	 * 压缩数据
@@ -30,8 +33,9 @@ public class ZipUtils {
 			gzip.close();
 			b = bos.toByteArray();
 			bos.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			logger.error(String.format("【压缩数据异常】：%s", e));
+			e.printStackTrace();
 		}
 		return b;
 	}
@@ -59,9 +63,10 @@ public class ZipUtils {
 			baos.close();
 			gzip.close();
 			bis.close();
-		} catch (Exception ex) {
-			System.out.println("解压数据流出错！！" + ex);
+		} catch (Exception e) {
+			logger.error("【解压数据流出错】");
 		}
 		return b;
 	}
+
 }

@@ -6,12 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 /**
  * 时间处理工具类
  * 
  * @author TangerineSpecter
  */
 public class TimeUtils {
+	private static Logger logger = Logger.getLogger(TimeUtils.class);
 	/** 默认格式 */
 	private static final String DEFAULT_FORMAT = "yyyy-MM-dd";
 	/** 时间格式——精确到秒 */
@@ -232,7 +235,7 @@ public class TimeUtils {
 			int weekDay = cal.get(Calendar.DAY_OF_WEEK) - 1;
 			return weekDays[weekDay];
 		} catch (ParseException e) {
-			System.out.println("转换异常...");
+			logger.error("【数据转换出现异常】");
 			e.printStackTrace();
 		}
 		return null;

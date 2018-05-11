@@ -41,7 +41,6 @@ public class ZipUtils {
 			gzip = new GZIPOutputStream(bos);
 			gzip.write(data);
 			gzip.finish();
-			gzip.close();
 			b = bos.toByteArray();
 		} catch (Exception e) {
 			logger.error(String.format("【压缩数据异常】：%s", e));
@@ -75,21 +74,19 @@ public class ZipUtils {
 	public static byte[] unGZip(byte[] data) {
 		ByteArrayInputStream bis = null;
 		GZIPInputStream gzip = null;
+		ByteArrayOutputStream baos = null;
 		byte[] b = null;
 		try {
 			bis = new ByteArrayInputStream(data);
 			gzip = new GZIPInputStream(bis);
 			byte[] buf = new byte[BUFFER_SIZE];
 			int num = -1;
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			baos = new ByteArrayOutputStream();
 			while ((num = gzip.read(buf, 0, buf.length)) != -1) {
 				baos.write(buf, 0, num);
 			}
 			b = baos.toByteArray();
 			baos.flush();
-			baos.close();
-			gzip.close();
-			bis.close();
 		} catch (Exception e) {
 			logger.error("【解压数据流出错】");
 		} finally {
@@ -105,6 +102,13 @@ public class ZipUtils {
 					gzip.close();
 				} catch (IOException e) {
 					logger.warn(String.format("【压缩流关闭异常】：%s", e));
+				}
+			}
+			if (baos != null) {
+				try {
+					baos.close();
+				} catch (IOException e) {
+					logger.warn(String.format("【字节流关闭异常】：%s", e));
 				}
 			}
 		}

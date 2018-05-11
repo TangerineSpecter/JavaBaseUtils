@@ -3,9 +3,12 @@ package common.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -23,30 +26,51 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class ExcelUtils {
 
+	private static Logger logger = Logger.getLogger(ExcelUtils.class);
+
 	private static Workbook wb = null;
 	private static File file;
 	private static FileOutputStream fos;
 
-	public static List<String> getExcelForXlsx(String filePath) {
+	/**
+	 * 获取Excel数据
+	 * 
+	 * @param filePath
+	 * @return
+	 */
+	public static List<String[]> getExcel(String filePath) {
+		return getExcelForXlsx(filePath);
+	}
+
+	public static List<String[]> getExcelForXlsx(String filePath) {
 		try {
+			List<String[]> dataList = new ArrayList<>();
 			FileInputStream fis = new FileInputStream(filePath);
 			// 根据Excel输入流获取工作簿对象
 			XSSFWorkbook xss = new XSSFWorkbook(fis);
 			// 获取工作表对象
 			XSSFSheet sheet = xss.getSheetAt(0);
+			Row headerRow = sheet.getRow(0);
+			// 获取最后一列列号
+			int cellNum = headerRow.getLastCellNum();
 			// 获取最后一行行号
-			int rowNum = sheet.getLastRowNum() + 1;
-			System.out.println(rowNum);
-			// 获取行
-			XSSFRow row = sheet.getRow(0);
-			// 获取列数据
-			for (int index = 0; index <= rowNum; index++) {
-				XSSFCell cell = row.getCell(index);
-				System.out.println(cell);
+			int rowNum = sheet.getLastRowNum();
+			for (int count = 1; count < rowNum; count++) {
+				String[] data = new String[cellNum];
+				// 获取行
+				XSSFRow row = sheet.getRow(count);
+				// 获取列数据
+				for (int index = 0; index < cellNum; index++) {
+					XSSFCell cell = row.getCell(index);
+					data[index] = cell.toString();
+				}
+				dataList.add(data);
 			}
 			xss.close();
+			return dataList;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			logger.error(String.format("【Excel数据读取异常】：%s", e));
 		}
 		return null;
 	}
@@ -139,9 +163,17 @@ public class ExcelUtils {
 			}
 			createExcelData(dataList);
 			wb.write(fos);
-			wb.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(String.format("【excel生成异常】：%s", e));
+		} finally {
+			if (wb != null) {
+				try {
+					wb.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					logger.error("【流关闭失败】：%s", e);
+				}
+			}
 		}
 	}
 

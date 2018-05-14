@@ -19,6 +19,7 @@
 	- [文件工具类](#Geting_File)
 	- [路径处理工具类](#Geting_Path)
 	- [Redis工具类](#Geting_Redis)
+		- [RedisMap工具类](#Geting_Redis_Map)
 	- [解密工具类](#Geting_Deciphering)
 	- [随机工具类](#Geting_Random)
 	- [分词工具类](#Geting_Analyzer)
@@ -111,7 +112,7 @@ getDir | 获取系统各类子目录   |String(路径头)、String(uuid名) | St
 
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-getPool | 加密摩斯密码   | 无 | JedisPool(redis连接池对象)
+getPool | 获取redis连接池   | 无 | JedisPool(redis连接池对象)
 getResource | 获取redis资源  | 无 | Jedis(redis对象)
 returnBrokenResource | 释放资源  | Jedis(redis对象)| 无
 returnResource | 释放资源  | Jedis(redis对象)| 无
@@ -130,6 +131,19 @@ getValCache | 获取缓存  | String(key值) | String(value值)
 getObjCache | 获取缓存  | String(key值) | Object(value值)
 getDataCache | 根据关键字获取二进制数据缓存  | String(key值) | byte\[](二进制value值)
 delCache | 删除缓存数据  | String(key值) | 无
+
+## <a id= "Geting_Redis_Map"></a>RedisMap工具类 → [JedisMapTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/JedisMapTool.java)
+方法名     | 说明     | 参数     | 返回结果
+------|------|-----|-----
+setMapCache | 向指定Key中设置键值对   | String(key值)、String(field值)、String(value值) | 无
+getMapValue | 获取指定Key的field对应的值  | String(key值)、String(field值) | String(value值)
+setMapObj | 设置Map缓存  | String(key值)、String(field值)、Serializable(序列化对象)| 无
+getMapObj | 获取Map缓存  | String(key值)、String(field值) | Object
+setMapObjs | 设置Map缓存（Map形式）  | String(key值)、Map(Map对象) | 无
+getMapObjs | 获取Map缓存（Map形式）  | String(key值) | Map(Map对象)
+getMapKeys | 返回名称为key的hash中所有键值  | String(key值) | Set(Map的键值集合)
+getMapKeyValue | 返回名称为key的hash中所有的键（field）及其对应的value | String(key值) | Map(Map对象)
+delMapValue | 删除map中的指定键值对 | String(key值)、String(field值) | 无
 
 ## <a id= "Geting_Deciphering"></a>解密工具类 → [DecipheringUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/DecipheringUtils.java)
 

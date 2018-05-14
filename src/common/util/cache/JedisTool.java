@@ -1,10 +1,11 @@
-package common.util;
+package common.util.cache;
 
 import java.io.Serializable;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.log4j.Logger;
 
+import common.util.Constant;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;

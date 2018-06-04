@@ -36,4 +36,17 @@ public class RegExUtils {
 		Matcher matcher = pattern.matcher(number);
 		return matcher.matches();
 	}
+
+	/**
+	 * 校验密码以字母开头（长度6~18，只能包含数字、字母、下划线）
+	 * 
+	 * @param password
+	 *            密码
+	 */
+	public static boolean checkPassword(String password) {
+		String regEx = "^[a-zA-Z]\\w{5,17}$";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
+	}
 }

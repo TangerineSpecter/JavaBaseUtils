@@ -24,6 +24,7 @@
 	- [随机工具类](#Geting_Random)
 	- [分词工具类](#Geting_Analyzer)
 	- [Excel工具类](#Geting_Excel)
+	- [正则工具类](#Geting_RegEx)
 
 ## <a id= "Geting_Api"></a> API
 
@@ -108,7 +109,7 @@ getAudioDir | 获取系统音频的存放路径   |String(uuid) | String(音频�
 getVideoDir | 获取系统视频的存放路径   |String(uuid) | String(视频路径)
 getDir | 获取系统各类子目录   |String(路径头)、String(uuid名) | String(子目录路径)
 
-## <a id= "Geting_Redis"></a>Redis工具类 → [JedisTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/JedisTool.java)
+## <a id= "Geting_Redis"></a>Redis工具类 → [JedisTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/cache/JedisTool.java)
 
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
@@ -132,7 +133,7 @@ getObjCache | 获取缓存  | String(key值) | Object(value值)
 getDataCache | 根据关键字获取二进制数据缓存  | String(key值) | byte\[](二进制value值)
 delCache | 删除缓存数据  | String(key值) | 无
 
-## <a id= "Geting_Redis_Map"></a>RedisMap工具类 → [JedisMapTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/JedisMapTool.java)
+## <a id= "Geting_Redis_Map"></a>RedisMap工具类 → [JedisMapTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/cache/JedisMapTool.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 setMapCache | 向指定Key中设置键值对   | String(key值)、String(field值)、String(value值) | 无
@@ -187,3 +188,10 @@ getExcelData
 ------|------|-----|-----
 createExcel | 创建Excel文件   |String\[](表头), List<String\[]>(数据列表), boolean(生成格式：true:xlsx格式；false:xls格式) | String(excel生成路径)
 getExcel | 获取Excel数据   |String(文件路径)|  List<String\[]>(数据列表)
+
+## <a id= "Geting_RegEx"></a>正则工具类 → [RegExUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/RegExUtils.java)
+
+方法名     | 说明     | 参数     | 返回结果
+------|------|-----|-----
+checkEmail | 校验邮箱合法化   |String(邮箱地址) | boolean(校验结果)
+check2Point | 校验数字为小数后两位以内   |String(数字)| boolean(校验结果)

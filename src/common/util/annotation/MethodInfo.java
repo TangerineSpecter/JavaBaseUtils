@@ -15,7 +15,7 @@ public @interface MethodInfo {
 	public String Name() default "无";
 
 	/** 参数信息 */
-	public String paramInfo() default "无";
+	public String[] paramInfo() default "无";
 
 	/** 返回信息 */
 	public String returnInfo() default "无";

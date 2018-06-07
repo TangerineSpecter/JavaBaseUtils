@@ -108,7 +108,7 @@ public class StringUtils {
 	 * 
 	 * @return
 	 */
-	@MethodInfo(Name = "订单号生成", paramInfo = "订单号")
+	@MethodInfo(Name = "订单号生成", returnInfo = "订单号")
 	public static String getOrderNum() {
 		return DigestUtils.md5Hex(UUID.randomUUID().toString()).toUpperCase();
 	}
@@ -116,7 +116,7 @@ public class StringUtils {
 	/**
 	 * 判断是否为数字,是数字返回true否则返回false
 	 */
-	@MethodInfo(Name = "判断是否为数字", paramInfo = "判断结果")
+	@MethodInfo(Name = "判断是否为数字", returnInfo = "判断结果")
 	public static boolean isNumber(String str) {
 		boolean flag = false;
 		if (str != null && !str.trim().equals("") && str.length() <= 18) {

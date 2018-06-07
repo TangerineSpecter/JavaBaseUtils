@@ -22,7 +22,7 @@ public class TimeUtils {
 	/** 时间格式——精确到秒 */
 	private static final String DEFAULT_FORMAT_SECOND = "yyyy-MM-dd HH:mm:ss";
 	/** 星期数 */
-	private static final String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+	private static final String[] WEEKDAYS = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
 
 	/**
 	 * 将时间转换成指定格式 yyyy-MM-dd HH:mm:ss
@@ -242,14 +242,14 @@ public class TimeUtils {
 	 * @return
 	 */
 	@MethodInfo(Name = "获取某天的星期", paramInfo = { "时间字符串" }, returnInfo = "星期")
-	public static String getWeekDays(String date) {
+	public static String getWEEKDAYS(String date) {
 		DateFormat df = new SimpleDateFormat(DEFAULT_FORMAT);
 		try {
 			Date time = df.parse(date);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(time);
 			int weekDay = cal.get(Calendar.DAY_OF_WEEK) - 1;
-			return weekDays[weekDay];
+			return WEEKDAYS[weekDay];
 		} catch (ParseException e) {
 			logger.error("【数据转换出现异常】");
 			e.printStackTrace();

@@ -38,13 +38,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			setMapCache(key, field, value);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				setMapCache(key, field, value);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -65,13 +64,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			return getMapValue(key, field);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				return getMapValue(key, field);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -94,13 +92,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			setMapObj(key, field, o);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				setMapObj(key, field, o);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -126,13 +123,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			return getMapObj(key, field);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				return getMapObj(key, field);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -159,13 +155,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			setMapObjs(key, values);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				setMapObjs(key, values);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -199,13 +194,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			return getMapObjs(key);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				return getMapObjs(key);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -226,13 +220,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			return getMapKeys(key);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				return getMapKeys(key);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -253,13 +246,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			return getMapKeyValue(key);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				return getMapKeyValue(key);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}
@@ -281,13 +273,12 @@ public class JedisMapTool extends JedisTool {
 		} catch (JedisConnectionException e1) {
 			log.warn("【Redis设置缓存连接失败】：" + e1.toString());
 			broken = true;
+			returnBrokenResource(jedis);
+			delMapValue(key, field);
 		} catch (Exception e) {
 			log.error("【Redis设置缓存失败】：" + e.toString(), e);
 		} finally {
-			if (broken) {
-				returnBrokenResource(jedis);
-				delMapValue(key, field);
-			} else {
+			if (!broken) {
 				returnResource(jedis);
 			}
 		}

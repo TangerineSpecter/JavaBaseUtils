@@ -28,8 +28,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		content = content.replaceAll("\\s*", "").toUpperCase();
 		for (int index = 0; index < content.length(); index++) {
 			value = content.substring(index, index + 1);
-			for (String getKey : morseCodeMap.keySet()) {
-				if (morseCodeMap.get(getKey).equals(value)) {
+			for (String getKey : MORSE_CODE_MAP.keySet()) {
+				if (MORSE_CODE_MAP.get(getKey).equals(value)) {
 					result += getKey + "/";
 				}
 			}
@@ -49,8 +49,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		String result = Constant.NULL_KEY_STR;
 		String[] morseArray = morseCode.split("/");
 		for (String morse : morseArray) {
-			if (morseCodeMap.get(morse) != null) {
-				result += morseCodeMap.get(morse);
+			if (MORSE_CODE_MAP.get(morse) != null) {
+				result += MORSE_CODE_MAP.get(morse);
 			}
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
@@ -187,7 +187,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 			try {
 				for (int index = 0; index < (content.length() / 2); index++) {
 					key = content.substring(index * 2, (index * 2) + 2);
-					result += typewriting_box[Integer
+					result += TYPEWRITING_BOX[Integer
 							.valueOf(key.substring(0, 1))][(Integer.valueOf(key.substring(1, 2)) - 1)];
 				}
 			} catch (Exception e) {
@@ -216,9 +216,9 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		String result = Constant.NULL_KEY_STR;
 		content = content.replaceAll("\\s*", "").toUpperCase();
 		for (int i = 0; i < content.length(); i++) {
-			for (int index = 0; index < typewriting_box.length; index++) {
-				for (int count = 0; count < typewriting_box[index].length; count++) {
-					if (typewriting_box[index][count].equals(content.substring(i, i + 1))) {
+			for (int index = 0; index < TYPEWRITING_BOX.length; index++) {
+				for (int count = 0; count < TYPEWRITING_BOX[index].length; count++) {
+					if (TYPEWRITING_BOX[index][count].equals(content.substring(i, i + 1))) {
 						result += String.valueOf(index) + String.valueOf(count + 1);
 					}
 				}
@@ -240,8 +240,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		content = content.replaceAll("\\s*", "").toUpperCase();
 		String[] keyboardArray = content.split("");
 		for (String keyboard : keyboardArray) {
-			if (keyboardCodeMap.get(keyboard) != null) {
-				result += keyboardCodeMap.get(keyboard);
+			if (KEYBOARD_CODE_MAP.get(keyboard) != null) {
+				result += KEYBOARD_CODE_MAP.get(keyboard);
 			}
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
@@ -266,8 +266,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		keyboardCode = keyboardCode.replaceAll("\\s*", "").toUpperCase();
 		for (int index = 0; index < keyboardCode.length(); index++) {
 			value = keyboardCode.substring(index, index + 1);
-			for (String getKey : keyboardCodeMap.keySet()) {
-				if (keyboardCodeMap.get(getKey).equals(value)) {
+			for (String getKey : KEYBOARD_CODE_MAP.keySet()) {
+				if (KEYBOARD_CODE_MAP.get(getKey).equals(value)) {
 					result += getKey;
 				}
 			}
@@ -288,8 +288,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		content = content.replaceAll("\\s*", "").toUpperCase();
 		String[] baconArray = content.split("");
 		for (String bacon : baconArray) {
-			if (baconCodeMap.get(bacon) != null) {
-				result += baconCodeMap.get(bacon);
+			if (BACON_CODE_MAP.get(bacon) != null) {
+				result += BACON_CODE_MAP.get(bacon);
 			}
 		}
 		if (Constant.NULL_KEY_STR.equals(result)) {
@@ -314,8 +314,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 		baconCode = baconCode.replaceAll("\\s*", "").toUpperCase();
 		for (int index = 0; index < baconCode.length(); index++) {
 			value = baconCode.substring(index, index + 1);
-			for (String getKey : baconCodeMap.keySet()) {
-				if (baconCodeMap.get(getKey).equals(value)) {
+			for (String getKey : BACON_CODE_MAP.keySet()) {
+				if (BACON_CODE_MAP.get(getKey).equals(value)) {
 					result += getKey;
 				}
 			}

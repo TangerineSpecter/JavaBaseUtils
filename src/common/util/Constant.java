@@ -58,7 +58,7 @@ public class Constant {
 		/** 十一月 */
 		public static final int MONTH_NOVEMBER = 11;
 		/** 十二月 */
-		public static final int MONTH_December = 12;
+		public static final int MONTH_DECEMBER = 12;
 		/** 润二月 */
 		public static final int LEAP_YEAR_DAY = 29;
 		/** 一秒相对的毫秒数 */

@@ -20,37 +20,37 @@ public class DecipheringBaseUtils {
 	/** 密码索引列表 */
 	protected static final int[] PASSWORD_INDEX = { 0, 1, 2, 3, 4, 5 };
 	/** 摩斯密码 */
-	protected static Map<String, Object> morseCodeMap = new HashMap<>();
+	protected static Map<String, Object> MORSE_CODE_MAP = new HashMap<>();
 	/** 键盘密码 */
-	protected static Map<String, Object> keyboardCodeMap = new HashMap<>();
+	protected static Map<String, Object> KEYBOARD_CODE_MAP = new HashMap<>();
 	/** 培根密码 */
-	protected static Map<String, Object> baconCodeMap = new HashMap<>();
+	protected static Map<String, Object> BACON_CODE_MAP = new HashMap<>();
 	/** 摩斯key */
-	protected static final String[] morse_key = ".----,..---,...--,....-,.....,-....,--...,---..,----.,-----,.-,-...,-.-.,-..,.,..-.,--.,....,..,.---,-.-,.-..,--,-.,---,.--.,--.-,.-.,...,-,..-,...-,.--,-..-,-.--,--.."
+	protected static final String[] MORSE_KEY = ".----,..---,...--,....-,.....,-....,--...,---..,----.,-----,.-,-...,-.-.,-..,.,..-.,--.,....,..,.---,-.-,.-..,--,-.,---,.--.,--.-,.-.,...,-,..-,...-,.--,-..-,-.--,--.."
 			.split(",");
 	/** 摩斯value */
-	protected static final String[] morse_value = "1,2,3,4,5,6,7,8,9,0,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
+	protected static final String[] MORSE_VALUE = "1,2,3,4,5,6,7,8,9,0,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
 			.split(",");
 
 	/** 手机九宫格 */
-	protected static final String[][] typewriting_box = { { " " }, { "，", "。", "！", "?" }, { "A", "B", "C" },
+	protected static final String[][] TYPEWRITING_BOX = { { " " }, { "，", "。", "！", "?" }, { "A", "B", "C" },
 			{ "D", "E", "F" }, { "G", "H", "I" }, { "J", "K", "L" }, { "M", "N", "O" }, { "P", "Q", "R", "S" },
 			{ "T", "U", "V" }, { "W", "X", "Y", "Z" } };
 
 	/** 字母表 */
-	protected static final String[] alphabet = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(",");
+	protected static final String[] ALPHABET = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(",");
 
 	/** 键盘字母表 */
-	protected static final String[] keyboard_value = "Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M".split(",");
+	protected static final String[] KEYBOARD_VALUE = "Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M".split(",");
 
 	/** 培根密码表 */
-	protected static final String[] bacon_value = "aaaaa,aaaab,aaaba,aaabb,aabaa,aabab,aabba,aabbb,abaaa,abaab,ababa,ababb,abbaa,abbab,abbba,abbbb,baaaa,baaab,baaba,baabb,babaa,babab,babba,babbb,bbaaa,bbaab"
+	protected static final String[] BACON_VALUE = "aaaaa,aaaab,aaaba,aaabb,aabaa,aabab,aabba,aabbb,abaaa,abaab,ababa,ababb,abbaa,abbab,abbba,abbbb,baaaa,baaab,baaba,baabb,babaa,babab,babba,babbb,bbaaa,bbaab"
 			.split(",");
 
 	static {
-		morseCodeMap = getMorseCode();
-		keyboardCodeMap = getKeyboardCode();
-		baconCodeMap = getBaconCode();
+		MORSE_CODE_MAP = getMorseCode();
+		KEYBOARD_CODE_MAP = getKeyboardCode();
+		BACON_CODE_MAP = getBaconCode();
 	}
 
 	/**
@@ -60,9 +60,9 @@ public class DecipheringBaseUtils {
 	 */
 	private static Map<String, Object> getMorseCode() {
 		Map<String, Object> morseMap = new HashMap<>();
-		if (morse_key.length == morse_value.length) {
-			for (int index = 0; index < morse_key.length; index++) {
-				morseMap.put(morse_key[index], morse_value[index]);
+		if (MORSE_KEY.length == MORSE_VALUE.length) {
+			for (int index = 0; index < MORSE_KEY.length; index++) {
+				morseMap.put(MORSE_KEY[index], MORSE_VALUE[index]);
 			}
 		} else {
 			logger.warn("摩斯密码key,value数量不对等!");
@@ -77,9 +77,9 @@ public class DecipheringBaseUtils {
 	 */
 	private static Map<String, Object> getKeyboardCode() {
 		Map<String, Object> keyboardMap = new HashMap<>();
-		if (alphabet.length == keyboard_value.length) {
-			for (int index = 0; index < alphabet.length; index++) {
-				keyboardMap.put(alphabet[index], keyboard_value[index]);
+		if (ALPHABET.length == KEYBOARD_VALUE.length) {
+			for (int index = 0; index < ALPHABET.length; index++) {
+				keyboardMap.put(ALPHABET[index], KEYBOARD_VALUE[index]);
 			}
 		} else {
 			logger.warn("键盘密码key,value数量不对等!");
@@ -94,9 +94,9 @@ public class DecipheringBaseUtils {
 	 */
 	private static Map<String, Object> getBaconCode() {
 		Map<String, Object> baconMap = new HashMap<>();
-		if (alphabet.length == bacon_value.length) {
-			for (int index = 0; index < alphabet.length; index++) {
-				baconMap.put(alphabet[index], bacon_value[index]);
+		if (ALPHABET.length == BACON_VALUE.length) {
+			for (int index = 0; index < ALPHABET.length; index++) {
+				baconMap.put(ALPHABET[index], BACON_VALUE[index]);
 			}
 		} else {
 			logger.warn("培根密码key,value数量不对等!");

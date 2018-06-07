@@ -3,6 +3,8 @@ package common.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.annotation.MethodInfo;
+
 /**
  * 数字处理工具类
  * 
@@ -22,6 +24,7 @@ public class NumberUtils {
 	 *            需要取出进行排列的元素个数
 	 * @return
 	 */
+	@MethodInfo(Name = "从Array中拿出n个元素进行全排列", paramInfo = { "数字数组", "需要取出的元素个数" }, returnInfo = "排列结果")
 	public static List<List<Integer>> getFullPermutation(int[] number, int n) {
 		if (n <= 0 || number == null) {
 			return null;
@@ -41,10 +44,11 @@ public class NumberUtils {
 	 * @param list
 	 *            用于承载可能的排列情况的List
 	 * @param number
-	 *            总的字符数组，长度为m
+	 *            总的数字数组，长度为m
 	 * @param n
 	 *            从中取得字符个数
 	 */
+	@MethodInfo(Name = "从m个元素中任取n个并对结果进行全排列", paramInfo = { "装载排列结果list", "数字数组", "取出的元素个数" })
 	public static void listAll(List<Integer> list, int[] number, int n) {
 		if (n == 0) {
 			List<Integer> li = new ArrayList<>();
@@ -72,6 +76,7 @@ public class NumberUtils {
 	 *            需要取出进行排列的元素个数
 	 * @return
 	 */
+	@MethodInfo(Name = "从Array中拿出n个元素进行全排列", paramInfo = { "字符数组", "取出的元素个数" })
 	public static void getFullPermutation(char[] chars, int n) {
 		if (n <= 0 || chars == null) {
 			return;
@@ -94,6 +99,7 @@ public class NumberUtils {
 	 * @param n
 	 *            从中取得字符个数
 	 */
+	@MethodInfo(Name = "从m个元素中任取n个并对结果进行全排列", paramInfo = { "装载排列结果list", "字符数组", "取出的元素个数" })
 	public static void listAll(List<Character> list, char[] chars, int n) {
 		if (n == 0) {
 			System.out.println(list);

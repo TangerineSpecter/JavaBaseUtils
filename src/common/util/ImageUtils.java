@@ -31,6 +31,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import common.annotation.MethodInfo;
+
 /**
  * 图片处理工具类
  * 
@@ -48,6 +50,7 @@ public class ImageUtils {
 	 * @return
 	 * @throws Exception
 	 */
+	@MethodInfo(Name = "将Url图片下载到本地", paramInfo = { "url列表" })
 	public static void downloadPicture(List<String> urlList) {
 		URL url = null;
 		String uuid = UUID.randomUUID().toString();
@@ -89,6 +92,7 @@ public class ImageUtils {
 	 * @param imagePath
 	 *            图片保存路径
 	 */
+	@MethodInfo(Name = "将Url图片下载到本地", paramInfo = { "url地址", "保存路径" })
 	public static void downloadPicture(String imageUrl, String imagePath) {
 		String fileName = imageUrl;
 
@@ -144,6 +148,7 @@ public class ImageUtils {
 	 * @param color
 	 *            水印字体颜色
 	 */
+	@MethodInfo(Name = "给图片加水印", paramInfo = { "需要处理的图片路径", "图片保存路径", "水印x坐标", "水印y坐标", "水印内容", "水印字体", "水印字体颜色" })
 	public static void addWaterMark(String srcImgPath, String outImgPath, int locationX, int locationY, String content,
 			Font font, Color color) {
 		try {
@@ -186,6 +191,7 @@ public class ImageUtils {
 	 * @param g
 	 * @return 水印文字总长度
 	 */
+	@MethodInfo(Name = "获取水印文字总长度", paramInfo = { "水印文字", "Graphics2D类" }, returnInfo = "水印文字总长度")
 	public int getWatermarkLength(String waterMarkContent, Graphics2D g) {
 		return g.getFontMetrics(g.getFont()).charsWidth(waterMarkContent.toCharArray(), 0, waterMarkContent.length());
 	}
@@ -196,6 +202,7 @@ public class ImageUtils {
 	 *            图片的绝对路径地址
 	 * @return
 	 */
+	@MethodInfo(Name = "获取图片的二进制数据", paramInfo = { "图片的绝对路径地址" }, returnInfo = "二进制数据")
 	public static byte[] getPicData(String imagePath) {
 		byte[] data = null;
 		try {
@@ -218,6 +225,7 @@ public class ImageUtils {
 	 *            图片的绝对路径地址
 	 * @return
 	 */
+	@MethodInfo(Name = "读取文件压缩后转Base64编码", paramInfo = { "图片的绝对路径地址" }, returnInfo = "Base64编码")
 	public static String base64(String imagePath) {
 		byte[] data = getPicData(imagePath);
 		if (data == null) {
@@ -237,6 +245,7 @@ public class ImageUtils {
 	 * @param path
 	 *            存放图片地址
 	 */
+	@MethodInfo(Name = "获取网页所有图片并下载", paramInfo = { "网页地址", "网页编码", "存放路径" })
 	public static void getWebImage(String url, String encoding, String path) {
 		String htmlResouce = gethtmlResourceByURL(url, encoding);
 		// 解析网页源代码
@@ -265,6 +274,7 @@ public class ImageUtils {
 	 *            编码集
 	 * @return String 网页的源代码
 	 */
+	@MethodInfo(Name = "获取网页源代码", paramInfo = { "网页地址", "编码集" }, returnInfo = "源代码")
 	public static String gethtmlResourceByURL(String url, String encoding) {
 		// 用于存储网页源代码
 		StringBuffer buf = new StringBuffer();

@@ -8,6 +8,8 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.MethodInfo;
+
 /**
  * 时间处理工具类
  * 
@@ -29,6 +31,7 @@ public class TimeUtils {
 	 *            时间
 	 * @return
 	 */
+	@MethodInfo(Name = "将时间转换成指定格式", paramInfo = { "时间" }, returnInfo = "转换结果")
 	public static String timeFormat(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat(DEFAULT_FORMAT_SECOND);
 		if (date != null) {
@@ -47,6 +50,7 @@ public class TimeUtils {
 	 * @return date
 	 * @throws Exception
 	 */
+	@MethodInfo(Name = "将指定的日期字符串转化为日期对象", paramInfo = { "日期字符串", "日期格式" }, returnInfo = "转换结果")
 	public static Date getDate(String dateStr, String format) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat(format);
 		try {
@@ -64,6 +68,7 @@ public class TimeUtils {
 	 *            时间
 	 * @return
 	 */
+	@MethodInfo(Name = "将时间格式精确到天", paramInfo = { "时间" }, returnInfo = "转换结果")
 	public static String timeFormatToDay(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat(DEFAULT_FORMAT);
 		if (date != null) {
@@ -81,6 +86,7 @@ public class TimeUtils {
 	 *            时间格式
 	 * @return
 	 */
+	@MethodInfo(Name = "将时间转换成指定格式", paramInfo = { "时间", "时间格式" }, returnInfo = "转换结果")
 	public static String timeFormat(Date date, String model) {
 		SimpleDateFormat format = new SimpleDateFormat(model);
 		if (date != null) {
@@ -94,6 +100,7 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "获取当前时间戳", returnInfo = "时间戳")
 	public static Long getCurrentTimes() {
 		return System.currentTimeMillis();
 	}
@@ -103,6 +110,7 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "获取当天开始时间戳", returnInfo = "时间戳")
 	public static Long getDayBeginTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -116,6 +124,7 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "获取当天结束时间戳", returnInfo = "时间戳")
 	public static Long getDayEndTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, 24);
@@ -129,6 +138,7 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "获取昨天开始时间戳", returnInfo = "时间戳")
 	public static Long getYesterdayBeginTimestamp() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DATE, -1);
@@ -145,6 +155,7 @@ public class TimeUtils {
 	 *            格式,如:yyyy-MM-dd
 	 * @return
 	 */
+	@MethodInfo(Name = "获取指定格式当前时间", paramInfo = { "时间格式" }, returnInfo = "时间字符串")
 	public static String getSimpleFormat(String format) {
 		return new SimpleDateFormat(format).format(new Date());
 	}
@@ -154,6 +165,7 @@ public class TimeUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "获取当前年份", returnInfo = "年份")
 	public static String getCurrentYear() {
 		return new SimpleDateFormat("yyyy").format(new Date());
 	}
@@ -169,6 +181,7 @@ public class TimeUtils {
 	 * @param second
 	 * @return
 	 */
+	@MethodInfo(Name = "获取特定时间时间戳", paramInfo = { "年份", "月份", "日期", "小时", "分钟", "秒" }, returnInfo = "时间戳")
 	public static Long getTimestramp(int year, int month, int day, int hour, int minute, int second) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month, day, hour, minute, second);
@@ -184,6 +197,7 @@ public class TimeUtils {
 	 *            格式
 	 * @return
 	 */
+	@MethodInfo(Name = "将指定格式转换成毫秒", paramInfo = { "时间字符串", "时间格式" }, returnInfo = "时间戳")
 	public static Long getDatemill(String date, String format) {
 		Long time = null;
 		if (null != date && !date.isEmpty()) {
@@ -205,6 +219,7 @@ public class TimeUtils {
 	 *            格式：yyyy-MM-dd
 	 * @return
 	 */
+	@MethodInfo(Name = "获取距离某个日期的天数", paramInfo = { "时间字符串" }, returnInfo = "天数")
 	public static int getDisparityDay(String time) {
 		Integer days = null;
 		if (null != time) {
@@ -226,6 +241,7 @@ public class TimeUtils {
 	 *            格式：yyyy-MM-dd
 	 * @return
 	 */
+	@MethodInfo(Name = "获取某天的星期", paramInfo = { "时间字符串" }, returnInfo = "星期")
 	public static String getWeekDays(String date) {
 		DateFormat df = new SimpleDateFormat(DEFAULT_FORMAT);
 		try {
@@ -250,6 +266,7 @@ public class TimeUtils {
 	 *            月份
 	 * @return
 	 */
+	@MethodInfo(Name = "获取某年某月最后一题", paramInfo = { "年份", "月份" }, returnInfo = "天数")
 	public static int getFinalDay(int year, int month) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
@@ -268,6 +285,7 @@ public class TimeUtils {
 	 *            时间
 	 * @return
 	 */
+	@MethodInfo(Name = "获取某年某月第一天", paramInfo = { "时间" }, returnInfo = "时间")
 	public static Date getStartDay(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -284,6 +302,7 @@ public class TimeUtils {
 	 *            时间
 	 * @return
 	 */
+	@MethodInfo(Name = "获取某年某月第一天", paramInfo = { "时间" }, returnInfo = "时间")
 	public static Date getFinalDay(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -301,6 +320,7 @@ public class TimeUtils {
 	 *            年份
 	 * @return 闰年返回true
 	 */
+	@MethodInfo(Name = "判断某一年是否闰年", paramInfo = { "年份" }, returnInfo = "判断结果")
 	public static Boolean judgeLeapYear(int year) {
 		if (getFinalDay(year, Constant.Date.MONTH_FEBRUARY) == Constant.Date.LEAP_YEAR_DAY) {
 			return true;

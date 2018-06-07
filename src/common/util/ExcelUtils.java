@@ -18,6 +18,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import common.annotation.MethodInfo;
+
 /**
  * Excel处理工具类
  * 
@@ -38,11 +40,12 @@ public class ExcelUtils {
 	 * @param filePath
 	 * @return
 	 */
+	@MethodInfo(Name = "获取Excel数据", paramInfo = { "Excel路径" }, returnInfo = "数据列表")
 	public static List<String[]> getExcel(String filePath) {
 		return getExcelForXlsx(filePath);
 	}
 
-	public static List<String[]> getExcelForXlsx(String filePath) {
+	private static List<String[]> getExcelForXlsx(String filePath) {
 		try {
 			List<String[]> dataList = new ArrayList<>();
 			FileInputStream fis = new FileInputStream(filePath);
@@ -86,6 +89,7 @@ public class ExcelUtils {
 	 *            （true:新版；false:旧版）
 	 * @return excel生成路径
 	 */
+	@MethodInfo(Name = "创建Excel", paramInfo = { "表头", "数据列表", "新旧版本" }, returnInfo = "生成路径")
 	public static String createExcel(String[] tableHead, List<String[]> dataList, boolean isExcel) {
 		String dateName = TimeUtils.getSimpleFormat("yyyy-MM-dd");
 		String uuid = UUID.randomUUID().toString();

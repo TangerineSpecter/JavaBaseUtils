@@ -18,6 +18,8 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import common.annotation.MethodInfo;
+
 /**
  * 二维码生成工具类
  * 
@@ -37,6 +39,7 @@ public class QRCodeUtils {
 	 * @param height
 	 * @return
 	 */
+	@MethodInfo(Name = "生成不带logo的二维码", paramInfo = { "数据", "编码类型", "二维码属性", "宽度", "高度" }, returnInfo = "二维码图片")
 	public static BufferedImage createQRCode(String data, String charset, Map<EncodeHintType, ?> hint, int width,
 			int height) {
 		BitMatrix matrix;
@@ -59,6 +62,7 @@ public class QRCodeUtils {
 	 * @param height
 	 * @return
 	 */
+	@MethodInfo(Name = "生成不带logo的默认参数二维码", paramInfo = { "数据", "编码类型", "宽度", "高度" }, returnInfo = "二维码图片")
 	public static BufferedImage createQRCode(String data, int width, int height) {
 		String charset = "utf-8";
 		Map<EncodeHintType, Object> hint = new HashMap<EncodeHintType, Object>();
@@ -78,6 +82,8 @@ public class QRCodeUtils {
 	 * @param logoFile
 	 * @return
 	 */
+	@MethodInfo(Name = "生成带logo的二维码", paramInfo = { "数据", "编码类型", "二维码属性", "宽度", "高度",
+			"logo文件路径" }, returnInfo = "二维码图片")
 	public static BufferedImage createQRCodeWithLogo(String data, String charset, Map<EncodeHintType, ?> hint,
 			int width, int height, File logoFile) {
 		try {
@@ -106,6 +112,7 @@ public class QRCodeUtils {
 	 * @param height
 	 * @return
 	 */
+	@MethodInfo(Name = "生成带logo的默认参数二维码", paramInfo = { "数据", "宽度", "高度", "logo文件路径" }, returnInfo = "二维码图片")
 	public static BufferedImage createQRCodeWithLogo(String data, int width, int height, File logo) {
 		String charset = "utf-8";
 		Map<EncodeHintType, Object> hint = new HashMap<EncodeHintType, Object>();

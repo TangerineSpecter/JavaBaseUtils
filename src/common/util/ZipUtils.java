@@ -14,6 +14,8 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.MethodInfo;
+
 /**
  * 压缩和解压工具类
  * 
@@ -32,6 +34,7 @@ public class ZipUtils {
 	 *            要压缩的二进制数据
 	 * @return
 	 */
+	@MethodInfo(Name = "压缩数据", paramInfo = { "二进制数据" }, returnInfo = "压缩结果")
 	public static byte[] gZip(byte[] data) {
 		ByteArrayOutputStream bos = null;
 		GZIPOutputStream gzip = null;
@@ -71,6 +74,7 @@ public class ZipUtils {
 	 *            要解压的二进制数据
 	 * @return
 	 */
+	@MethodInfo(Name = "解压数据", paramInfo = { "二进制数据" }, returnInfo = "解压结果")
 	public static byte[] unGZip(byte[] data) {
 		ByteArrayInputStream bis = null;
 		GZIPInputStream gzip = null;
@@ -123,6 +127,7 @@ public class ZipUtils {
 	 * @param destFileName
 	 *            压缩包名字
 	 */
+	@MethodInfo(Name = "压缩文件", paramInfo = { "源文件路径", "压缩包名字" })
 	public static void compress(String srcFilePath, String destFileName) {
 		File srcFile = new File(srcFilePath);
 		FileOutputStream fos = null;
@@ -171,6 +176,7 @@ public class ZipUtils {
 	 * @param baseDir
 	 *            压缩路径
 	 */
+	@MethodInfo(Name = "对路径下文件根据类型进行压缩", paramInfo = { "源文件", "压缩流", "压缩路径" })
 	private static void compressBy(File srcFile, ZipOutputStream zos, String baseDir) {
 		if (!srcFile.exists()) {
 			logger.info("【压缩源文件不存在!】");
@@ -197,6 +203,7 @@ public class ZipUtils {
 	 * @param baseDir
 	 *            压缩路径
 	 */
+	@MethodInfo(Name = "压缩文件", paramInfo = { "源文件", "压缩流", "压缩路径" })
 	private static void compressFile(File srcFile, ZipOutputStream zos, String baseDir) {
 		BufferedInputStream bis = null;
 		if (!srcFile.exists()) {
@@ -245,6 +252,7 @@ public class ZipUtils {
 	 * @param baseDir
 	 *            压缩路径
 	 */
+	@MethodInfo(Name = "压缩文件夹", paramInfo = { "源文件", "压缩流", "压缩路径" })
 	private static void compressDir(File srcDir, ZipOutputStream zos, String baseDir) {
 		if (!srcDir.exists()) {
 			logger.info("【压缩文件夹不存在】");

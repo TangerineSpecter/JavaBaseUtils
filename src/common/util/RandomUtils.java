@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import common.annotation.MethodInfo;
+
 /**
  * 随机工具类
  * 
@@ -23,6 +25,18 @@ public class RandomUtils {
 			.split(",");
 	private static final String[] province = "北京,天津,上海,重庆,河北,山西,辽宁,吉林,黑龙江,江苏,浙江,安徽,福建,江西,山东,河南,湖北,湖南,广东,海南,四川,贵州,云南,陕西,甘肃,青海,台湾,内蒙古,广西,西藏,宁夏,新疆,香港,澳门"
 			.split(",");
+	private static char[][] encodeCharsArray = new char[2][];
+
+	static {
+		encodeCharsArray[0] = new char[] { 'O', 'Y', 'x', 'F', 'd', 'C', 'q', 'X', 's', '5', 'g', 'G', '6', 'l', 'M',
+				'W', '9', 'Q', 't', 'a', 'i', 'm', 'B', 'N', 'e', '2', 'D', '4', '3', 'o', 'K', 'H', 'y', 'Z', 'c', 'r',
+				'p', 'V', 'v', 'A', 'U', 'R', 'T', 'b', 'I', 'u', 'S', 'n', '1', 'f', 'k', 'E', 'J', '8', 'w', '0', 'z',
+				'j', '7', 'L', 'h', 'P' };
+		encodeCharsArray[1] = new char[] { 'g', 'n', 'y', 'L', 'F', '2', '7', '3', 'I', 'b', 'H', 'Y', 'r', 't', 'A',
+				'S', 'v', 'f', 'M', 'a', 'j', '9', 'X', 'k', 'q', 'K', '0', 'u', 'C', 'N', 'Q', 'p', 'i', 'x', 'B', 'w',
+				'o', 'G', 'P', 'm', 'E', 'W', 's', 'R', 'c', '5', 'U', 'O', 'h', 'V', '8', '4', 'D', '1', 'z', 'l', 'd',
+				'e', 'T', '6', 'Z', 'J' };
+	}
 
 	/**
 	 * 随机数
@@ -33,6 +47,7 @@ public class RandomUtils {
 	 *            结束数
 	 * @return
 	 */
+	@MethodInfo(Name = "随机数", paramInfo = { "起始数", "结束数" }, returnInfo = "随机数字")
 	public static int getNum(int start, int end) {
 		return (int) (Math.random() * (end - start + 1) + start);
 	}
@@ -42,6 +57,7 @@ public class RandomUtils {
 	 * 
 	 * @return 电话号码
 	 */
+	@MethodInfo(Name = "随机生成电话号码", returnInfo = "电话号码")
 	public static String getTel() {
 		int index = getNum(0, teleFirst.length - 1);
 		String first = teleFirst[index];
@@ -55,6 +71,7 @@ public class RandomUtils {
 	 * 
 	 * @return 中文名
 	 */
+	@MethodInfo(Name = "随机生成中文名字", returnInfo = "中文名")
 	public static String getChineseName() {
 		int index = getNum(0, firstName.length() - 1);
 		String first = firstName.substring(index, index + 1);
@@ -85,6 +102,7 @@ public class RandomUtils {
 	 *            最大长度
 	 * @return
 	 */
+	@MethodInfo(Name = "随机生成Email", paramInfo = { "最小长度", "最大长度" }, returnInfo = "Email")
 	public static String getEmail(int min, int max) {
 		int length = getNum(min, max);
 		StringBuffer sb = new StringBuffer();
@@ -101,6 +119,7 @@ public class RandomUtils {
 	 * 
 	 * @return 时间
 	 */
+	@MethodInfo(Name = "随机生成时间", returnInfo = "时间")
 	public static String getDate() {
 		Random random = new Random();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -119,8 +138,31 @@ public class RandomUtils {
 	 * 
 	 * @return 省份
 	 */
+	@MethodInfo(Name = "随机生成省份", returnInfo = "省份")
 	public static String getProvince() {
 		int index = getNum(0, province.length - 1);
 		return province[index];
+	}
+
+	/**
+	 * 创建随机字符名字
+	 * 
+	 * @param num
+	 * @return
+	 */
+	@MethodInfo(Name = "创建随机字符名字", paramInfo = { "名字长度" }, returnInfo = "随机结果")
+	public static String createRandomName(long num) {
+		int charArrayLength = encodeCharsArray.length;
+		int encodeCharsLength = encodeCharsArray[0].length;
+
+		StringBuffer sb = new StringBuffer();
+		int bit = 0;
+		while (num > 0) {
+			long ch = num % encodeCharsLength;
+			sb.insert(0, encodeCharsArray[bit % charArrayLength][(char) ch]);
+			num = num / encodeCharsLength;
+			bit++;
+		}
+		return sb.toString();
 	}
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.MethodInfo;
+
 /**
  * 甜点
  * 
@@ -24,6 +26,7 @@ public class LollipopUtils extends DecipheringUtils {
 	 * @param isInfo
 	 *            错误信息输出
 	 */
+	@MethodInfo(Name = "暴力破解密码", paramInfo = { "破解内容", "破解层数", "错误信息输出" })
 	public static void rceAttack(String content, int plies, boolean isInfo) {
 		String result = Constant.NULL_KEY_STR;
 		ERROR_INFO = isInfo;

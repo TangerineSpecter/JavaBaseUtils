@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import common.annotation.MethodInfo;
+
 /**
  * 字符串处理工具类
  * 
@@ -22,19 +24,6 @@ public class StringUtils {
 	private static char[] numbersAndLetters = ("0123456789abcdefghijklmnopqrstuvwxyz"
 			+ "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ").toCharArray();
 
-	private static char[][] encodeCharsArray = new char[2][];
-
-	static {
-		encodeCharsArray[0] = new char[] { 'O', 'Y', 'x', 'F', 'd', 'C', 'q', 'X', 's', '5', 'g', 'G', '6', 'l', 'M',
-				'W', '9', 'Q', 't', 'a', 'i', 'm', 'B', 'N', 'e', '2', 'D', '4', '3', 'o', 'K', 'H', 'y', 'Z', 'c', 'r',
-				'p', 'V', 'v', 'A', 'U', 'R', 'T', 'b', 'I', 'u', 'S', 'n', '1', 'f', 'k', 'E', 'J', '8', 'w', '0', 'z',
-				'j', '7', 'L', 'h', 'P' };
-		encodeCharsArray[1] = new char[] { 'g', 'n', 'y', 'L', 'F', '2', '7', '3', 'I', 'b', 'H', 'Y', 'r', 't', 'A',
-				'S', 'v', 'f', 'M', 'a', 'j', '9', 'X', 'k', 'q', 'K', '0', 'u', 'C', 'N', 'Q', 'p', 'i', 'x', 'B', 'w',
-				'o', 'G', 'P', 'm', 'E', 'W', 's', 'R', 'c', '5', 'U', 'O', 'h', 'V', '8', '4', 'D', '1', 'z', 'l', 'd',
-				'e', 'T', '6', 'Z', 'J' };
-	}
-
 	/**
 	 * 伪随机字符串（数字英文混合）
 	 * 
@@ -42,6 +31,7 @@ public class StringUtils {
 	 *            字符串长度
 	 * @return
 	 */
+	@MethodInfo(Name = "伪随机字符串", paramInfo = { "字符串长度" }, returnInfo = "随机结果")
 	public static String randomString(int length) {
 		if (length < 1) {
 			return null;
@@ -54,30 +44,11 @@ public class StringUtils {
 	}
 
 	/**
-	 * 移除特殊字符(只保留汉字字母数字)
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public static String removeSpecialCharacter(String str) {
-		return str.replaceAll("[^0-9a-zA-Z\\u4e00-\\u9fa5]", "");
-	}
-
-	/**
-	 * 去除富文本中的与html相关的字符
-	 * 
-	 * @param htmlString
-	 * @return
-	 */
-	public static String filterHtml(String htmlString) {
-		return htmlString.replaceAll("&.*?;", "").replaceAll("<.*?>", "").replaceAll("<.*?/>", "");
-	}
-
-	/**
 	 * 判断字符串是否为空
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "判断字符串是否为空", paramInfo = { "字符串内容" }, returnInfo = "判断结果")
 	public static boolean isEmpty(String str) {
 		boolean flag = true;
 		if (str != null && !str.trim().equals("")) {
@@ -92,6 +63,7 @@ public class StringUtils {
 	 * @param strs
 	 * @return
 	 */
+	@MethodInfo(Name = "判断多个字符串中是否有空值", paramInfo = { "字符串参数集" }, returnInfo = "判断结果")
 	public static boolean isAnyEmpty(String... strs) {
 		for (String str : strs) {
 			if (isEmpty(str)) {
@@ -102,33 +74,13 @@ public class StringUtils {
 	}
 
 	/**
-	 * 创建随机字符名字
-	 * 
-	 * @param num
-	 * @return
-	 */
-	public static String createRandomName(long num) {
-		int charArrayLength = encodeCharsArray.length;
-		int encodeCharsLength = encodeCharsArray[0].length;
-
-		StringBuffer sb = new StringBuffer();
-		int bit = 0;
-		while (num > 0) {
-			long ch = num % encodeCharsLength;
-			sb.insert(0, encodeCharsArray[bit % charArrayLength][(char) ch]);
-			num = num / encodeCharsLength;
-			bit++;
-		}
-		return sb.toString();
-	}
-
-	/**
 	 * 截取String开头指定长度的部分
 	 * 
 	 * @param str
 	 * @param length
 	 * @return
 	 */
+	@MethodInfo(Name = "截取字符串开头指定长度", paramInfo = { "字符串内容", "截取位置" }, returnInfo = "截取结果")
 	public static String subString(String str, int length) {
 		return str.substring(0, str.length() > length ? length : str.length());
 	}
@@ -138,6 +90,7 @@ public class StringUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "获取本机IP地址", returnInfo = "IP地址")
 	public static String getLocalhostIP() {
 		String ip = Constant.NULL_KEY_STR;
 		InetAddress address;
@@ -155,6 +108,7 @@ public class StringUtils {
 	 * 
 	 * @return
 	 */
+	@MethodInfo(Name = "订单号生成", paramInfo = "订单号")
 	public static String getOrderNum() {
 		return DigestUtils.md5Hex(UUID.randomUUID().toString()).toUpperCase();
 	}
@@ -162,6 +116,7 @@ public class StringUtils {
 	/**
 	 * 判断是否为数字,是数字返回true否则返回false
 	 */
+	@MethodInfo(Name = "判断是否为数字", paramInfo = "判断结果")
 	public static boolean isNumber(String str) {
 		boolean flag = false;
 		if (str != null && !str.trim().equals("") && str.length() <= 18) {
@@ -177,6 +132,7 @@ public class StringUtils {
 	 * @param strs
 	 * @return
 	 */
+	@MethodInfo(Name = "判断所有字符串是否都为数字", paramInfo = { "字符串集" }, returnInfo = "判断结果")
 	public static boolean isAllNumber(String... strs) {
 		for (String str : strs) {
 			if (!isNumber(str)) {

@@ -2,6 +2,8 @@ package common.util;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.MethodInfo;
+
 /**
  * 解密工具类
  * 
@@ -19,6 +21,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            加密内容
 	 * @return
 	 */
+	@MethodInfo(Name = "加密摩斯密码", paramInfo = { "加密内容" }, returnInfo = "摩斯加密结果")
 	public static String setMorseResult(String content) {
 		String result = Constant.NULL_KEY_STR;
 		String value = Constant.NULL_KEY_STR;
@@ -41,6 +44,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            摩斯密码 用 "/"进行分隔
 	 * @return
 	 */
+	@MethodInfo(Name = "解密摩斯密码", paramInfo = { "摩斯密码" }, returnInfo = "摩斯解密结果")
 	public static String getMorseResult(String morseCode) {
 		String result = Constant.NULL_KEY_STR;
 		String[] morseArray = morseCode.split("/");
@@ -66,6 +70,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            栅栏数
 	 * @return
 	 */
+	@MethodInfo(Name = "栅栏密码解密", paramInfo = { "栅栏密码", "栅栏数" }, returnInfo = "栅栏解密结果")
 	public static String getRailFenceResult(String railfence, int key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
@@ -99,6 +104,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            栅栏数
 	 * @return
 	 */
+	@MethodInfo(Name = "栅栏密码加密", paramInfo = { "栅栏密码", "栅栏数" }, returnInfo = "栅栏加密结果")
 	public static String setRailFenceResult(String railfence, int key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
@@ -126,6 +132,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 * @param str
 	 * @return
 	 */
+	@MethodInfo(Name = "字符串转unicode", paramInfo = { "字符串" }, returnInfo = "unicode结果")
 	public static String string2Unicode(String str) {
 		StringBuffer unicode = new StringBuffer();
 		for (int i = 0; i < str.length(); i++) {
@@ -143,6 +150,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 * @param str
 	 * @return
 	 */
+	@MethodInfo(Name = "unicode转字符串", paramInfo = { "unicode字符串" }, returnInfo = "字符串结果")
 	public static String unicode2String(String str) {
 		int start = 0;
 		int end = 0;
@@ -169,6 +177,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            内容
 	 * @return
 	 */
+	@MethodInfo(Name = "手机九宫格输入法解密", paramInfo = "解密内容", returnInfo = "解密结果")
 	public static String getPhoneTypewritingResult(String content) {
 		String result = Constant.NULL_KEY_STR;
 		content = content.replaceAll("\\s*", "");
@@ -202,6 +211,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            内容
 	 * @return
 	 */
+	@MethodInfo(Name = "手机九宫格输入法加密", paramInfo = "解密内容", returnInfo = "加密结果")
 	public static String setPhoneTypewritingResult(String content) {
 		String result = Constant.NULL_KEY_STR;
 		content = content.replaceAll("\\s*", "").toUpperCase();
@@ -224,6 +234,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            加密内容
 	 * @return
 	 */
+	@MethodInfo(Name = "加密键盘密码", paramInfo = "加密内容", returnInfo = "加密结果")
 	public static String setKeyboardResult(String content) {
 		String result = Constant.NULL_KEY_STR;
 		content = content.replaceAll("\\s*", "").toUpperCase();
@@ -248,6 +259,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            键盘密码
 	 * @return
 	 */
+	@MethodInfo(Name = "解密键盘密码", paramInfo = "键盘密码", returnInfo = "解密结果")
 	public static String getKeyboardResult(String keyboardCode) {
 		String result = Constant.NULL_KEY_STR;
 		String value = Constant.NULL_KEY_STR;
@@ -270,6 +282,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            加密内容
 	 * @return
 	 */
+	@MethodInfo(Name = "加密培根密码", paramInfo = "加密内容", returnInfo = "加密结果")
 	public static String setBaconResult(String content) {
 		String result = Constant.NULL_KEY_STR;
 		content = content.replaceAll("\\s*", "").toUpperCase();
@@ -294,6 +307,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 *            培根密码
 	 * @return
 	 */
+	@MethodInfo(Name = "解密培根密码", paramInfo = "培根密码", returnInfo = "解密结果")
 	public static String getBaconResult(String baconCode) {
 		String result = Constant.NULL_KEY_STR;
 		String value = Constant.NULL_KEY_STR;
@@ -315,6 +329,7 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	 * @param content
 	 * @return
 	 */
+	@MethodInfo(Name = "倒序排列", paramInfo = { "排列内容" }, returnInfo = "排列结果")
 	public static String reverseOrder(String content) {
 		return new StringBuffer(content.replaceAll("\\s*", "")).reverse().toString();
 	}

@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.tokenattributes.TermAttribute;
 import org.wltea.analyzer.lucene.IKTokenizer;
 
+import common.annotation.MethodInfo;
+
 /**
  * 切分单词工具类
  * 
@@ -26,6 +28,7 @@ public class IKTokenizerTool {
 	 *            true:开启智能切分
 	 * @return
 	 */
+	@MethodInfo(Name = "切分分词", paramInfo = { "关键词", "智能切分" }, returnInfo = "分词结果")
 	public static String tokenizeKeyWord(String keyword, boolean bol) {
 		StringBuilder sb = new StringBuilder();
 		IKTokenizer tokenizer = new IKTokenizer(new StringReader(keyword), bol);
@@ -61,6 +64,7 @@ public class IKTokenizerTool {
 	 *            true:开启智能切分
 	 * @return
 	 */
+	@MethodInfo(Name = "切分分词", paramInfo = { "关键词", "智能切分" }, returnInfo = "分词结果")
 	public static List<String> tokenizeKeyWordList(String keyword, boolean bol) {
 		List<String> list = new ArrayList<String>();
 		IKTokenizer tokenizer = new IKTokenizer(new StringReader(keyword), bol);

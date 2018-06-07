@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.MethodInfo;
+
 /**
  * 加密工具类
  * 
@@ -31,6 +33,7 @@ public class EncrypUtils {
 	 *            请求算法的名称，如：MD5、SHA等
 	 * @return 加密后的数据
 	 */
+	@MethodInfo(Name = "哈希加密算法", paramInfo = { "需要加密的数据", "加密算法名称" }, returnInfo = "加密数据")
 	public static String hash(String data, String algorithm) {
 		try {
 			return hash(data.getBytes("UTF-8"), algorithm);
@@ -49,6 +52,7 @@ public class EncrypUtils {
 	 *            请求算法的名称，如：MD5、SHA等
 	 * @return 加密后的数据
 	 */
+	@MethodInfo(Name = "哈希加密算法", paramInfo = { "加密字节数组", "加密算法名称" }, returnInfo = "加密数据")
 	public static String hash(byte[] bytes, String algorithm) {
 		synchronized (algorithm.intern()) {
 			MessageDigest digest = digests.get(algorithm);
@@ -74,6 +78,7 @@ public class EncrypUtils {
 	 *            字节数组
 	 * @return 十六进制字符串
 	 */
+	@MethodInfo(Name = "将字节数组转换成十六进制字符串", paramInfo = { "字节数组" }, returnInfo = "十六进制字符串")
 	public static String encodeHex(byte[] bytes) {
 		StringBuilder buf = new StringBuilder(bytes.length * 2);
 		int i;

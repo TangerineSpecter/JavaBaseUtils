@@ -3,6 +3,7 @@ package common.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -11,6 +12,7 @@ import common.annotation.MethodInfo;
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "数字处理工具类")
 public class NumberUtils {
 
 	private static List<List<Integer>> lists = new ArrayList<>();

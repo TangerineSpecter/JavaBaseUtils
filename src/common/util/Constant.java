@@ -1,10 +1,13 @@
 package common.util;
 
+import common.annotation.ClassInfo;
+
 /**
  * 参数常量类
  * 
  * @author TangerineSpecter
  */
+@ClassInfo(Name = "参数常量类")
 public class Constant {
 
 	/**
@@ -152,5 +155,10 @@ public class Constant {
 		public static int REIDS_MIN_IDLE = 20;
 		public static int REIDS_MAX_WAITTIME = 2000;
 	}
+	
+	/**
+	 * github-blob
+	 */
+	public static String GIT_HUB_BLOB_URL = "https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/";
 
 }

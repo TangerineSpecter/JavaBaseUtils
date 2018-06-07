@@ -2,6 +2,7 @@ package common.util;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -10,6 +11,7 @@ import common.annotation.MethodInfo;
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "解密工具类")
 public class DecipheringUtils extends DecipheringBaseUtils {
 
 	private static Logger logger = Logger.getLogger(DecipheringBaseUtils.class);

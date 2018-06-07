@@ -9,14 +9,16 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.tokenattributes.TermAttribute;
 import org.wltea.analyzer.lucene.IKTokenizer;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
- * 切分单词工具类
+ * 分词工具类
  * 
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "分词工具类")
 public class IKTokenizerTool {
 	private static Logger log = Logger.getLogger(IKTokenizerTool.class);
 

@@ -18,6 +18,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -25,6 +26,7 @@ import common.annotation.MethodInfo;
  * 
  * @author TangerineSpecter
  */
+@ClassInfo(Name = "二维码生成工具类")
 public class QrCodeUtils {
 
 	private static Logger logger = Logger.getLogger(QrCodeUtils.class);

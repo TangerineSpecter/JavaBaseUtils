@@ -31,6 +31,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -38,6 +39,7 @@ import common.annotation.MethodInfo;
  * 
  * @author TangerineSpecter
  */
+@ClassInfo(Name = "图片处理工具类")
 public class ImageUtils {
 
 	private static Logger logger = Logger.getLogger(ImageUtils.class);

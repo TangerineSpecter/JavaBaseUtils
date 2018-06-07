@@ -3,6 +3,7 @@ package common.util;
 import java.io.File;
 import java.util.Calendar;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -10,6 +11,7 @@ import common.annotation.MethodInfo;
  * 
  * @author TangerineSpecter
  */
+@ClassInfo(Name = "路径处理工具类")
 public class DirUtils {
 
 	/** 图片 */

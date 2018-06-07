@@ -5,12 +5,15 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.ClassInfo;
+
 /**
  * 解密工具基础类
  * 
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "解密工具基础类")
 public class DecipheringBaseUtils {
 
 	private static Logger logger = Logger.getLogger(DecipheringBaseUtils.class);

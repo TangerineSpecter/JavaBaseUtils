@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -14,6 +15,7 @@ import common.annotation.MethodInfo;
  * 
  * @author TangerineSpecter
  */
+@ClassInfo(Name = "字符串处理工具类")
 public class StringUtils {
 
 	private static Random randGen = new Random();

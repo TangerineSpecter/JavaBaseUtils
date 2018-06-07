@@ -3,6 +3,7 @@ package common.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -11,6 +12,7 @@ import common.annotation.MethodInfo;
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "正则表达式工具类")
 public class RegExUtils {
 
 	/**

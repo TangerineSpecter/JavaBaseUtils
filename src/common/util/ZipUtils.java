@@ -14,6 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -22,6 +23,7 @@ import common.annotation.MethodInfo;
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "压缩和解压工具类")
 public class ZipUtils {
 	private static Logger logger = Logger.getLogger(ZipUtils.class);
 

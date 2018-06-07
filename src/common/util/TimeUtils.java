@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -15,6 +16,7 @@ import common.annotation.MethodInfo;
  * 
  * @author TangerineSpecter
  */
+@ClassInfo(Name = "时间处理工具类")
 public class TimeUtils {
 	private static Logger logger = Logger.getLogger(TimeUtils.class);
 	/** 默认格式 */

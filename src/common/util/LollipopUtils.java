@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
@@ -12,6 +13,7 @@ import common.annotation.MethodInfo;
  * @author TangerineSpecter
  *
  */
+@ClassInfo(Name = "暴力破解工具")
 public class LollipopUtils extends DecipheringUtils {
 
 	private static Logger logger = Logger.getLogger(LollipopUtils.class);

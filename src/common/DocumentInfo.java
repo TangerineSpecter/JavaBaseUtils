@@ -63,7 +63,7 @@ public class DocumentInfo {
 		if (flag) {
 			Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + className);
 			String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
-			System.out.println(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s] \r\n(%s)", className, clazzAnno,
+			System.out.println(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno,
 					className, Constant.GIT_HUB_BLOB_URL + className + ".java"));
 			Method[] methods = clazz.getMethods();
 			getDocUtilHead();

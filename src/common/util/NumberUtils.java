@@ -53,17 +53,23 @@ public class NumberUtils {
 		if (n == 0) {
 			List<Integer> li = new ArrayList<>();
 			li.addAll(list);
-			lists.add(li);// 添加一种可能的排列
+			// 添加一种可能的排列
+			lists.add(li);
 			return;
 		}
 		for (int num : number) {
-			if (!list.contains(num)) { // 若List中不包含这一位元素
-				list.set(list.size() - n, num); // 将当前元素加入
-			} else { // 否则跳到下一位
+			// 若List中不包含这一位元素
+			if (!list.contains(num)) {
+				// 将当前元素加入
+				list.set(list.size() - n, num);
+				// 否则跳到下一位// 否则跳到下一位
+			} else {
 				continue;
 			}
-			listAll(list, number, n - 1); // 下一位
-			list.set(list.size() - n, -1); // 还原
+			// 下一位
+			listAll(list, number, n - 1);
+			// 还原
+			list.set(list.size() - n, -1);
 		}
 	}
 
@@ -102,17 +108,23 @@ public class NumberUtils {
 	@MethodInfo(Name = "从m个元素中任取n个并对结果进行全排列", paramInfo = { "装载排列结果list", "字符数组", "取出的元素个数" })
 	public static void listAll(List<Character> list, char[] chars, int n) {
 		if (n == 0) {
+			// 输出一种可能的排列
 			System.out.println(list);
-			return;// 输出一种可能的排列
+			return;
 		}
 		for (char c : chars) {
-			if (!list.contains(c)) { // 若List中不包含这一位元素
-				list.set(list.size() - n, c); // 将当前元素加入
-			} else { // 否则跳到下一位
+			// 若List中不包含这一位元素
+			if (!list.contains(c)) {
+				// 将当前元素加入
+				list.set(list.size() - n, c);
+				// 否则跳到下一位
+			} else {
 				continue;
 			}
-			listAll(list, chars, n - 1); // 下一位
-			list.set(list.size() - n, '#'); // 还原
+			// 下一位
+			listAll(list, chars, n - 1);
+			// 还原
+			list.set(list.size() - n, '#');
 		}
 		System.out.println(lists);
 	}

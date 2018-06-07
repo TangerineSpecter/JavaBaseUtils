@@ -74,7 +74,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	public static String getRailFenceResult(String railfence, int key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
-		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
+		// 剔除所有空格
+		String code = railfence.replaceAll("\\s*", "");
 		if (StringUtils.isEmpty(code)) {
 			return result;
 		}
@@ -108,7 +109,8 @@ public class DecipheringUtils extends DecipheringBaseUtils {
 	public static String setRailFenceResult(String railfence, int key) {
 		String result = Constant.NULL_KEY_STR;
 		String codes = Constant.NULL_KEY_STR;
-		String code = railfence.replaceAll("\\s*", "");// 剔除所有空格
+		// 剔除所有空格
+		String code = railfence.replaceAll("\\s*", "");
 		Integer length = code.length();
 		Integer cutPoint = length % key == 0 ? (length / key) : (length / key) + 1;
 		for (int index = 0; index < key; index++) {

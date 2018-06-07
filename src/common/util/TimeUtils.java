@@ -203,7 +203,7 @@ public class TimeUtils {
 		if (null != date && !date.isEmpty()) {
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat(format);
-				long millionSeconds = sdf.parse(date.toString()).getTime();// 毫秒
+				long millionSeconds = sdf.parse(date.toString()).getTime();
 				time = millionSeconds;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -220,7 +220,7 @@ public class TimeUtils {
 	 * @return
 	 */
 	@MethodInfo(Name = "获取距离某个日期的天数", paramInfo = { "时间字符串" }, returnInfo = "天数")
-	public static int getDisparityDay(String time) {
+	public static Integer getDisparityDay(String time) {
 		Integer days = null;
 		if (null != time) {
 			try {
@@ -267,7 +267,7 @@ public class TimeUtils {
 	 * @return
 	 */
 	@MethodInfo(Name = "获取某年某月最后一题", paramInfo = { "年份", "月份" }, returnInfo = "天数")
-	public static int getFinalDay(int year, int month) {
+	public static Integer getFinalDay(int year, int month) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, month);

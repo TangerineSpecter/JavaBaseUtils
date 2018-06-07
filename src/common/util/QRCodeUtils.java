@@ -25,9 +25,9 @@ import common.annotation.MethodInfo;
  * 
  * @author TangerineSpecter
  */
-public class QRCodeUtils {
+public class QrCodeUtils {
 
-	private static Logger logger = Logger.getLogger(QRCodeUtils.class);
+	private static Logger logger = Logger.getLogger(QrCodeUtils.class);
 
 	/**
 	 * 生成不带logo的二维码

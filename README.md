@@ -3,6 +3,8 @@
 ## 简介
 	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...
 
+<img src="img/show_logo.gif">
+
 ### Java基本工具包：
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
 

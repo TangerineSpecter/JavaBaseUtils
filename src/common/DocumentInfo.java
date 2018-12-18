@@ -1,7 +1,9 @@
 package common;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +89,12 @@ public class DocumentInfo {
 	 * @throws Exception
 	 */
 	private static void getDocHead() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		System.out.println("### 版本号：");
+		System.out.println("- " + Constant.VERSION + "\r\n");
+		System.out.println("### 最后更新时间：");
+		System.out.println("> " + sdf.format(cal.getTime()) + "\r\n");
 		System.out.println("## <a id=\"Getting_Menu\"></a> 目录 \r\n");
 		System.out.println("- [开始](#Getting_Menu)");
 		System.out.println("- [API](#Geting_Api)");

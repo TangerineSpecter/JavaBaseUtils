@@ -91,6 +91,12 @@ public class DocumentInfo {
 	private static void getDocHead() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
+		System.out.println("# JavaBaseUtils\r\n");	
+		System.out.println("## 简介");	
+		System.out.println("	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...");	
+		System.out.println("<img src=\"src/common/img/show_logo.gif\">\r\n");	
+		System.out.println("### Java基本工具包：");	
+		System.out.println("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");	
 		System.out.println("### 版本号：");
 		System.out.println("- " + Constant.VERSION + "\r\n");
 		System.out.println("### 最后更新时间：");

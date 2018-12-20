@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DocumentInfo;
-import common.util.PDFUtils;
 
 public class UtilTest {
 
@@ -14,6 +13,7 @@ public class UtilTest {
 		List<String> text = new ArrayList();
 		text.add("         Episode 1         ");
 		text.add("  Hello World!Welcome to my Codehouse!  ");
-		PDFUtils.createPdf(filePath, text);
+		// PDFUtils.createPdf(filePath, text);
+		//FileUtil.createFile(text, FileTypeEnum.TXT_FILE);
 	}
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.DocumentInfo;
+import common.enums.FileTypeEnum;
+import common.util.FileUtil;
 
 public class UtilTest {
 
@@ -14,6 +16,6 @@ public class UtilTest {
 		text.add("         Episode 1         ");
 		text.add("  Hello World!Welcome to my Codehouse!  ");
 		// PDFUtils.createPdf(filePath, text);
-		//FileUtil.createFile(text, FileTypeEnum.TXT_FILE);
+		FileUtil.createFile(text, FileTypeEnum.MARKDOWN_FILE);
 	}
 }

@@ -29,8 +29,10 @@ import common.enums.FileTypeEnum;
 public class FileUtil {
 
 	private static Logger logger = Logger.getLogger(FileUtil.class);
-
+	/** txt文件 */
 	private static final String TXT_FILE_SUFFIX = ".txt";
+	/** markdown文件 */
+	private static final String MARKDOWN_FILE_SUFFIX = ".md";
 
 	/**
 	 * 读取文件并压缩数据然后转Base64编码
@@ -225,6 +227,8 @@ public class FileUtil {
 		switch (type) {
 		case TXT_FILE:
 			createTxtFile(path, fileName, text);
+		case MARKDOWN_FILE:
+			createMarkdownFile(path, fileName, text);
 		}
 	}
 
@@ -241,6 +245,33 @@ public class FileUtil {
 	private static void createTxtFile(String path, String fileName, List<String> text) {
 		try {
 			String filePath = path + "/" + fileName + TXT_FILE_SUFFIX;
+			File file = new File(filePath);
+			// 如果文件不存在
+			if (!file.exists()) {
+				file.createNewFile();
+				logger.info(String.format("【文件创建成功】：文件路径：%s", filePath));
+				writeFileContent(file, text);
+			} else {
+				logger.info(String.format("【文件已存在】：文件路径：%s", filePath));
+			}
+		} catch (Exception e) {
+			logger.warn(String.format("【文件创建失败】:%s", e.getMessage()));
+		}
+	}
+
+	/**
+	 * 创建Markdown文件
+	 * 
+	 * @param path
+	 *            生成路径
+	 * @param fileName
+	 *            文件名
+	 * @param text
+	 *            文本内容
+	 */
+	private static void createMarkdownFile(String path, String fileName, List<String> text) {
+		try {
+			String filePath = path + "/" + fileName + MARKDOWN_FILE_SUFFIX;
 			File file = new File(filePath);
 			// 如果文件不存在
 			if (!file.exists()) {

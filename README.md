@@ -8,10 +8,10 @@
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
 
 ### 版本号：
-- 1.1.2
+- 1.1.3
 
 ### 最后更新时间：
-> 2018-12-20
+> 2018-12-21
 
 ## <a id="Getting_Menu"></a> 目录 
 

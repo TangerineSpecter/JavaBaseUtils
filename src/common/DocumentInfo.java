@@ -46,7 +46,8 @@ public class DocumentInfo {
 				createClassInfo(fileName, textInfo);
 			}
 		}
-		FileUtil.createFile(textInfo, FileTypeEnum.MARKDOWN_FILE);
+		FileUtil.deleteFile(System.getProperty("user.dir"), "README.md");
+		FileUtil.createFile(System.getProperty("user.dir"), "README", textInfo, FileTypeEnum.MARKDOWN_FILE);
 	}
 
 	/**
@@ -70,8 +71,6 @@ public class DocumentInfo {
 			String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
 			textInfo.add(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno, className,
 					Constant.GIT_HUB_BLOB_URL + className + ".java"));
-			System.out.println(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno,
-					className, Constant.GIT_HUB_BLOB_URL + className + ".java"));
 			Method[] methods = clazz.getMethods();
 			getDocUtilHead(textInfo);
 			for (Method method : methods) {
@@ -80,13 +79,9 @@ public class DocumentInfo {
 					textInfo.add(String.format("%s | %s | %s | %s(%s)", method.getName(), annotations.Name(),
 							getParamInfo(method, annotations.paramInfo()), method.getReturnType().getSimpleName(),
 							annotations.returnInfo()));
-					System.out.println(String.format("%s | %s | %s | %s(%s)", method.getName(), annotations.Name(),
-							getParamInfo(method, annotations.paramInfo()), method.getReturnType().getSimpleName(),
-							annotations.returnInfo()));
 				}
 			}
 			textInfo.add("---");
-			System.out.println("---");
 		} else {
 			logger.info(String.format("【需要生成文档的类不存在】：%s", className));
 		}
@@ -107,7 +102,8 @@ public class DocumentInfo {
 		textInfo.add("### Java基本工具包：");
 		textInfo.add("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");
 		textInfo.add("### 版本号：");
-		textInfo.add("- " + Constant.VERSION + "\r\n");
+		textInfo.add("- 项目版本：" + Constant.VERSION + "\r\n");
+		textInfo.add("- JDK版本：1.7\r\n");
 		textInfo.add("### 最后更新时间：");
 		textInfo.add("> " + sdf.format(cal.getTime()) + "\r\n");
 		textInfo.add("## <a id=\"Getting_Menu\"></a> 目录 \r\n");
@@ -121,28 +117,6 @@ public class DocumentInfo {
 			}
 		}
 		textInfo.add("---");
-
-		System.out.println("# JavaBaseUtils\r\n");
-		System.out.println("## 简介");
-		System.out.println("	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...");
-		System.out.println("<img src=\"src/common/img/show_logo.gif\">\r\n");
-		System.out.println("### Java基本工具包：");
-		System.out.println("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");
-		System.out.println("### 版本号：");
-		System.out.println("- " + Constant.VERSION + "\r\n");
-		System.out.println("### 最后更新时间：");
-		System.out.println("> " + sdf.format(cal.getTime()) + "\r\n");
-		System.out.println("## <a id=\"Getting_Menu\"></a> 目录 \r\n");
-		System.out.println("- [开始](#Getting_Menu)");
-		System.out.println("- [API](#Geting_Api)");
-		for (String fileName : allFileName) {
-			if (!IGNORE_SET.contains(fileName)) {
-				Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + fileName);
-				String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
-				System.out.println(String.format("    - [%s](#Geting_%s)", clazzAnno, fileName));
-			}
-		}
-		System.out.println("---");
 	}
 
 	/**
@@ -150,7 +124,6 @@ public class DocumentInfo {
 	 */
 	private static void getDocUtilHead(List<String> textInfo) {
 		textInfo.add("方法名     | 说明     | 参数     | 返回结果\r\n------|------|-----|-----");
-		System.out.println("方法名     | 说明     | 参数     | 返回结果\r\n------|------|-----|-----");
 	}
 
 	/**

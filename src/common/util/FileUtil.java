@@ -211,6 +211,22 @@ public class FileUtil {
 	}
 
 	/**
+	 * 删除文件
+	 * 
+	 * @param path
+	 *            文件路径
+	 * @param fileName
+	 *            文件名
+	 */
+	@MethodInfo(Name = "删除文件", paramInfo = { "文件路径", "文件名" })
+	public static void deleteFile(String path, String fileName) {
+		File file = new File(path + "/" + fileName);
+		if (file.exists() && file.isFile()) {
+			file.delete();
+		}
+	}
+
+	/**
 	 * 根据类型区分生成文件
 	 * 
 	 * @param path

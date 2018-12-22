@@ -8,10 +8,10 @@
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
 
 ### 版本号：
-- 1.1.3
+- 1.1.4
 
 ### 最后更新时间：
-> 2018-12-21
+> 2018-12-22
 
 ## <a id="Getting_Menu"></a> 目录 
 
@@ -37,8 +37,8 @@
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 getImgDir | 获取系统图片的存放路径 | String(UUID) | String(图片路径)
-getAudioDir | 获取系统音频的存放路径 | String(UUID) | String(音频路径)
 getVideoDir | 获取系统视频的存放路径 | String(UUID) | String(视频路径)
+getAudioDir | 获取系统音频的存放路径 | String(UUID) | String(音频路径)
 ---
 ## <a id= "Geting_EncrypUtils"></a>加密工具类 -> [EncrypUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/EncrypUtils.java)
 方法名     | 说明     | 参数     | 返回结果
@@ -57,13 +57,13 @@ createExcel | 创建Excel | String\[](表头),List(数据列表),boolean(新旧�
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 decode | 把压缩过的base64串解码解压写入磁盘中 | String(压缩过的base64串),String(文件名),String(路径地址) | void(无)
-getAllFileName | 获取路径下的所有文件名 | String(需要遍历的文件夹路径),boolean(是否切割后缀) | List(文件名集合)
 getAllFilePath | 获取路径下的所有文件/文件夹 | String(需要遍历的文件夹路径),boolean(是否将子文件夹的路径也添加到list集合中) | List(文件路径集合)
-base64 | 将二进制压缩数据转成Base64编码 | byte\[](二进制压缩数据) | String(base64编码)
-base64 | 读取文件并压缩数据然后转Base64编码 | String(文件的绝对路径地址) | String(转码结果)
-createFile | 创建文件 | String(生成路径),String(文件名),List(文本内容),FileTypeEnum(文件类型) | void(无)
+getAllFileName | 获取路径下的所有文件名 | String(需要遍历的文件夹路径),boolean(是否切割后缀) | List(文件名集合)
 createFile | 创建文件 | String(生成路径),List(文本内容),FileTypeEnum(文件类型) | void(无)
 createFile | 创建文件 | List(文本内容),FileTypeEnum(文件类型) | void(无)
+createFile | 创建文件 | String(生成路径),String(文件名),List(文本内容),FileTypeEnum(文件类型) | void(无)
+base64 | 将二进制压缩数据转成Base64编码 | byte\[](二进制压缩数据) | String(base64编码)
+base64 | 读取文件并压缩数据然后转Base64编码 | String(文件的绝对路径地址) | String(转码结果)
 writeFile | 二进制文件写入文件 | byte\[](二进制数据),String(文件名),String(路径地址) | void(无)
 ---
 ## <a id= "Geting_HttpUtils"></a>Http工具类 -> [HttpUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/HttpUtils.java)
@@ -74,8 +74,8 @@ sendPost | post请求 | String(请求地址),Map(请求参数),Map(请求头) | 
 ## <a id= "Geting_IKTokenizerTool"></a>分词工具类 -> [IKTokenizerTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/IKTokenizerTool.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-tokenizeKeyWordList | 切分分词 | String(关键词),boolean(智能切分) | List(分词结果)
 tokenizeKeyWord | 切分分词 | String(关键词),boolean(智能切分) | String(分词结果)
+tokenizeKeyWordList | 切分分词 | String(关键词),boolean(智能切分) | List(分词结果)
 ---
 ## <a id= "Geting_ImageUtils"></a>图片处理工具类 -> [ImageUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ImageUtils.java)
 方法名     | 说明     | 参数     | 返回结果
@@ -115,19 +115,19 @@ createQRCodeWithLogo | 生成带logo的默认参数二维码 | String(数据),in
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 getDate | 随机生成时间 | 无 | String(时间)
-getNum | 随机数 | int(起始数),int(结束数) | int(随机数字)
 getTel | 随机生成电话号码 | 无 | String(电话号码)
-getPROVINCE | 随机生成省份 | 无 | String(省份)
 getEmail | 随机生成Email | int(最小长度),int(最大长度) | String(Email)
-createRandomName | 创建随机字符名字 | long(名字长度) | String(随机结果)
+getNum | 随机数 | int(起始数),int(结束数) | int(随机数字)
+getPROVINCE | 随机生成省份 | 无 | String(省份)
 getChineseName | 随机生成中文名字 | 无 | String(中文名)
+createRandomName | 创建随机字符名字 | long(名字长度) | String(随机结果)
 ---
 ## <a id= "Geting_RegExUtils"></a>正则表达式工具类 -> [RegExUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/RegExUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 check2Point | 校验数字为小数后两位以内 | String(校验数字) | boolean(校验结果)
-checkPassword | 校验密码以字母开头 | String(密码) | boolean(校验结果)
 filterHtml | 去除富文本中html相关字符 | String(富文本内容) | String(处理结果)
+checkPassword | 校验密码以字母开头 | String(密码) | boolean(校验结果)
 checkEmail | 校验邮箱合法化 | String(邮箱地址) | boolean(校验结果)
 removeSpecialCharacter | 移除特殊字符 | String(字符串内容) | String(处理结果)
 ---
@@ -135,35 +135,35 @@ removeSpecialCharacter | 移除特殊字符 | String(字符串内容) | String(�
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 isEmpty | 判断字符串是否为空 | String(字符串内容) | boolean(判断结果)
-randomString | 伪随机字符串 | int(字符串长度) | String(随机结果)
-isAnyEmpty | 判断多个字符串中是否有空值 | String\[](字符串参数集) | boolean(判断结果)
 subString | 截取字符串开头指定长度 | String(字符串内容),int(截取位置) | String(截取结果)
+isAllNumber | 判断所有字符串是否都为数字 | String\[](字符串集) | boolean(判断结果)
+isAnyEmpty | 判断多个字符串中是否有空值 | String\[](字符串参数集) | boolean(判断结果)
 getOrderNum | 订单号生成 | 无 | String(订单号)
 isNumber | 判断是否为数字 | 无 | boolean(判断结果)
-isAllNumber | 判断所有字符串是否都为数字 | String\[](字符串集) | boolean(判断结果)
+randomString | 伪随机字符串 | int(字符串长度) | String(随机结果)
 getLocalhostIP | 获取本机IP地址 | 无 | String(IP地址)
 ---
 ## <a id= "Geting_TimeUtils"></a>时间处理工具类 -> [TimeUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/TimeUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 getDate | 将指定的日期字符串转化为日期对象 | String(日期字符串),String(日期格式) | Date(转换结果)
-timeFormat | 将时间转换成指定格式 | Date(时间) | String(转换结果)
-timeFormat | 将时间转换成指定格式 | Date(时间),String(时间格式) | String(转换结果)
-getWEEKDAYS | 获取某天的星期 | String(时间字符串) | String(星期)
-getStartDay | 获取某年某月第一天 | Date(时间) | Date(时间)
-getDatemill | 将指定格式转换成毫秒 | String(时间字符串),String(时间格式) | Long(时间戳)
-judgeLeapYear | 判断某一年是否闰年 | int(年份) | Boolean(判断结果)
-getFinalDay | 获取某年某月第一天 | Date(时间) | Date(时间)
-getFinalDay | 获取某年某月最后一题 | int(年份),int(月份) | Integer(天数)
-getTimestramp | 获取特定时间时间戳 | int(年份),int(月份),int(日期),int(小时),int(分钟),int(秒) | Long(时间戳)
 timeFormatToDay | 将时间格式精确到天 | Date(时间) | String(转换结果)
 getSimpleFormat | 获取指定格式当前时间 | String(时间格式) | String(时间字符串)
+getFinalDay | 获取某年某月最后一题 | int(年份),int(月份) | Integer(天数)
+getFinalDay | 获取某年某月第一天 | Date(时间) | Date(时间)
+getWEEKDAYS | 获取某天的星期 | String(时间字符串) | String(星期)
+getStartDay | 获取某年某月第一天 | Date(时间) | Date(时间)
+judgeLeapYear | 判断某一年是否闰年 | int(年份) | Boolean(判断结果)
+getDatemill | 将指定格式转换成毫秒 | String(时间字符串),String(时间格式) | Long(时间戳)
+timeFormat | 将时间转换成指定格式 | Date(时间),String(时间格式) | String(转换结果)
+timeFormat | 将时间转换成指定格式 | Date(时间) | String(转换结果)
+getTimestramp | 获取特定时间时间戳 | int(年份),int(月份),int(日期),int(小时),int(分钟),int(秒) | Long(时间戳)
 getCurrentYear | 获取当前年份 | 无 | String(年份)
-getDayBeginTimestamp | 获取当天开始时间戳 | 无 | Long(时间戳)
-getDayEndTimestamp | 获取当天结束时间戳 | 无 | Long(时间戳)
-getCurrentTimes | 获取当前时间戳 | 无 | Long(时间戳)
 getYesterdayBeginTimestamp | 获取昨天开始时间戳 | 无 | Long(时间戳)
 getDisparityDay | 获取距离某个日期的天数 | String(时间字符串) | Integer(天数)
+getCurrentTimes | 获取当前时间戳 | 无 | Long(时间戳)
+getDayEndTimestamp | 获取当天结束时间戳 | 无 | Long(时间戳)
+getDayBeginTimestamp | 获取当天开始时间戳 | 无 | Long(时间戳)
 ---
 ## <a id= "Geting_ZipUtils"></a>压缩和解压工具类 -> [ZipUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ZipUtils.java)
 方法名     | 说明     | 参数     | 返回结果

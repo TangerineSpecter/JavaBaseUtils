@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 
 import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
-import common.enums.FileTypeEnum;
 
 /**
  * 文件工具类
@@ -245,7 +244,11 @@ public class FileUtil {
 	private static void createTxtFile(String path, String fileName, List<String> text) {
 		try {
 			String filePath = path + "/" + fileName + TXT_FILE_SUFFIX;
+			File dirFile = new File(path);
 			File file = new File(filePath);
+			if (!dirFile.exists()) {
+				dirFile.mkdir();
+			}
 			// 如果文件不存在
 			if (!file.exists()) {
 				file.createNewFile();
@@ -272,7 +275,11 @@ public class FileUtil {
 	private static void createMarkdownFile(String path, String fileName, List<String> text) {
 		try {
 			String filePath = path + "/" + fileName + MARKDOWN_FILE_SUFFIX;
+			File dirFile = new File(path);
 			File file = new File(filePath);
+			if (!dirFile.exists()) {
+				dirFile.mkdir();
+			}
 			// 如果文件不存在
 			if (!file.exists()) {
 				file.createNewFile();

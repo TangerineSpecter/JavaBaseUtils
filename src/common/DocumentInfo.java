@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 import common.util.Constant;
+import common.util.FileTypeEnum;
 import common.util.FileUtil;
 
 /**
@@ -37,13 +38,15 @@ public class DocumentInfo {
 	 * @throws Exception
 	 */
 	public static void createDocInfo() throws Exception {
+		List<String> textInfo = new ArrayList<>();
 		allFileName = FileUtil.getAllFileName(Constant.UTIL_ABSOLUTE_PATH, true);
-		getDocHead();
+		getDocHead(textInfo);
 		for (String fileName : allFileName) {
 			if (!IGNORE_SET.contains(fileName)) {
-				createClassInfo(fileName);
+				createClassInfo(fileName, textInfo);
 			}
 		}
+		FileUtil.createFile(textInfo, FileTypeEnum.MARKDOWN_FILE);
 	}
 
 	/**
@@ -53,7 +56,7 @@ public class DocumentInfo {
 	 *            类名
 	 * @throws Exception
 	 */
-	public static void createClassInfo(String className) throws Exception {
+	public static void createClassInfo(String className, List<String> textInfo) throws Exception {
 		boolean flag = false;
 		List<String> allFilePath = FileUtil.getAllFilePath(Constant.UTIL_ABSOLUTE_PATH, false);
 		for (String path : allFilePath) {
@@ -65,18 +68,24 @@ public class DocumentInfo {
 		if (flag) {
 			Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + className);
 			String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
+			textInfo.add(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno, className,
+					Constant.GIT_HUB_BLOB_URL + className + ".java"));
 			System.out.println(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno,
 					className, Constant.GIT_HUB_BLOB_URL + className + ".java"));
 			Method[] methods = clazz.getMethods();
-			getDocUtilHead();
+			getDocUtilHead(textInfo);
 			for (Method method : methods) {
 				MethodInfo annotations = method.getAnnotation(MethodInfo.class);
 				if (annotations != null) {
+					textInfo.add(String.format("%s | %s | %s | %s(%s)", method.getName(), annotations.Name(),
+							getParamInfo(method, annotations.paramInfo()), method.getReturnType().getSimpleName(),
+							annotations.returnInfo()));
 					System.out.println(String.format("%s | %s | %s | %s(%s)", method.getName(), annotations.Name(),
 							getParamInfo(method, annotations.paramInfo()), method.getReturnType().getSimpleName(),
 							annotations.returnInfo()));
 				}
 			}
+			textInfo.add("---");
 			System.out.println("---");
 		} else {
 			logger.info(String.format("【需要生成文档的类不存在】：%s", className));
@@ -88,15 +97,37 @@ public class DocumentInfo {
 	 * 
 	 * @throws Exception
 	 */
-	private static void getDocHead() throws Exception {
+	private static void getDocHead(List<String> textInfo) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
-		System.out.println("# JavaBaseUtils\r\n");	
-		System.out.println("## 简介");	
-		System.out.println("	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...");	
-		System.out.println("<img src=\"src/common/img/show_logo.gif\">\r\n");	
-		System.out.println("### Java基本工具包：");	
-		System.out.println("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");	
+		textInfo.add("# JavaBaseUtils\r\n");
+		textInfo.add("## 简介");
+		textInfo.add("	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...");
+		textInfo.add("<img src=\"src/common/img/show_logo.gif\">\r\n");
+		textInfo.add("### Java基本工具包：");
+		textInfo.add("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");
+		textInfo.add("### 版本号：");
+		textInfo.add("- " + Constant.VERSION + "\r\n");
+		textInfo.add("### 最后更新时间：");
+		textInfo.add("> " + sdf.format(cal.getTime()) + "\r\n");
+		textInfo.add("## <a id=\"Getting_Menu\"></a> 目录 \r\n");
+		textInfo.add("- [开始](#Getting_Menu)");
+		textInfo.add("- [API](#Geting_Api)");
+		for (String fileName : allFileName) {
+			if (!IGNORE_SET.contains(fileName)) {
+				Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + fileName);
+				String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
+				textInfo.add(String.format("    - [%s](#Geting_%s)", clazzAnno, fileName));
+			}
+		}
+		textInfo.add("---");
+
+		System.out.println("# JavaBaseUtils\r\n");
+		System.out.println("## 简介");
+		System.out.println("	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...");
+		System.out.println("<img src=\"src/common/img/show_logo.gif\">\r\n");
+		System.out.println("### Java基本工具包：");
+		System.out.println("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");
 		System.out.println("### 版本号：");
 		System.out.println("- " + Constant.VERSION + "\r\n");
 		System.out.println("### 最后更新时间：");
@@ -117,7 +148,8 @@ public class DocumentInfo {
 	/**
 	 * 获取文档类标题
 	 */
-	private static void getDocUtilHead() {
+	private static void getDocUtilHead(List<String> textInfo) {
+		textInfo.add("方法名     | 说明     | 参数     | 返回结果\r\n------|------|-----|-----");
 		System.out.println("方法名     | 说明     | 参数     | 返回结果\r\n------|------|-----|-----");
 	}
 
@@ -138,9 +170,12 @@ public class DocumentInfo {
 				paramInfo += param.getSimpleName() + "(" + params[index] + "),";
 				index++;
 			} catch (Exception e) {
-				logger.info(String.format("--------------------------------------------------------\r\n"
-						+ "【文档生成信息有误】\r\n Method	: %s \r\n"
-						+ "--------------------------------------------------------", method.getName()));
+				logger.info(
+						String.format(
+								"--------------------------------------------------------\r\n"
+										+ "【文档生成信息有误】\r\n Method	: %s \r\n"
+										+ "--------------------------------------------------------",
+								method.getName()));
 				System.exit(0);
 			}
 		}
@@ -154,5 +189,6 @@ public class DocumentInfo {
 		IGNORE_SET.add("DecipheringBaseUtils");
 		IGNORE_SET.add("DecipheringUtils");
 		IGNORE_SET.add("LollipopUtils");
+		IGNORE_SET.add("FileTypeEnum");
 	}
 }

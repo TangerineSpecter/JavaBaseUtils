@@ -1,4 +1,4 @@
-package common.enums;
+package common.util;
 
 public enum FileTypeEnum {
 	/** Txt文件 */

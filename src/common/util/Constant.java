@@ -13,7 +13,7 @@ public class Constant {
 	/**
 	 * 版本号
 	 */
-	public static final String VERSION = "1.1.3";
+	public static final String VERSION = "1.1.4";
 
 	/**
 	 * 文件默认存放地址

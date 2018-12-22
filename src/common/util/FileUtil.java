@@ -223,6 +223,127 @@ public class FileUtil {
 		File file = new File(path + "/" + fileName);
 		if (file.exists() && file.isFile()) {
 			file.delete();
+			logger.info(String.format("【删除文件成功】文件名：%s", file.getName()));
+		}
+	}
+
+	/**
+	 * 删除文件夹
+	 * 
+	 * @param path
+	 *            文件夹路径
+	 * @param flag
+	 *            是否删除文件夹内容
+	 */
+	@MethodInfo(Name = "删除文件夹", paramInfo = { "文件夹路径", "是否删除文件夹内容" })
+	public static void deleteDirFile(String path, boolean flag) {
+		int count = Constant.Number.COMMON_NUMBER_ZERO;
+		File dirFile = new File(path);
+		if (dirFile.exists()) {
+			File[] files = dirFile.listFiles();
+			for (File file : files) {
+				if (file.isDirectory()) {
+					deleteDirFile(path + file.getName(), flag);
+					logger.info(String.format("【删除文件夹成功】文件夹名：%s", file.getName()));
+				} else if (flag) {
+					file.delete();
+					count++;
+					logger.info(String.format("【删除文件成功】文件名：%s", file.getName()));
+				}
+			}
+			logger.info(String.format("【删除文件总数】：%s个文件", count));
+		}
+	}
+
+	/**
+	 * 文件重命名
+	 * 
+	 * @param path
+	 *            文件路径
+	 * @param oldName
+	 *            旧文件名字
+	 * @param newName
+	 *            新文件名字
+	 */
+	@MethodInfo(Name = "文件路径", paramInfo = { "旧文件名字", "新文件名字" })
+	private static void renameFile(String path, String oldName, String newName) {
+		if (!oldName.equals(newName)) {
+			File oldFile = new File(path + "/" + oldName);
+			File newFile = new File(path + "/" + newName);
+			if (newFile.exists()) {
+				logger.info(String.format("【重命名文件夹已存在】文件名：%s", newFile.getName()));
+			} else {
+				oldFile.renameTo(newFile);
+			}
+		}
+	}
+
+	/**
+	 * 转移文件目录
+	 * 
+	 * @param fileName
+	 *            文件名
+	 * @param oldPath
+	 *            旧路径
+	 * @param newPath
+	 *            新路径
+	 * @param isCover
+	 *            是否覆盖
+	 */
+	@MethodInfo(Name = "转移文件目录", paramInfo = { "文件名", "旧路径", "新路径", "是否覆盖" })
+	public static void moveFileDir(String fileName, String oldPath, String newPath, boolean isCover) {
+		if (!oldPath.equals(newPath)) {
+			File oldFile = new File(oldPath + "/" + fileName);
+			File newFile = new File(newPath + "/" + fileName);
+			File newDir = new File(newPath);
+			if (!newDir.exists()) {
+				newDir.mkdir();
+			}
+			// 新路径是否存在同名文件
+			if (newFile.exists()) {
+				// 是否覆盖
+				if (isCover) {
+					oldFile.renameTo(newFile);
+					logger.info(String.format("【文件转移成功】转移路径：%s", newPath + "/" + fileName));
+				} else {
+					logger.info(String.format("【新目录已存在同名文件】文件名：%s", newFile.getName()));
+				}
+			} else {
+				oldFile.renameTo(newFile);
+				logger.info(String.format("【文件转移成功】转移路径：%s", newPath + "/" + fileName));
+			}
+		}
+	}
+
+	/**
+	 * 转移文件目录（包含名字）
+	 * 
+	 * @param fileName
+	 *            文件名
+	 * @param oldPath
+	 *            旧路径
+	 * @param newPath
+	 *            新路径
+	 * @param isCover
+	 *            是否覆盖
+	 */
+	@MethodInfo(Name = "转移文件目录（包含名字）", paramInfo = { "文件名", "旧路径", "新路径", "是否覆盖" })
+	public static void moveFuzzyFileDir(String fileName, String oldPath, String newPath, boolean isCover) {
+		int count = Constant.Number.COMMON_NUMBER_ZERO;
+		if (!oldPath.equals(newPath)) {
+			File oldDir = new File(oldPath);
+			File newDir = new File(newPath);
+			for (File file : oldDir.listFiles()) {
+				if (!newDir.exists()) {
+					newDir.mkdir();
+				}
+				// 判断目录下文件名是否包含转移文件名
+				if (file.getName().indexOf(fileName) != -1) {
+					moveFileDir(file.getName(), oldPath, newPath, isCover);
+					count++;
+				}
+			}
+			logger.info(String.format("【总共转移文件数】：%s个文件", count));
 		}
 	}
 
@@ -268,10 +389,10 @@ public class FileUtil {
 			// 如果文件不存在
 			if (!file.exists()) {
 				file.createNewFile();
-				logger.info(String.format("【文件创建成功】：文件路径：%s", filePath));
+				logger.info(String.format("【文件创建成功】文件路径：%s", filePath));
 				writeFileContent(file, text);
 			} else {
-				logger.info(String.format("【文件已存在】：文件路径：%s", filePath));
+				logger.info(String.format("【文件已存在】文件路径：%s", filePath));
 			}
 		} catch (Exception e) {
 			logger.warn(String.format("【文件创建失败】:%s", e.getMessage()));
@@ -299,10 +420,10 @@ public class FileUtil {
 			// 如果文件不存在
 			if (!file.exists()) {
 				file.createNewFile();
-				logger.info(String.format("【文件创建成功】：文件路径：%s", filePath));
+				logger.info(String.format("【文件创建成功】文件路径：%s", filePath));
 				writeFileContent(file, text);
 			} else {
-				logger.info(String.format("【文件已存在】：文件路径：%s", filePath));
+				logger.info(String.format("【文件已存在】文件路径：%s", filePath));
 			}
 		} catch (Exception e) {
 			logger.warn(String.format("【文件创建失败】:%s", e.getMessage()));

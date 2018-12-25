@@ -328,7 +328,7 @@ public class FileUtil {
 	 *            是否覆盖
 	 */
 	@MethodInfo(Name = "转移文件目录（包含名字）", paramInfo = { "文件名", "旧路径", "新路径", "是否覆盖" })
-	public static void moveFuzzyFileDir(String fileName, String oldPath, String newPath, boolean isCover) {
+	public static void moveFuzzyFileDir(String fuzzyFileName, String oldPath, String newPath, boolean isCover) {
 		int count = Constant.Number.COMMON_NUMBER_ZERO;
 		if (!oldPath.equals(newPath)) {
 			File oldDir = new File(oldPath);
@@ -338,12 +338,26 @@ public class FileUtil {
 					newDir.mkdir();
 				}
 				// 判断目录下文件名是否包含转移文件名
-				if (file.getName().indexOf(fileName) != -1) {
+				if (file.getName().indexOf(fuzzyFileName) != -1) {
 					moveFileDir(file.getName(), oldPath, newPath, isCover);
 					count++;
 				}
 			}
 			logger.info(String.format("【总共转移文件数】：%s个文件", count));
+		}
+	}
+
+	/**
+	 * 创建文件夹
+	 * 
+	 * @param path
+	 *            文件夹路径
+	 */
+	@MethodInfo(Name = "创建文件夹", paramInfo = { "文件夹路径" })
+	public static void createDir(String path) {
+		File dirFile = new File(path);
+		if (!dirFile.exists()) {
+			dirFile.mkdir();
 		}
 	}
 

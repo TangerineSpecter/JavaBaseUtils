@@ -371,6 +371,7 @@ public class FileUtil {
 	 * @return 文件内容
 	 * @throws IOException
 	 */
+	@MethodInfo(Name = "读取文件内容", paramInfo = { "文件路径" }, returnInfo = "文件内容")
 	public static String loadingFile(String path) throws IOException {
 		File file = new File(path);
 		if (!file.exists() || file.isDirectory()) {

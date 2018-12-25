@@ -19,6 +19,8 @@ public class UtilTest {
 		// PDFUtils.createPdf(filePath, text);
 		// FileUtil.createFile(text, FileTypeEnum.MARKDOWN_FILE);
 		// FileUtil.deleteDirFile(Constant.FILE_SAVE_PATH, true);
-		FileUtil.moveFuzzyFileDir("test", "F://testFile", "F://test", true);
+		// FileUtil.moveFuzzyFileDir("test", "F://testFile", "F://test", true);
+		String loadingFile = FileUtil.loadingFile("F://testFile/tesw2.md");
+		System.out.println(loadingFile);
 	}
 }

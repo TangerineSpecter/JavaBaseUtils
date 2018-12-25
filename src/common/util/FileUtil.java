@@ -3,7 +3,9 @@ package common.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -359,6 +361,32 @@ public class FileUtil {
 		if (!dirFile.exists()) {
 			dirFile.mkdir();
 		}
+	}
+
+	/**
+	 * 读取文件内容
+	 * 
+	 * @param path
+	 *            文件路径
+	 * @return 文件内容
+	 * @throws IOException
+	 */
+	public static String loadingFile(String path) throws IOException {
+		File file = new File(path);
+		if (!file.exists() || file.isDirectory()) {
+			logger.warn("【文件没找到】");
+			throw new FileNotFoundException();
+		}
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		String temp = null;
+		StringBuffer sb = new StringBuffer();
+		temp = br.readLine();
+		while (temp != null) {
+			sb.append(temp + "\r\n");
+			temp = br.readLine();
+		}
+		br.close();
+		return sb.toString();
 	}
 
 	/**

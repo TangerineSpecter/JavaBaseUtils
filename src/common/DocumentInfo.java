@@ -143,12 +143,9 @@ public class DocumentInfo {
 				paramInfo += param.getSimpleName() + "(" + params[index] + "),";
 				index++;
 			} catch (Exception e) {
-				logger.info(
-						String.format(
-								"--------------------------------------------------------\r\n"
-										+ "【文档生成信息有误】\r\n Method	: %s \r\n"
-										+ "--------------------------------------------------------",
-								method.getName()));
+				logger.info(String.format("--------------------------------------------------------\r\n"
+						+ "【文档生成信息有误】\r\n Method	: %s \r\n"
+						+ "--------------------------------------------------------", method.getName()));
 				System.exit(0);
 			}
 		}
@@ -163,5 +160,7 @@ public class DocumentInfo {
 		IGNORE_SET.add("DecipheringUtils");
 		IGNORE_SET.add("LollipopUtils");
 		IGNORE_SET.add("FileTypeEnum");
+		IGNORE_SET.add("BaseUtils");
+		IGNORE_SET.add("LoggerWordPool");
 	}
 }

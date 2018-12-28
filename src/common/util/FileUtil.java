@@ -27,13 +27,17 @@ import common.annotation.MethodInfo;
  *
  */
 @ClassInfo(Name = "文件工具类")
-public class FileUtil {
+public class FileUtil extends BaseUtils {
 
 	private static Logger logger = Logger.getLogger(FileUtil.class);
 	/** txt文件 */
 	private static final String TXT_FILE_SUFFIX = ".txt";
 	/** markdown文件 */
 	private static final String MARKDOWN_FILE_SUFFIX = ".md";
+	/** xls文件 */
+	private static final String XLS_FILE_SUFFIX = ".xls";
+	/** xlsx文件 */
+	private static final String XLSX_FILE_SUFFIX = ".xlsx";
 
 	/**
 	 * 读取文件并压缩数据然后转Base64编码
@@ -84,7 +88,7 @@ public class FileUtil {
 			String url = path + "//" + fileName;
 			FileUtils.writeByteArrayToFile(new File(url), data);
 		} catch (Exception e) {
-			logger.error(String.format("【文件写入出错】：%s", e));
+			logger.error(loggerMessager(FileLogger.FILE_WRITE_ERROR, e.getMessage()));
 		}
 	}
 
@@ -217,6 +221,21 @@ public class FileUtil {
 	 * 
 	 * @param path
 	 *            文件路径
+	 */
+	@MethodInfo(Name = "删除文件", paramInfo = { "文件路径" })
+	public static void deleteFile(String path) {
+		File file = new File(path);
+		if (file.isFile() && file.exists()) {
+			file.delete();
+			logger.info(loggerMessager(FileLogger.FILE_DELETE_SUCCESS, file.getName()));
+		}
+	}
+
+	/**
+	 * 删除文件
+	 * 
+	 * @param path
+	 *            文件路径
 	 * @param fileName
 	 *            文件名
 	 */
@@ -225,7 +244,30 @@ public class FileUtil {
 		File file = new File(path + "/" + fileName);
 		if (file.exists() && file.isFile()) {
 			file.delete();
-			logger.info(String.format("【删除文件成功】文件名：%s", file.getName()));
+			logger.info(loggerMessager(FileLogger.FILE_DELETE_SUCCESS, file.getName()));
+		}
+	}
+
+	/**
+	 * 删除目录下指定后缀的文件
+	 * 
+	 * @param path
+	 *            目录路径
+	 * @param fileSuffix
+	 *            文件后缀
+	 */
+	@MethodInfo(Name = "目录路径", paramInfo = { "目录路径", "文件后缀" })
+	public static void deleteFileSuffix(String path, FileTypeEnum fileSuffix) {
+		File dirFile = new File(path);
+		if (dirFile.exists() && dirFile.isDirectory()) {
+			File[] files = dirFile.listFiles();
+			String suffix = getFileSuffix(fileSuffix);
+			for (File file : files) {
+				if (file.isFile() && !StringUtils.isEmpty(suffix) && (file.getName().indexOf(suffix) != -1)) {
+					file.delete();
+					logger.info(loggerMessager(FileLogger.FILE_DELETE_SUCCESS, file.getName()));
+				}
+			}
 		}
 	}
 
@@ -241,19 +283,19 @@ public class FileUtil {
 	public static void deleteDirFile(String path, boolean flag) {
 		int count = Constant.Number.COMMON_NUMBER_ZERO;
 		File dirFile = new File(path);
-		if (dirFile.exists()) {
+		if (dirFile.exists() && dirFile.isDirectory()) {
 			File[] files = dirFile.listFiles();
 			for (File file : files) {
 				if (file.isDirectory()) {
 					deleteDirFile(path + file.getName(), flag);
-					logger.info(String.format("【删除文件夹成功】文件夹名：%s", file.getName()));
+					logger.info(loggerMessager(FileLogger.DIRFILE_DELETE_SUCCESS, file.getName()));
 				} else if (flag) {
 					file.delete();
 					count++;
-					logger.info(String.format("【删除文件成功】文件名：%s", file.getName()));
+					logger.info(loggerMessager(FileLogger.FILE_DELETE_SUCCESS, file.getName()));
 				}
 			}
-			logger.info(String.format("【删除文件总数】：%s个文件", count));
+			logger.info(loggerMessager(FileLogger.FILE_DELETE_TOTAL_COUNT, count));
 		}
 	}
 
@@ -273,7 +315,7 @@ public class FileUtil {
 			File oldFile = new File(path + "/" + oldName);
 			File newFile = new File(path + "/" + newName);
 			if (newFile.exists()) {
-				logger.info(String.format("【重命名文件夹已存在】文件名：%s", newFile.getName()));
+				logger.info(loggerMessager(FileLogger.FILE_SAME_NAME_EXIST, newFile.getName()));
 			} else {
 				oldFile.renameTo(newFile);
 			}
@@ -306,13 +348,13 @@ public class FileUtil {
 				// 是否覆盖
 				if (isCover) {
 					oldFile.renameTo(newFile);
-					logger.info(String.format("【文件转移成功】转移路径：%s", newPath + "/" + fileName));
+					logger.info(loggerMessager(FileLogger.FILE_MOVE_SUCCESS, newPath + "/" + fileName));
 				} else {
-					logger.info(String.format("【新目录已存在同名文件】文件名：%s", newFile.getName()));
+					logger.info(loggerMessager(FileLogger.FILE_SAME_NAME_EXIST, newFile.getName()));
 				}
 			} else {
 				oldFile.renameTo(newFile);
-				logger.info(String.format("【文件转移成功】转移路径：%s", newPath + "/" + fileName));
+				logger.info(loggerMessager(FileLogger.FILE_MOVE_SUCCESS, newPath + "/" + fileName));
 			}
 		}
 	}
@@ -345,7 +387,7 @@ public class FileUtil {
 					count++;
 				}
 			}
-			logger.info(String.format("【总共转移文件数】：%s个文件", count));
+			logger.info(loggerMessager(FileLogger.FILE_MOVE_TOTAL_COUNT, count));
 		}
 	}
 
@@ -360,6 +402,7 @@ public class FileUtil {
 		File dirFile = new File(path);
 		if (!dirFile.exists()) {
 			dirFile.mkdir();
+			logger.info(loggerMessager(FileLogger.FILE_CREATE_SUCCESS, path + "/" + dirFile.getName()));
 		}
 	}
 
@@ -375,7 +418,7 @@ public class FileUtil {
 	public static String loadingFile(String path) throws IOException {
 		File file = new File(path);
 		if (!file.exists() || file.isDirectory()) {
-			logger.warn("【文件没找到】");
+			logger.warn(FileLogger.FILE_NOT_FOUND);
 			throw new FileNotFoundException();
 		}
 		BufferedReader br = new BufferedReader(new FileReader(file));
@@ -406,8 +449,12 @@ public class FileUtil {
 		switch (type) {
 		case TXT_FILE:
 			createTxtFile(path, fileName, text);
+			break;
 		case MARKDOWN_FILE:
 			createMarkdownFile(path, fileName, text);
+			break;
+		default:
+			return;
 		}
 	}
 
@@ -432,13 +479,13 @@ public class FileUtil {
 			// 如果文件不存在
 			if (!file.exists()) {
 				file.createNewFile();
-				logger.info(String.format("【文件创建成功】文件路径：%s", filePath));
+				logger.info(loggerMessager(FileLogger.FILE_CREATE_SUCCESS, filePath));
 				writeFileContent(file, text);
 			} else {
-				logger.info(String.format("【文件已存在】文件路径：%s", filePath));
+				logger.info(loggerMessager(FileLogger.FILE_SAME_NAME_EXIST, filePath));
 			}
 		} catch (Exception e) {
-			logger.warn(String.format("【文件创建失败】:%s", e.getMessage()));
+			logger.info(loggerMessager(FileLogger.FILE_CREATE_FAIL, e.getMessage()));
 		}
 	}
 
@@ -463,13 +510,13 @@ public class FileUtil {
 			// 如果文件不存在
 			if (!file.exists()) {
 				file.createNewFile();
-				logger.info(String.format("【文件创建成功】文件路径：%s", filePath));
+				logger.info(loggerMessager(FileLogger.FILE_CREATE_SUCCESS, filePath));
 				writeFileContent(file, text);
 			} else {
-				logger.info(String.format("【文件已存在】文件路径：%s", filePath));
+				logger.info(loggerMessager(FileLogger.FILE_SAME_NAME_EXIST, filePath));
 			}
 		} catch (Exception e) {
-			logger.warn(String.format("【文件创建失败】:%s", e.getMessage()));
+			logger.info(loggerMessager(FileLogger.FILE_CREATE_FAIL, e.getMessage()));
 		}
 	}
 
@@ -510,7 +557,7 @@ public class FileUtil {
 			pw.write(buffer.toString().toCharArray());
 			pw.flush();
 		} catch (Exception e) {
-			logger.warn(String.format("【文件写入失败】：%s", e.getMessage()));
+			logger.error(loggerMessager(FileLogger.FILE_WRITE_ERROR, e.getMessage()));
 		} finally {
 			// 不要忘记关闭
 			if (pw != null) {
@@ -528,6 +575,24 @@ public class FileUtil {
 			if (fis != null) {
 				fis.close();
 			}
+		}
+	}
+
+	/**
+	 * 获取文件后缀
+	 */
+	private static String getFileSuffix(FileTypeEnum fileSuffix) {
+		switch (fileSuffix) {
+		case TXT_FILE:
+			return TXT_FILE_SUFFIX;
+		case MARKDOWN_FILE:
+			return MARKDOWN_FILE_SUFFIX;
+		case XLS_EXCEL_FILE:
+			return XLS_FILE_SUFFIX;
+		case XLSX_EXCEL_FILE:
+			return XLSX_FILE_SUFFIX;
+		default:
+			return Constant.NULL_KEY_STR;
 		}
 	}
 }

@@ -24,7 +24,7 @@ import common.annotation.MethodInfo;
  *
  */
 @ClassInfo(Name = "压缩和解压工具类")
-public class ZipUtils {
+public class ZipUtils extends BaseUtils {
 	private static Logger logger = Logger.getLogger(ZipUtils.class);
 
 	private static final int BUFFER_SIZE = 2 * 1024;
@@ -48,21 +48,21 @@ public class ZipUtils {
 			gzip.finish();
 			b = bos.toByteArray();
 		} catch (Exception e) {
-			logger.error(String.format("【压缩数据异常】：%s", e));
+			logger.error(loggerMessager(ZipLogger.ZIP_DATA_ERROR, e.getMessage()));
 			e.printStackTrace();
 		} finally {
 			if (bos != null) {
 				try {
 					bos.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【字节流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 			if (gzip != null) {
 				try {
 					gzip.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【压缩流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 		}
@@ -94,27 +94,27 @@ public class ZipUtils {
 			b = baos.toByteArray();
 			baos.flush();
 		} catch (Exception e) {
-			logger.error("【解压数据流出错】");
+			logger.error(loggerMessager(ZipLogger.UNZIP_DATA_ERROR, e.getMessage()));
 		} finally {
 			if (bis != null) {
 				try {
 					bis.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【字节流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 			if (gzip != null) {
 				try {
 					gzip.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【压缩流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 			if (baos != null) {
 				try {
 					baos.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【字节流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 		}
@@ -135,7 +135,7 @@ public class ZipUtils {
 		FileOutputStream fos = null;
 		ZipOutputStream zos = null;
 		if (!srcFile.exists()) {
-			logger.info("【需要压缩的文件不存在...】");
+			logger.info(FileLogger.FILE_NOT_FOUND);
 		}
 		String destFilePath = Constant.ZIP_SAVE_PATH + destFileName;
 		File destDir = new File(Constant.ZIP_SAVE_PATH);
@@ -155,14 +155,14 @@ public class ZipUtils {
 				try {
 					fos.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【文件流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 			if (zos != null) {
 				try {
 					zos.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【压缩流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 				}
 			}
 		}
@@ -181,17 +181,17 @@ public class ZipUtils {
 	@MethodInfo(Name = "对路径下文件根据类型进行压缩", paramInfo = { "源文件", "压缩流", "压缩路径" })
 	private static void compressBy(File srcFile, ZipOutputStream zos, String baseDir) {
 		if (!srcFile.exists()) {
-			logger.info("【压缩源文件不存在!】");
+			logger.info(FileLogger.FILE_NOT_FOUND);
 			return;
 		}
-		logger.info(String.format("【压缩源文件路径】：%s", baseDir + srcFile.getName()));
+		logger.info(loggerMessager(ZipLogger.SOURCE_FILE_PATH, baseDir + srcFile.getName()));
 		// 判断压缩是文件还是文件夹
 		if (srcFile.isFile()) {
 			compressFile(srcFile, zos, baseDir);
 		} else if (srcFile.isDirectory()) {
 			compressDir(srcFile, zos, baseDir);
 		} else {
-			logger.info("【压缩类型不明】");
+			logger.info(FileLogger.FILE_TYPE_UNKNOWN);
 		}
 	}
 
@@ -209,7 +209,7 @@ public class ZipUtils {
 	private static void compressFile(File srcFile, ZipOutputStream zos, String baseDir) {
 		BufferedInputStream bis = null;
 		if (!srcFile.exists()) {
-			logger.info("【压缩文件不存在】");
+			logger.info(FileLogger.FILE_NOT_FOUND);
 			return;
 		}
 		try {
@@ -222,14 +222,14 @@ public class ZipUtils {
 				zos.write(b, 0, len);
 			}
 		} catch (Exception e) {
-			logger.error(String.format("【压缩文件出现异常】：%s", e));
+			logger.error(loggerMessager(ZipLogger.ZIP_DATA_ERROR, e.getMessage()));
 			e.printStackTrace();
 		} finally {
 			if (zos != null) {
 				try {
 					zos.closeEntry();
 				} catch (IOException e) {
-					logger.warn(String.format("【压缩流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 					e.printStackTrace();
 				}
 			}
@@ -237,7 +237,7 @@ public class ZipUtils {
 				try {
 					bis.close();
 				} catch (IOException e) {
-					logger.warn(String.format("【文件流关闭异常】：%s", e));
+					logger.warn(loggerMessager(ZipLogger.STREAM_COLSE_ERROR, e.getMessage()));
 					e.printStackTrace();
 				}
 			}
@@ -257,7 +257,7 @@ public class ZipUtils {
 	@MethodInfo(Name = "压缩文件夹", paramInfo = { "源文件", "压缩流", "压缩路径" })
 	private static void compressDir(File srcDir, ZipOutputStream zos, String baseDir) {
 		if (!srcDir.exists()) {
-			logger.info("【压缩文件夹不存在】");
+			logger.info(FileLogger.DIRFILE_NOT_FOUND);
 			return;
 		}
 
@@ -266,7 +266,7 @@ public class ZipUtils {
 			try {
 				zos.putNextEntry(new ZipEntry(baseDir + srcDir.getName() + File.separator));
 			} catch (Exception e) {
-				logger.error(String.format("【压缩文件夹出现异常】：%s", e));
+				logger.error(loggerMessager(ZipLogger.ZIP_DATA_ERROR, e.getMessage()));
 				e.printStackTrace();
 			}
 		}

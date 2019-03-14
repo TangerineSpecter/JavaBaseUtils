@@ -103,7 +103,7 @@ public class DocumentInfo {
 		textInfo.add("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");
 		textInfo.add("### 版本号：");
 		textInfo.add("- 项目版本：" + Constant.VERSION + "\r\n");
-		textInfo.add("- JDK版本：1.7\r\n");
+		textInfo.add("- JDK版本：1.8\r\n");
 		textInfo.add("### 最后更新时间：");
 		textInfo.add("> " + sdf.format(cal.getTime()) + "\r\n");
 		textInfo.add("## <a id=\"Getting_Menu\"></a> 目录 \r\n");

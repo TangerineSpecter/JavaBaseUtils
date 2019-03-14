@@ -1,48 +1,19 @@
 package common.util;
 
-import java.nio.charset.CodingErrorAction;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import javax.net.ssl.SSLContext;
-
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.config.ConnectionConfig;
-import org.apache.http.config.Registry;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.conn.socket.ConnectionSocketFactory;
-import org.apache.http.conn.socket.PlainConnectionSocketFactory;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContexts;
-import org.apache.http.conn.ssl.TrustStrategy;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
-import com.alibaba.fastjson.JSON;
-
 import common.annotation.ClassInfo;
-import common.annotation.MethodInfo;
 
 /**
  * Http工具类
@@ -50,107 +21,116 @@ import common.annotation.MethodInfo;
  * @author TangerineSpecter
  *
  */
-@SuppressWarnings("deprecation")
 @ClassInfo(Name = "Http工具类")
 public class HttpUtils {
 
-	private static Logger logger = Logger.getLogger(HttpUtils.class);
-	/** 编码格式 */
-	public static final String CHARSET = "UTF-8";
+	private static Logger log = Logger.getLogger(HttpUtils.class);
 
-	private static CloseableHttpClient httpClient = null;
-	
-	/** 允许管理器限制最大连接数 ，还允许每个路由器针对某个主机限制最大连接数。 */
-	//public static PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-	public static PoolingHttpClientConnectionManager cm ;
+	private static final String DEF_CHATSET = "UTF-8";
+	private static final int DEF_CONN_TIMEOUT = 30000;
+	private static final int DEF_READ_TIMEOUT = 30000;
+	private static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+
 	/**
-	 * 最大连接数
+	 * 调用对方接口方法
+	 * 
+	 * @param strUrl
+	 *            对方或第三方提供的路径
+	 * @param params
+	 *            向对方或第三方发送的数据，大多数情况下给对方发送JSON数据让对方解析
+	 * @param method
+	 *            网络请求字符串
 	 */
-	public final static int MAX_TOTAL_CONNECTIONS = 500;
-	/**
-	 * 每个路由最大连接数 访问每个目标机器 算一个路由 默认 2个
-	 */
-	public final static int MAX_ROUTE_CONNECTIONS = 80;
-	
-	static {
-		SSLContext sslContext = null;
+	public static String interfaceInvoke(String strUrl, Map<String, Object> params, String method) {
+		HttpURLConnection conn = null;
+		BufferedReader reader = null;
+		String result = null;
 		try {
-			sslContext = SSLContexts.custom().useTLS().loadTrustMaterial(null, new TrustStrategy() {
-				public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-					// 信任所有
-					return true;
-				}
-			}).build();
-		} catch (KeyManagementException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (KeyStoreException e) {
-			e.printStackTrace();
-		}
-		//忽略hostname的比较
-		SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext,
-				new AllowAllHostnameVerifier());
-		//设置协议http和https对应的处理socket链接工厂的对象
-		Registry<ConnectionSocketFactory> registy = RegistryBuilder.<ConnectionSocketFactory> create()
-				.register("http", PlainConnectionSocketFactory.INSTANCE)  
-				.register("https", sslConnectionSocketFactory).build();
-		
-		cm = new PoolingHttpClientConnectionManager(registy);
-		cm.setDefaultMaxPerRoute(MAX_ROUTE_CONNECTIONS);// 设置最大路由数
-		cm.setMaxTotal(MAX_TOTAL_CONNECTIONS);// 最大连接数
-
-		/**
-		 * 大量的构造器设计模式，很多的配置都不建议直接new出来，而且相关的API也有所改动，例如连接参数，
-		 * 以前是直接new出HttpConnectionParams对象后通过set方法逐一设置属性， 现在有了构造器，可以通过如下方式进行构造：
-		 * SocketConfig.custom().setSoTimeout(100000).build();
-		 */
-		SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).build();
-		cm.setDefaultSocketConfig(socketConfig);
-		RequestConfig defaultRequestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.BEST_MATCH)
-				.setExpectContinueEnabled(true).setStaleConnectionCheckEnabled(true).setRedirectsEnabled(true).build();
-		// CodingErrorAction.IGNORE指示通过删除错误输入、向输出缓冲区追加 coder
-		// 的替换值和恢复编码操作来处理编码错误的操作。
-		ConnectionConfig connectionConfig = ConnectionConfig.custom().setCharset(Consts.UTF_8)
-				.setMalformedInputAction(CodingErrorAction.IGNORE).setUnmappableInputAction(CodingErrorAction.IGNORE)
-				.build();
-		httpClient = HttpClients.custom().setConnectionManager(cm).setDefaultRequestConfig(defaultRequestConfig)
-				.setDefaultConnectionConfig(connectionConfig).build();
-	}
-
-	@MethodInfo(Name = "post请求", paramInfo = { "请求地址", "请求参数", "请求头" }, returnInfo = "请求结果")
-	public static String sendPost(String url, Map<String, String> params, Map<String, String> header) throws Exception {
-		HttpPost post = new HttpPost(url);
-		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		if (header != null) {
-			Set<Entry<String, String>> entrySet = header.entrySet();
-			for (Entry<String, String> entry : entrySet) {
-				post.setHeader(entry.getKey(), entry.getValue());
+			StringBuffer sb = new StringBuffer();
+			if (method == null || method.equals("GET")) {
+				strUrl = strUrl + "?" + urlencode(params);
 			}
-		}
-		if (params != null) {
-			logger.info("请求接口参数:" + JSON.toJSONString(params));
-			List<NameValuePair> nameValuePairs = new ArrayList<>();
-			for (Entry<String, String> entry : params.entrySet()) {
-				nameValuePairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-			}
-			post.setEntity(new UrlEncodedFormEntity(nameValuePairs, CHARSET));
-		}
-
-		HttpResponse response = httpClient.execute(post);
-		HttpEntity entity = null;
-		try {
-			entity = response.getEntity();
-			if (entity != null) {
-				String result = EntityUtils.toString(entity, CHARSET);
-				logger.info("result = " + result);
+			URL url = new URL(strUrl);
+			// 打开和url之间的连接
+			conn = (HttpURLConnection) url.openConnection();
+			// 请求方式
+			if (method == null || method.toUpperCase().equals("GET")) {
+				conn.setRequestMethod("GET");
+			} else if (method == null || method.toUpperCase().equals("POST")) {
+				conn.setRequestMethod("POST");
+				conn.setDoOutput(true);
+			} else {
+				log.error(String.format("[接口请求方法错误]:{}", method));
 				return result;
 			}
+			// //设置通用的请求属性
+			conn.setRequestProperty("accept", "*/*");
+			conn.setRequestProperty("connection", "Keep-Alive");
+			conn.setRequestProperty("user-agent", userAgent);
+			conn.setConnectTimeout(DEF_CONN_TIMEOUT);
+			conn.setReadTimeout(DEF_READ_TIMEOUT);
+			conn.setInstanceFollowRedirects(false);
+			// 设置是否向httpUrlConnection输出，设置是否从httpUrlConnection读入，此外发送post请求必须设置这两个
+			// 最常用的Http请求无非是get和post，get请求可以获取静态页面，也可以把参数放在URL字串后面，传递给servlet，
+			// post与get的 不同之处在于post的参数不是放在URL字串里面，而是放在http请求的正文内。
+			conn.setDoOutput(true);
+			conn.setDoInput(true);
+			conn.connect();
+			if (params != null && method.equals("POST")) {
+				try {
+					// 获取URLConnection对象对应的输出流
+					DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+					// 发送请求参数即数据
+					out.writeBytes(urlencode(params));
+					// 缓冲数据
+					out.flush();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			// 获取URLConnection对象对应的输入流
+			InputStream is = conn.getInputStream();
+			// 构造一个字符流缓存
+			reader = new BufferedReader(new InputStreamReader(is, DEF_CHATSET));
+			String strRead = null;
+			while ((strRead = reader.readLine()) != null) {
+				sb.append(strRead);
+			}
+			result = sb.toString();
+			// 关闭流
+			is.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("[接口调用失败]:", e);
+			throw new RuntimeException();
 		} finally {
-			if (entity != null) {
-				entity.getContent().close();
+			if (conn != null) {
+				// 断开连接，最好写上，disconnect是在底层tcp socket链接空闲时才切断。如果正在被其他线程使用就不切断。
+				// 固定多线程的话，如果不disconnect，链接会增多，直到收发不出信息。写上disconnect后正常一些。
+				conn.disconnect();
+			}
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return null;
+		return result;
+	}
+
+	// 将map型转为请求参数型
+	@SuppressWarnings("rawtypes")
+	private static String urlencode(Map<String, Object> data) {
+		StringBuilder sb = new StringBuilder();
+		for (Map.Entry i : data.entrySet()) {
+			try {
+				sb.append(i.getKey()).append("=").append(URLEncoder.encode(i.getValue() + "", "UTF-8")).append("&");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		return sb.toString();
 	}
 }

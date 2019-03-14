@@ -3,6 +3,10 @@ package common.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -328,5 +332,40 @@ public class TimeUtils {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 时间差计算(年-月-日)
+	 * 
+	 * @param stime
+	 *            开始时间戳
+	 * @param etime
+	 *            结束时间戳
+	 * @return yy-MM-dd
+	 */
+	@MethodInfo(Name = "时间差计算(年-月-日)", paramInfo = { "开始时间戳", "结束时间戳" }, returnInfo = "返回时间格式：yy-MM-dd")
+	public static String timeDifForYear(Long stime, Long etime) {
+		LocalDate endDate = Instant.ofEpochMilli(etime).atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate startDate = Instant.ofEpochMilli(stime).atZone(ZoneId.systemDefault()).toLocalDate();
+		Period period = Period.between(startDate, endDate);
+		return period.getYears() + "-" + period.getMonths() + "-" + period.getDays();
+	}
+
+	/**
+	 * 时间差计算(年-月-日)
+	 * 
+	 * @param stime
+	 *            开始时间戳
+	 * @param etime
+	 *            结束时间戳
+	 * @return yy-MM-dd
+	 */
+	@MethodInfo(Name = "时间差计算(时：分：秒)", paramInfo = { "开始时间戳", "结束时间戳" }, returnInfo = "返回时间格式：hh:mm:ss")
+	public static String timeDifForDay(Long stime, Long etime) {
+		Long difTime = etime - stime;
+		DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(difTime);
+		return formatter.format(calendar.getTime());
 	}
 }

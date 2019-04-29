@@ -352,20 +352,21 @@ public class TimeUtils {
 	}
 
 	/**
-	 * 时间差计算(年-月-日)
+	 * 时间差计算(时：分：秒)
 	 * 
 	 * @param stime
 	 *            开始时间戳
 	 * @param etime
 	 *            结束时间戳
-	 * @return yy-MM-dd
+	 * @return HH:mm:ss
 	 */
-	@MethodInfo(Name = "时间差计算(时：分：秒)", paramInfo = { "开始时间戳", "结束时间戳" }, returnInfo = "返回时间格式：hh:mm:ss")
+	@MethodInfo(Name = "时间差计算(时：分：秒)", paramInfo = { "开始时间戳", "结束时间戳" }, returnInfo = "返回时间格式：HH:mm:ss")
 	public static String timeDifForDay(Long stime, Long etime) {
 		Long difTime = etime - stime;
-		DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(difTime);
+		calendar.add(Calendar.HOUR_OF_DAY, -8);
 		return formatter.format(calendar.getTime());
 	}
 }

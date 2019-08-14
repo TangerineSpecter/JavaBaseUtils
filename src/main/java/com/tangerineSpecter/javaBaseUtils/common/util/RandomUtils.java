@@ -1,12 +1,12 @@
 package com.tangerineSpecter.javaBaseUtils.common.util;
 
+import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-
-import common.annotation.ClassInfo;
-import common.annotation.MethodInfo;
 
 /**
  * 随机工具类

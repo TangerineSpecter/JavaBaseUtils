@@ -1,6 +1,6 @@
 package com.tangerineSpecter.javaBaseUtils.common.util;
 
-import common.annotation.ClassInfo;
+import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 
 /**
  * 参数常量类

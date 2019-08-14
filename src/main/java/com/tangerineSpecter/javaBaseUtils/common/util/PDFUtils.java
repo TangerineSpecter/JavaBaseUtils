@@ -14,12 +14,14 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
+import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
 import common.annotation.ClassInfo;
 import common.annotation.MethodInfo;
 
 /**
  * PDF工具类
- * 
+ *
  * @author PDF工具类
  * @doc http://itextpdf.com/
  */

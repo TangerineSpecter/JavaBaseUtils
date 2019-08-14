@@ -2,13 +2,13 @@
 
 ## 简介
 	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...
-<img src="com/tangerineSpecter/javaBaseUtils/common/img/show_logo.gif">
+<img src="/src/main/java/com/tangerineSpecter/javaBaseUtils/common/img/show_logo.gif">
 
 ### Java基本工具包：
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
 
 ### 版本号：
-- 项目版本：2.0.0
+- 项目版本：2.0.1
 
 - JDK版本：1.8
 

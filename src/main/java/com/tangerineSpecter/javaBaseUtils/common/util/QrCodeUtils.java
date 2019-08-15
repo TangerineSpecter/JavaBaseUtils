@@ -1,4 +1,4 @@
-package com.tangerineSpecter.javaBaseUtils.common.util;
+package com.tangerinespecter.javabaseutils.common.util;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;

@@ -1,4 +1,4 @@
-package com.tangerineSpecter.javaBaseUtils.common.util.cache;
+package com.tangerinespecter.javabaseutils.common.util.cache;
 
 import com.tangerineSpecter.javaBaseUtils.common.util.Constant;
 import lombok.extern.slf4j.Slf4j;

@@ -1,10 +1,9 @@
-package com.tangerineSpecter.javaBaseUtils.common.util;
+package com.tangerinespecter.javabaseutils.common.util;
 
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class FileUtil extends BaseUtils {
             String url = path + "//" + fileName;
             FileUtils.writeByteArrayToFile(new File(url), data);
         } catch (Exception e) {
-            log.error(logMessager(Filelog.FILE_WRITE_ERROR, e.getMessage()));
+            log.error(FileLogger.FILE_WRITE_ERROR, e.getMessage());
         }
     }
 
@@ -203,7 +202,7 @@ public class FileUtil extends BaseUtils {
         File file = new File(path);
         if (file.isFile() && file.exists()) {
             file.delete();
-            log.info(logMessager(Filelog.FILE_DELETE_SUCCESS, file.getName()));
+            log.info(FileLogger.FILE_DELETE_SUCCESS, file.getName());
         }
     }
 
@@ -218,7 +217,7 @@ public class FileUtil extends BaseUtils {
         File file = new File(path + "/" + fileName);
         if (file.exists() && file.isFile()) {
             file.delete();
-            log.info(logMessager(Filelog.FILE_DELETE_SUCCESS, file.getName()));
+            log.info(FileLogger.FILE_DELETE_SUCCESS, file.getName());
         }
     }
 
@@ -237,7 +236,7 @@ public class FileUtil extends BaseUtils {
             for (File file : files) {
                 if (file.isFile() && !StringUtils.isEmpty(suffix) && (file.getName().indexOf(suffix) != -1)) {
                     file.delete();
-                    log.info(logMessager(Filelog.FILE_DELETE_SUCCESS, file.getName()));
+                    log.info(FileLogger.FILE_DELETE_SUCCESS, file.getName());
                 }
             }
         }
@@ -258,14 +257,14 @@ public class FileUtil extends BaseUtils {
             for (File file : files) {
                 if (file.isDirectory()) {
                     deleteDirFile(path + file.getName(), flag);
-                    log.info(logMessager(Filelog.DIRFILE_DELETE_SUCCESS, file.getName()));
+                    log.info(FileLogger.DIRFILE_DELETE_SUCCESS, file.getName());
                 } else if (flag) {
                     file.delete();
                     count++;
-                    log.info(logMessager(Filelog.FILE_DELETE_SUCCESS, file.getName()));
+                    log.info(FileLogger.FILE_DELETE_SUCCESS, file.getName());
                 }
             }
-            log.info(logMessager(Filelog.FILE_DELETE_TOTAL_COUNT, count));
+            log.info(FileLogger.FILE_DELETE_TOTAL_COUNT, count);
         }
     }
 
@@ -282,7 +281,7 @@ public class FileUtil extends BaseUtils {
             File oldFile = new File(path + "/" + oldName);
             File newFile = new File(path + "/" + newName);
             if (newFile.exists()) {
-                log.info(logMessager(Filelog.FILE_SAME_NAME_EXIST, newFile.getName()));
+                log.info(FileLogger.FILE_SAME_NAME_EXIST, newFile.getName());
             } else {
                 oldFile.renameTo(newFile);
             }
@@ -311,13 +310,13 @@ public class FileUtil extends BaseUtils {
                 // 是否覆盖
                 if (isCover) {
                     oldFile.renameTo(newFile);
-                    log.info(logMessager(Filelog.FILE_MOVE_SUCCESS, newPath + "/" + fileName));
+                    log.info(FileLogger.FILE_MOVE_SUCCESS, newPath + "/" + fileName);
                 } else {
-                    log.info(logMessager(Filelog.FILE_SAME_NAME_EXIST, newFile.getName()));
+                    log.info(FileLogger.FILE_SAME_NAME_EXIST, newFile.getName());
                 }
             } else {
                 oldFile.renameTo(newFile);
-                log.info(logMessager(Filelog.FILE_MOVE_SUCCESS, newPath + "/" + fileName));
+                log.info(FileLogger.FILE_MOVE_SUCCESS, newPath + "/" + fileName);
             }
         }
     }
@@ -325,10 +324,10 @@ public class FileUtil extends BaseUtils {
     /**
      * 转移文件目录（包含名字）
      *
-     * @param fileName 文件名
-     * @param oldPath  旧路径
-     * @param newPath  新路径
-     * @param isCover  是否覆盖
+     * @param fuzzyFileName 文件名
+     * @param oldPath       旧路径
+     * @param newPath       新路径
+     * @param isCover       是否覆盖
      */
     @MethodInfo(Name = "转移文件目录（包含名字）", paramInfo = {"文件名", "旧路径", "新路径", "是否覆盖"})
     public static void moveFuzzyFileDir(String fuzzyFileName, String oldPath, String newPath, boolean isCover) {
@@ -346,7 +345,7 @@ public class FileUtil extends BaseUtils {
                     count++;
                 }
             }
-            log.info(logMessager(Filelog.FILE_MOVE_TOTAL_COUNT, count));
+            log.info(FileLogger.FILE_MOVE_TOTAL_COUNT, count));
         }
     }
 
@@ -360,7 +359,7 @@ public class FileUtil extends BaseUtils {
         File dirFile = new File(path);
         if (!dirFile.exists()) {
             dirFile.mkdir();
-            log.info(logMessager(Filelog.FILE_CREATE_SUCCESS, path + "/" + dirFile.getName()));
+            log.info(FileLogger.FILE_CREATE_SUCCESS, path + "/" + dirFile.getName());
         }
     }
 
@@ -375,7 +374,7 @@ public class FileUtil extends BaseUtils {
     public static String loadingFile(String path) throws IOException {
         File file = new File(path);
         if (!file.exists() || file.isDirectory()) {
-            log.warn(Filelog.FILE_NOT_FOUND);
+            log.warn(FileLogger.FILE_NOT_FOUND);
             throw new FileNotFoundException();
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -429,13 +428,13 @@ public class FileUtil extends BaseUtils {
             // 如果文件不存在
             if (!file.exists()) {
                 file.createNewFile();
-                log.info(logMessager(Filelog.FILE_CREATE_SUCCESS, filePath));
+                log.info(FileLogger.FILE_CREATE_SUCCESS, filePath);
                 writeFileContent(file, text);
             } else {
-                log.info(logMessager(Filelog.FILE_SAME_NAME_EXIST, filePath));
+                log.info(FileLogger.FILE_SAME_NAME_EXIST, filePath);
             }
         } catch (Exception e) {
-            log.info(logMessager(Filelog.FILE_CREATE_FAIL, e.getMessage()));
+            log.info(FileLogger.FILE_CREATE_FAIL, e.getMessage());
         }
     }
 
@@ -457,13 +456,13 @@ public class FileUtil extends BaseUtils {
             // 如果文件不存在
             if (!file.exists()) {
                 file.createNewFile();
-                log.info(logMessager(Filelog.FILE_CREATE_SUCCESS, filePath));
+                log.info(FileLogger.FILE_CREATE_SUCCESS, filePath);
                 writeFileContent(file, text);
             } else {
-                log.info(logMessager(Filelog.FILE_SAME_NAME_EXIST, filePath));
+                log.info(FileLogger.FILE_SAME_NAME_EXIST, filePath);
             }
         } catch (Exception e) {
-            log.info(logMessager(Filelog.FILE_CREATE_FAIL, e.getMessage()));
+            log.info(FileLogger.FILE_CREATE_FAIL, e.getMessage());
         }
     }
 
@@ -502,7 +501,7 @@ public class FileUtil extends BaseUtils {
             pw.write(buffer.toString().toCharArray());
             pw.flush();
         } catch (Exception e) {
-            log.error(logMessager(Filelog.FILE_WRITE_ERROR, e.getMessage()));
+            log.error(FileLogger.FILE_WRITE_ERROR, e.getMessage());
         } finally {
             // 不要忘记关闭
             if (pw != null) {

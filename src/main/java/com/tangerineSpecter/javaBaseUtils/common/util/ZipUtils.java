@@ -1,24 +1,14 @@
-package com.tangerineSpecter.javaBaseUtils.common.util;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+package com.tangerinespecter.javabaseutils.common.util;
 
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.log;
 
-import common.annotation.ClassInfo;
-import common.annotation.MethodInfo;
+import java.io.*;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 压缩和解压工具类
@@ -50,21 +40,21 @@ public class ZipUtils extends BaseUtils {
             gzip.finish();
             b = bos.toByteArray();
         } catch (Exception e) {
-            log.error(logMessager(Ziplog.ZIP_DATA_ERROR, e.getMessage()));
+            log.error(ZipLogger.ZIP_DATA_ERROR, e.getMessage());
             e.printStackTrace();
         } finally {
             if (bos != null) {
                 try {
                     bos.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
             if (gzip != null) {
                 try {
                     gzip.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
         }
@@ -95,27 +85,27 @@ public class ZipUtils extends BaseUtils {
             b = baos.toByteArray();
             baos.flush();
         } catch (Exception e) {
-            log.error(logMessager(Ziplog.UNZIP_DATA_ERROR, e.getMessage()));
+            log.error(ZipLogger.UNZIP_DATA_ERROR, e.getMessage());
         } finally {
             if (bis != null) {
                 try {
                     bis.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
             if (gzip != null) {
                 try {
                     gzip.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
             if (baos != null) {
                 try {
                     baos.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
         }
@@ -134,7 +124,7 @@ public class ZipUtils extends BaseUtils {
         FileOutputStream fos = null;
         ZipOutputStream zos = null;
         if (!srcFile.exists()) {
-            log.info(Filelog.FILE_NOT_FOUND);
+            log.info(FileLogger.FILE_NOT_FOUND);
         }
         String destFilePath = Constant.ZIP_SAVE_PATH + destFileName;
         File destDir = new File(Constant.ZIP_SAVE_PATH);
@@ -154,14 +144,14 @@ public class ZipUtils extends BaseUtils {
                 try {
                     fos.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
             if (zos != null) {
                 try {
                     zos.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                 }
             }
         }
@@ -177,17 +167,17 @@ public class ZipUtils extends BaseUtils {
     @MethodInfo(Name = "对路径下文件根据类型进行压缩", paramInfo = {"源文件", "压缩流", "压缩路径"})
     private static void compressBy(File srcFile, ZipOutputStream zos, String baseDir) {
         if (!srcFile.exists()) {
-            log.info(Filelog.FILE_NOT_FOUND);
+            log.info(FileLogger.FILE_NOT_FOUND);
             return;
         }
-        log.info(logMessager(Ziplog.SOURCE_FILE_PATH, baseDir + srcFile.getName()));
+        log.info(ZipLogger.SOURCE_FILE_PATH, baseDir + srcFile.getName());
         // 判断压缩是文件还是文件夹
         if (srcFile.isFile()) {
             compressFile(srcFile, zos, baseDir);
         } else if (srcFile.isDirectory()) {
             compressDir(srcFile, zos, baseDir);
         } else {
-            log.info(Filelog.FILE_TYPE_UNKNOWN);
+            log.info(FileLogger.FILE_TYPE_UNKNOWN);
         }
     }
 
@@ -202,7 +192,7 @@ public class ZipUtils extends BaseUtils {
     private static void compressFile(File srcFile, ZipOutputStream zos, String baseDir) {
         BufferedInputStream bis = null;
         if (!srcFile.exists()) {
-            log.info(Filelog.FILE_NOT_FOUND);
+            log.info(FileLogger.FILE_NOT_FOUND);
             return;
         }
         try {
@@ -215,14 +205,14 @@ public class ZipUtils extends BaseUtils {
                 zos.write(b, 0, len);
             }
         } catch (Exception e) {
-            log.error(logMessager(Ziplog.ZIP_DATA_ERROR, e.getMessage()));
+            log.error(ZipLogger.ZIP_DATA_ERROR, e.getMessage());
             e.printStackTrace();
         } finally {
             if (zos != null) {
                 try {
                     zos.closeEntry();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -230,7 +220,7 @@ public class ZipUtils extends BaseUtils {
                 try {
                     bis.close();
                 } catch (IOException e) {
-                    log.warn(logMessager(Ziplog.STREAM_COLSE_ERROR, e.getMessage()));
+                    log.warn(ZipLogger.STREAM_CLOSE_ERROR, e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -240,14 +230,14 @@ public class ZipUtils extends BaseUtils {
     /**
      * 压缩文件夹
      *
-     * @param srcFile 源文件
+     * @param srcDir  源文件
      * @param zos     压缩流
      * @param baseDir 压缩路径
      */
     @MethodInfo(Name = "压缩文件夹", paramInfo = {"源文件", "压缩流", "压缩路径"})
     private static void compressDir(File srcDir, ZipOutputStream zos, String baseDir) {
         if (!srcDir.exists()) {
-            log.info(Filelog.DIRFILE_NOT_FOUND);
+            log.info(FileLogger.DIRFILE_NOT_FOUND);
             return;
         }
 
@@ -256,7 +246,7 @@ public class ZipUtils extends BaseUtils {
             try {
                 zos.putNextEntry(new ZipEntry(baseDir + srcDir.getName() + File.separator));
             } catch (Exception e) {
-                log.error(logMessager(Ziplog.ZIP_DATA_ERROR, e.getMessage()));
+                log.error(ZipLogger.ZIP_DATA_ERROR, e.getMessage());
                 e.printStackTrace();
             }
         }

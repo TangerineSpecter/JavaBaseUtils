@@ -1,4 +1,4 @@
-package com.tangerineSpecter.javaBaseUtils.common.util;
+package com.tangerinespecter.javabaseutils.common.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +16,6 @@ import com.itextpdf.layout.element.Paragraph;
 
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
-import common.annotation.ClassInfo;
-import common.annotation.MethodInfo;
 
 /**
  * PDF工具类

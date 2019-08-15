@@ -1,4 +1,4 @@
-package com.tangerineSpecter.javaBaseUtils.common.util.cache;
+package com.tangerinespecter.javabaseutils.common.util.cache;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.SerializationUtils;

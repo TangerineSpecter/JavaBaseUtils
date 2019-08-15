@@ -1,4 +1,4 @@
-package com.tangerineSpecter.javaBaseUtils.common.util;
+package com.tangerinespecter.javabaseutils.common.util;
 
 /**
  * 文件类型枚举类

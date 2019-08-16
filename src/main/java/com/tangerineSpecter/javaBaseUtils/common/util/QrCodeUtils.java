@@ -1,11 +1,11 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.itextpdf.text.pdf.qrcode.BitMatrix;
-import com.itextpdf.text.pdf.qrcode.EncodeHintType;
-import com.itextpdf.text.pdf.qrcode.ErrorCorrectionLevel;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;

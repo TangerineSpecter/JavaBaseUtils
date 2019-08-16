@@ -4,6 +4,7 @@ import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -345,7 +346,7 @@ public class FileUtil extends BaseUtils {
                     count++;
                 }
             }
-            log.info(FileLogger.FILE_MOVE_TOTAL_COUNT, count));
+            log.info(FileLogger.FILE_MOVE_TOTAL_COUNT, count);
         }
     }
 

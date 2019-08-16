@@ -2,7 +2,7 @@
 
 ## 简介
 	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...
-<img src="/src/main/java/com/tangerinespecter/javabaseutils/common/img/show_logo.gif">
+<img src="/src/main/java/com/tangerineSpecter/javaBaseUtils/common/img/show_logo.gif">
 
 ### Java基本工具包：
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
@@ -84,13 +84,6 @@ tokenizeKeyWordList | 切分分词 | String(关键词),boolean(智能切分) | L
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 decode | 把压缩过的base64串解码解压写入磁盘中 | String(压缩过的base64串),String(文件名),String(路径地址) | void(无)
-getAllFileName | 获取路径下的所有文件名 | String(需要遍历的文件夹路径),boolean(是否切割后缀) | List(文件名集合)
-deleteFile | 删除文件 | String(文件路径),String(文件名) | void(无)
-deleteFile | 删除文件 | String(文件路径) | void(无)
-createFile | 创建文件 | String(生成路径),List(文本内容),FileTypeEnum(文件类型) | void(无)
-createFile | 创建文件 | String(生成路径),String(文件名),List(文本内容),FileTypeEnum(文件类型) | void(无)
-createFile | 创建文件 | List(文本内容),FileTypeEnum(文件类型) | void(无)
-getAllFilePath | 获取路径下的所有文件/文件夹 | String(需要遍历的文件夹路径),boolean(是否将子文件夹的路径也添加到list集合中) | List(文件路径集合)
 base64 | 读取文件并压缩数据然后转Base64编码 | String(文件的绝对路径地址) | String(转码结果)
 base64 | 将二进制压缩数据转成Base64编码 | byte\[](二进制压缩数据) | String(base64编码)
 writeFile | 二进制文件写入文件 | byte\[](二进制数据),String(文件名),String(路径地址) | void(无)
@@ -100,6 +93,13 @@ moveFileDir | 转移文件目录 | String(文件名),String(旧路径),String(�
 moveFuzzyFileDir | 转移文件目录（包含名字） | String(文件名),String(旧路径),String(新路径),boolean(是否覆盖) | void(无)
 createDir | 创建文件夹 | String(文件夹路径) | void(无)
 loadingFile | 读取文件内容 | String(文件路径) | String(文件内容)
+getAllFileName | 获取路径下的所有文件名 | String(需要遍历的文件夹路径),boolean(是否切割后缀) | List(文件名集合)
+deleteFile | 删除文件 | String(文件路径) | void(无)
+deleteFile | 删除文件 | String(文件路径),String(文件名) | void(无)
+createFile | 创建文件 | String(生成路径),String(文件名),List(文本内容),FileTypeEnum(文件类型) | void(无)
+createFile | 创建文件 | String(生成路径),List(文本内容),FileTypeEnum(文件类型) | void(无)
+createFile | 创建文件 | List(文本内容),FileTypeEnum(文件类型) | void(无)
+getAllFilePath | 获取路径下的所有文件/文件夹 | String(需要遍历的文件夹路径),boolean(是否将子文件夹的路径也添加到list集合中) | List(文件路径集合)
 ---
 ## <a id= "Geting_DirUtils"></a>路径处理工具类 -> [DirUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/DirUtils.java)
 方法名     | 说明     | 参数     | 返回结果
@@ -111,7 +111,7 @@ getVideoDir | 获取系统视频的存放路径 | String(UUID) | String(视频�
 ## <a id= "Geting_TimeUtils"></a>时间处理工具类 -> [TimeUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/TimeUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-getWeekdays | 获取某天的星期 | String(时间字符串) | String(星期)
+getSimpleFormat | 获取指定格式当前时间 | String(时间格式) | String(时间字符串)
 timeFormat | 将时间转换成指定格式 | Date(时间),String(时间格式) | String(转换结果)
 timeFormat | 将时间转换成指定格式 | Date(时间) | String(转换结果)
 getCurrentTimes | 获取当前时间戳 | 无 | Long(时间戳)
@@ -129,8 +129,8 @@ judgeLeapYear | 判断某一年是否闰年 | int(年份) | Boolean(判断结果
 timeDifForYear | 时间差计算(年-月-日) | Long(开始时间戳),Long(结束时间戳) | String(返回时间格式：yy-MM-dd)
 timeDifForDay | 时间差计算(时：分：秒) | Long(开始时间戳),Long(结束时间戳) | String(返回时间格式：HH:mm:ss)
 timeFormatToDay | 将时间格式精确到天 | Date(时间) | String(转换结果)
-getSimpleFormat | 获取指定格式当前时间 | String(时间格式) | String(时间字符串)
 getDate | 将指定的日期字符串转化为日期对象 | String(日期字符串),String(日期格式) | Date(转换结果)
+getWeekdays | 获取某天的星期 | String(时间字符串) | String(星期)
 ---
 ## <a id= "Geting_ImageUtils"></a>图片处理工具类 -> [ImageUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ImageUtils.java)
 方法名     | 说明     | 参数     | 返回结果

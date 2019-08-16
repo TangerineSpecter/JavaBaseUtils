@@ -1,7 +1,7 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 
 import java.io.File;
 import java.util.Calendar;

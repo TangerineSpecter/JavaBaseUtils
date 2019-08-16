@@ -7,7 +7,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;

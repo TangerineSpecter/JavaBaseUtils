@@ -10,7 +10,7 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

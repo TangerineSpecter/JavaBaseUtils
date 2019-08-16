@@ -1,7 +1,7 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;

@@ -1,14 +1,10 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.wltea.analyzer.lucene.IKTokenizer;
+
+import java.util.List;
 
 
 /**

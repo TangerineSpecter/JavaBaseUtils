@@ -94,7 +94,7 @@ public class DocumentInfo {
         textInfo.add("# JavaBaseUtils\r\n");
         textInfo.add("## 简介");
         textInfo.add("	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...");
-        textInfo.add("<img src=\"com/tangerinespecter/javabaseutils/common/img/show_logo.gif\">\r\n");
+        textInfo.add("<img src=\"/src/main/java/com/tangerinespecter/javabaseutils/common/img/show_logo.gif\">\r\n");
         textInfo.add("### Java基本工具包：");
         textInfo.add("- 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils\r\n");
         textInfo.add("### 版本号：");

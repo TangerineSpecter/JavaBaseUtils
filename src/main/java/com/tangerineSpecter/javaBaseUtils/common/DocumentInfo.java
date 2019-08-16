@@ -1,10 +1,10 @@
-package com.tangerineSpecter.javaBaseUtils.common;
+package com.tangerinespecter.javabaseutils.common;
 
 import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
 import com.tangerineSpecter.javaBaseUtils.common.annotation.MethodInfo;
-import com.tangerineSpecter.javaBaseUtils.common.util.Constant;
-import com.tangerineSpecter.javaBaseUtils.common.util.FileTypeEnum;
-import com.tangerineSpecter.javaBaseUtils.common.util.FileUtil;
+import com.tangerinespecter.javabaseutils.common.util.Constant;
+import com.tangerinespecter.javabaseutils.common.util.FileTypeEnum;
+import com.tangerinespecter.javabaseutils.common.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;

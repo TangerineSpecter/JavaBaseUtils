@@ -1,10 +1,10 @@
-package com.tangerineSpecter.javaBaseUtils.common.test;
+package com.tangerinespecter.javabaseutils.common.test;
 
-import com.tangerineSpecter.javaBaseUtils.common.DocumentInfo;
+import com.tangerinespecter.javabaseutils.common.DocumentInfo;
 
 public class UtilTest {
 
-	public static void main(String[] args) throws Exception {
-		DocumentInfo.createDocInfo();
-	}
+    public static void main(String[] args) throws Exception {
+        DocumentInfo.createDocInfo();
+    }
 }

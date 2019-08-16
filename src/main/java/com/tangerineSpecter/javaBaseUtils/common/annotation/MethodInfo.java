@@ -1,24 +1,26 @@
-package com.tangerineSpecter.javaBaseUtils.common.annotation;
+package com.tangerinespecter.javabaseutils.common.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.tangerinespecter.javabaseutils.common.util.Constant;
 
-import common.util.Constant;
+import java.lang.annotation.*;
 
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MethodInfo {
 
-	/** 方法名 */
-	public String Name() default Constant.Chinese.NOTHING;
+    /**
+     * 方法名
+     */
+    String Name() default Constant.Chinese.NOTHING;
 
-	/** 参数信息 */
-	public String[] paramInfo() default Constant.Chinese.NOTHING;
+    /**
+     * 参数信息
+     */
+    String[] paramInfo() default Constant.Chinese.NOTHING;
 
-	/** 返回信息 */
-	public String returnInfo() default Constant.Chinese.NOTHING;
+    /**
+     * 返回信息
+     */
+    String returnInfo() default Constant.Chinese.NOTHING;
 }

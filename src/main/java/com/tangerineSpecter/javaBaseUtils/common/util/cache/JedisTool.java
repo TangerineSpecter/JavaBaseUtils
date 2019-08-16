@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util.cache;
 
-import com.tangerineSpecter.javaBaseUtils.common.util.Constant;
+import com.tangerinespecter.javabaseutils.common.util.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.SerializationUtils;
 import redis.clients.jedis.Jedis;

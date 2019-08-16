@@ -18,23 +18,25 @@ import java.io.Serializable;
 @Slf4j
 public class JedisTool {
 
-    // redis连接池
+    /**
+     * redis连接池
+     */
     private static JedisPool pool = null;
 
     public static JedisPool getPool() {
         if (pool == null) {
             JedisPoolConfig config = new JedisPoolConfig();
-            config.setMaxTotal(Constant.Redis.REIDS_MAX_ACTIVE);
-            config.setMaxIdle(Constant.Redis.REIDS_MAX_IDLE);
-            config.setMinIdle(Constant.Redis.REIDS_MIN_IDLE);
-            config.setMaxWaitMillis(Constant.Redis.REIDS_MAX_WAITTIME);
+            config.setMaxTotal(Constant.Redis.REDIS_MAX_ACTIVE);
+            config.setMaxIdle(Constant.Redis.REDIS_MAX_IDLE);
+            config.setMinIdle(Constant.Redis.REDIS_MIN_IDLE);
+            config.setMaxWaitMillis(Constant.Redis.REDIS_MAX_WAIT_TIME);
             config.setTestOnBorrow(false);
             config.setTestOnReturn(false);
             config.setTestWhileIdle(true);
             config.setTimeBetweenEvictionRunsMillis(1000);
             config.setMinEvictableIdleTimeMillis(1000);
             log.info("Redis host：" + Constant.Redis.REDIS_IP);
-            pool = new JedisPool(config, Constant.Redis.REDIS_IP, 6379, 3000, Constant.Redis.REDIS_PASSWD);
+            pool = new JedisPool(config, Constant.Redis.REDIS_IP, 6379, 3000, Constant.Redis.REDIS_PASSWORD);
         }
         return pool;
     }

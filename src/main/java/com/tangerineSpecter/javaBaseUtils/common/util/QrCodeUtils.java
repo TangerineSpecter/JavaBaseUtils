@@ -6,7 +6,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +37,7 @@ public class QrCodeUtils {
      * @return
      */
     @MethodInfo(Name = "生成不带logo的二维码", paramInfo = {"数据", "编码类型", "二维码属性", "宽度", "高度"}, returnInfo = "二维码图片")
-    public static BufferedImage createQRCode(String data, String charset, Map<EncodeHintType, ?> hint, int width,
+    public static BufferedImage createQrCode(String data, String charset, Map<EncodeHintType, ?> hint, int width,
                                              int height) {
         BitMatrix matrix;
         try {
@@ -59,13 +59,13 @@ public class QrCodeUtils {
      * @return
      */
     @MethodInfo(Name = "生成不带logo的默认参数二维码", paramInfo = {"数据", "宽度", "高度"}, returnInfo = "二维码图片")
-    public static BufferedImage createQRCode(String data, int width, int height) {
+    public static BufferedImage createQrCode(String data, int width, int height) {
         String charset = "utf-8";
-        Map<EncodeHintType, Object> hint = new HashMap<EncodeHintType, Object>();
+        Map<EncodeHintType, Object> hint = new HashMap<EncodeHintType, Object>(16);
         hint.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         hint.put(EncodeHintType.CHARACTER_SET, charset);
         hint.put(EncodeHintType.MARGIN, 0);
-        return createQRCode(data, charset, hint, width, height);
+        return createQrCode(data, charset, hint, width, height);
     }
 
     /**
@@ -80,10 +80,10 @@ public class QrCodeUtils {
      */
     @MethodInfo(Name = "生成带logo的二维码", paramInfo = {"数据", "编码类型", "二维码属性", "宽度", "高度",
             "logo文件路径"}, returnInfo = "二维码图片")
-    public static BufferedImage createQRCodeWithLogo(String data, String charset, Map<EncodeHintType, ?> hint,
+    public static BufferedImage createQrCodeWithLogo(String data, String charset, Map<EncodeHintType, ?> hint,
                                                      int width, int height, File logoFile) {
         try {
-            BufferedImage qrcode = createQRCode(data, charset, hint, width, height);
+            BufferedImage qrcode = createQrCode(data, charset, hint, width, height);
             BufferedImage logo = ImageIO.read(logoFile);
             int deltaHeight = height - logo.getHeight();
             int deltaWidth = width - logo.getWidth();
@@ -109,12 +109,12 @@ public class QrCodeUtils {
      * @return
      */
     @MethodInfo(Name = "生成带logo的默认参数二维码", paramInfo = {"数据", "宽度", "高度", "logo文件路径"}, returnInfo = "二维码图片")
-    public static BufferedImage createQRCodeWithLogo(String data, int width, int height, File logo) {
+    public static BufferedImage createQrCodeWithLogo(String data, int width, int height, File logo) {
         String charset = "utf-8";
-        Map<EncodeHintType, Object> hint = new HashMap<EncodeHintType, Object>();
+        Map<EncodeHintType, Object> hint = new HashMap<EncodeHintType, Object>(16);
         hint.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         hint.put(EncodeHintType.CHARACTER_SET, charset);
         hint.put(EncodeHintType.MARGIN, 0);
-        return createQRCodeWithLogo(data, charset, hint, width, height, logo);
+        return createQrCodeWithLogo(data, charset, hint, width, height, logo);
     }
 }

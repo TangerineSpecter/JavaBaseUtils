@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -81,7 +81,7 @@ public class DecipheringBaseUtils {
      * @return
      */
     private static Map<String, Object> getMorseCode() {
-        Map<String, Object> morseMap = new HashMap<>();
+        Map<String, Object> morseMap = new HashMap<>(16);
         if (MORSE_KEY.length == MORSE_VALUE.length) {
             for (int index = 0; index < MORSE_KEY.length; index++) {
                 morseMap.put(MORSE_KEY[index], MORSE_VALUE[index]);
@@ -98,7 +98,7 @@ public class DecipheringBaseUtils {
      * @return
      */
     private static Map<String, Object> getKeyboardCode() {
-        Map<String, Object> keyboardMap = new HashMap<>();
+        Map<String, Object> keyboardMap = new HashMap<>(16);
         if (ALPHABET.length == KEYBOARD_VALUE.length) {
             for (int index = 0; index < ALPHABET.length; index++) {
                 keyboardMap.put(ALPHABET[index], KEYBOARD_VALUE[index]);
@@ -115,7 +115,7 @@ public class DecipheringBaseUtils {
      * @return
      */
     private static Map<String, Object> getBaconCode() {
-        Map<String, Object> baconMap = new HashMap<>();
+        Map<String, Object> baconMap = new HashMap<>(16);
         if (ALPHABET.length == BACON_VALUE.length) {
             for (int index = 0; index < ALPHABET.length; index++) {
                 baconMap.put(ALPHABET[index], BACON_VALUE[index]);

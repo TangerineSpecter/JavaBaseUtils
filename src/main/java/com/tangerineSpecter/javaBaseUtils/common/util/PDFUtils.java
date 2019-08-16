@@ -9,7 +9,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 
 import java.io.File;
@@ -23,7 +23,7 @@ import java.util.List;
  * @doc http://itextpdf.com/
  */
 @ClassInfo(Name = "PDF工具类")
-public class PDFUtils {
+public class PdfUtils {
 
     @MethodInfo(Name = "创建PDF", paramInfo = {"无"})
     public static void createPdf() {
@@ -42,6 +42,7 @@ public class PDFUtils {
         }
     }
 
+    @Deprecated
     @MethodInfo(Name = "创建PDF", paramInfo = {"生成路径", "文本内容"})
     public static void createPdf(String path, List<String> text) {
         try {

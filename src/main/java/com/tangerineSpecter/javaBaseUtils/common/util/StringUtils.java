@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -45,13 +45,11 @@ public class StringUtils {
 
     /**
      * 判断字符串是否为空
-     *
-     * @return
      */
     @MethodInfo(Name = "判断字符串是否为空", paramInfo = {"字符串内容"}, returnInfo = "判断结果")
     public static boolean isEmpty(String str) {
         boolean flag = true;
-        if (str != null && !str.trim().equals("")) {
+        if (str != null && !Constant.NULL_KEY_STR.equals(str.trim())) {
             flag = false;
         }
         return flag;
@@ -91,7 +89,7 @@ public class StringUtils {
      * @return
      */
     @MethodInfo(Name = "获取本机IP地址", returnInfo = "IP地址")
-    public static String getLocalhostIP() {
+    public static String getLocalHostIP() {
         String ip = Constant.NULL_KEY_STR;
         InetAddress address;
         try {
@@ -119,7 +117,7 @@ public class StringUtils {
     @MethodInfo(Name = "判断是否为数字", returnInfo = "判断结果")
     public static boolean isNumber(String str) {
         boolean flag = false;
-        if (str != null && !str.trim().equals("") && str.length() <= 18) {
+        if (str != null && !Constant.NULL_KEY_STR.equals(str.trim())) {
             String regex = "\\d*";
             flag = str.matches(regex);
         }
@@ -129,7 +127,7 @@ public class StringUtils {
     /**
      * 判断所有字符串都是数字，如果都是返回true, 否则返回false
      *
-     * @param strs
+     * @param strs 字符串集合
      * @return
      */
     @MethodInfo(Name = "判断所有字符串是否都为数字", paramInfo = {"字符串集"}, returnInfo = "判断结果")

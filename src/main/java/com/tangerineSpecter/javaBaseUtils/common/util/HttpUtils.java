@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -23,6 +23,10 @@ public class HttpUtils {
     private static final int DEF_READ_TIMEOUT = 30000;
     private static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
+    private static String GET_METHOD = "GET";
+
+    private static String POST_METHOD = "POST";
+
     /**
      * 调用对方接口方法
      *
@@ -36,16 +40,16 @@ public class HttpUtils {
         String result = null;
         try {
             StringBuffer sb = new StringBuffer();
-            if (method == null || method.equals("GET")) {
-                strUrl = strUrl + "?" + urlencode(params);
+            if (method == null || GET_METHOD.equals(method)) {
+                strUrl = strUrl + "?" + urlEncode(params);
             }
             URL url = new URL(strUrl);
             // 打开和url之间的连接
             conn = (HttpURLConnection) url.openConnection();
             // 请求方式
-            if (method == null || method.toUpperCase().equals("GET")) {
+            if (method == null || GET_METHOD.equals(method.toUpperCase())) {
                 conn.setRequestMethod("GET");
-            } else if (method == null || method.toUpperCase().equals("POST")) {
+            } else if (method == null || POST_METHOD.toUpperCase().equals(method)) {
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
             } else {
@@ -65,12 +69,12 @@ public class HttpUtils {
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.connect();
-            if (params != null && method.equals("POST")) {
+            if (params != null && POST_METHOD.equals(method)) {
                 try {
                     // 获取URLConnection对象对应的输出流
                     DataOutputStream out = new DataOutputStream(conn.getOutputStream());
                     // 发送请求参数即数据
-                    out.writeBytes(urlencode(params));
+                    out.writeBytes(urlEncode(params));
                     // 缓冲数据
                     out.flush();
                 } catch (Exception e) {
@@ -109,9 +113,12 @@ public class HttpUtils {
         return result;
     }
 
-    // 将map型转为请求参数型
-    @SuppressWarnings("rawtypes")
-    private static String urlencode(Map<String, Object> data) {
+    /**
+     * 将map型转为请求参数型
+     *
+     * @param data 请求数据
+     */
+    private static String urlEncode(Map<String, Object> data) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry i : data.entrySet()) {
             try {

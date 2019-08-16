@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import com.tangerinespecter.javabaseutils.common.util.Constant;
 import com.tangerinespecter.javabaseutils.common.util.FileTypeEnum;

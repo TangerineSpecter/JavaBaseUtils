@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 
 import java.text.SimpleDateFormat;
@@ -136,7 +136,7 @@ public class RandomUtils {
      * @return 省份
      */
     @MethodInfo(Name = "随机生成省份", returnInfo = "省份")
-    public static String getPROVINCE() {
+    public static String getProvince() {
         int index = getNum(0, PROVINCE.length - 1);
         return PROVINCE[index];
     }

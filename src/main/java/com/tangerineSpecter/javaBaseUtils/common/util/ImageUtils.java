@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -28,6 +28,19 @@ import java.util.UUID;
 @Slf4j
 @ClassInfo(Name = "图片处理工具类")
 public class ImageUtils {
+
+    /**
+     * jpg文件
+     */
+    private static final String JPG_FILE = "jpg";
+    /**
+     * png文件
+     */
+    private static final String PNG_FILE = "png";
+    /**
+     * jpeg文件
+     */
+    private static final String JPEG_FILE = "jpeg";
 
     /**
      * 传入要下载的图片的url列表，将url所对应的图片下载到本地
@@ -97,8 +110,8 @@ public class ImageUtils {
             File file = new File(imagePath + fileName);
             // 创建输入流，写入文件
             FileOutputStream out = null;
-            if (file.getName().endsWith("jpg") || file.getName().endsWith("png") || file.getName().endsWith("jpeg")
-                    || file.getName().endsWith("jpg")) {
+            if (file.getName().endsWith(JPG_FILE) || file.getName().endsWith(PNG_FILE) || file.getName().endsWith(JPEG_FILE)
+                    || file.getName().endsWith(JPG_FILE)) {
                 out = new FileOutputStream(file);
                 int i = 0;
                 while ((i = is.read()) != -1) {
@@ -149,7 +162,7 @@ public class ImageUtils {
             // 输出图片
             File newImage = new File(outImgPath + uuid + ".jpg");
             FileOutputStream outImgStream = new FileOutputStream(newImage);
-            ImageIO.write(bufImg, "jpg", outImgStream);
+            ImageIO.write(bufImg, JPG_FILE, outImgStream);
             newImage.createNewFile();
             outImgStream.flush();
             outImgStream.close();
@@ -218,7 +231,7 @@ public class ImageUtils {
      */
     @MethodInfo(Name = "获取网页所有图片并下载", paramInfo = {"网页地址", "网页编码", "存放路径"})
     public static void getWebImage(String url, String encoding, String path) {
-        String htmlResouce = gethtmlResourceByURL(url, encoding);
+        String htmlResouce = getHtmlResourceByUrl(url, encoding);
         // 解析网页源代码
         Document document = Jsoup.parse(htmlResouce);
         // 获取所以图片的地址<img src="" alt= "" width= "" height=""/>
@@ -244,7 +257,7 @@ public class ImageUtils {
      * @return String 网页的源代码
      */
     @MethodInfo(Name = "获取网页源代码", paramInfo = {"网页地址", "编码集"}, returnInfo = "源代码")
-    public static String gethtmlResourceByURL(String url, String encoding) {
+    public static String getHtmlResourceByUrl(String url, String encoding) {
         // 用于存储网页源代码
         StringBuffer buf = new StringBuffer();
         URL urlObj = null;

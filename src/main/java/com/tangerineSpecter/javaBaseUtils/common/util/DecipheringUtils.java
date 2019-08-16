@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -177,9 +177,9 @@ public class DecipheringUtils extends DecipheringBaseUtils {
         content = content.replaceAll("\\s*", "");
         boolean isNumber = content.matches("[0-9]+");
         String key = Constant.NULL_KEY_STR;
-        if (isNumber && content.length() % 2 == 0) {
+        if (isNumber && content.length() % Constant.Number.HALF_NUMBER == 0) {
             try {
-                for (int index = 0; index < (content.length() / 2); index++) {
+                for (int index = 0; index < (content.length() / Constant.Number.HALF_NUMBER); index++) {
                     key = content.substring(index * 2, (index * 2) + 2);
                     result += TYPEWRITING_BOX[Integer
                             .valueOf(key.substring(0, 1))][(Integer.valueOf(key.substring(1, 2)) - 1)];

@@ -4,6 +4,11 @@ import com.tangerinespecter.javabaseutils.common.util.Constant;
 
 import java.lang.annotation.*;
 
+/**
+ * 方法注解
+ *
+ * @author TangerineSpecter
+ */
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

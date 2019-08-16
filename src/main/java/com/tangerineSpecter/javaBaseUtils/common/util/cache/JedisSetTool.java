@@ -65,7 +65,7 @@ public class JedisSetTool extends JedisTool {
         } finally {
             if (broken) {
                 returnBrokenResource(jedis);
-                return getSetCache(key);
+                getSetCache(key);
             } else {
                 returnResource(jedis);
             }
@@ -103,7 +103,7 @@ public class JedisSetTool extends JedisTool {
         } finally {
             if (broken) {
                 returnBrokenResource(jedis);
-                return getSetObj(key);
+                getSetObj(key);
             } else {
                 returnResource(jedis);
             }
@@ -209,7 +209,7 @@ public class JedisSetTool extends JedisTool {
         } finally {
             if (broken) {
                 returnBrokenResource(jedis);
-                return getSetSize(key);
+                getSetSize(key);
             } else {
                 returnResource(jedis);
             }
@@ -238,7 +238,7 @@ public class JedisSetTool extends JedisTool {
         } finally {
             if (broken) {
                 returnBrokenResource(jedis);
-                return checkSetValue(key, value);
+                checkSetValue(key, value);
             } else {
                 returnResource(jedis);
             }

@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -96,7 +96,7 @@ public class FileUtil extends BaseUtils {
     public static void decode(String base64, String fileName, String path) {
         // 解码
         byte[] data = Base64.decodeBase64(base64);
-        data = ZipUtils.unGZip(data);
+        data = ZipUtils.unZip(data);
         writeFile(data, fileName, path);
     }
 

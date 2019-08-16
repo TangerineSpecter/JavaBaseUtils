@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 
 /**
  * 参数常量类
@@ -13,7 +13,7 @@ public class Constant {
     /**
      * 版本号
      */
-    public static final String VERSION = "2.0.1";
+    public static final String VERSION = "2.0.2";
 
     /**
      * 文件默认存放地址
@@ -153,6 +153,9 @@ public class Constant {
          * 数字3
          */
         public static final Integer COMMON_NUMBER_THIRD = 3;
+
+        public static final Integer HALF_NUMBER = 2;
+
     }
 
     /**
@@ -232,11 +235,11 @@ public class Constant {
      **/
     public static class Redis {
         public static String REDIS_IP = "127.0.0.1";
-        public static String REDIS_PASSWD = null;
-        public static int REIDS_MAX_ACTIVE = 100;
-        public static int REIDS_MAX_IDLE = 50;
-        public static int REIDS_MIN_IDLE = 20;
-        public static int REIDS_MAX_WAITTIME = 2000;
+        public static String REDIS_PASSWORD = null;
+        public static int REDIS_MAX_ACTIVE = 100;
+        public static int REDIS_MAX_IDLE = 50;
+        public static int REDIS_MIN_IDLE = 20;
+        public static int REDIS_MAX_WAIT_TIME = 2000;
     }
 
     /**

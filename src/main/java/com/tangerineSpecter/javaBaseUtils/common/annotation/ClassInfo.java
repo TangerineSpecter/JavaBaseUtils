@@ -1,4 +1,4 @@
-package com.tangerineSpecter.javaBaseUtils.common.annotation;
+package com.tangerinespecter.javabaseutils.common.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,6 +8,11 @@ import java.lang.annotation.Target;
 
 import com.tangerinespecter.javabaseutils.common.util.Constant;
 
+/**
+ * 类注解
+ *
+ * @author TangerineSpecter
+ */
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

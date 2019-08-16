@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Slf4j
 @ClassInfo(Name = "分词工具类")
-public class IKTokenizerTool {
+public class IkTokenizerTool {
 
     /**
      * 切分分词

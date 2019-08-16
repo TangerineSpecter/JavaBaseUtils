@@ -136,7 +136,7 @@ public class JedisMapTool extends JedisTool {
      * @param values
      */
     public static <T extends Serializable> void setMapObjs(String key, Map<String, T> values) {
-        Map<byte[], byte[]> byteValues = new HashMap<byte[], byte[]>();
+        Map<byte[], byte[]> byteValues = new HashMap<byte[], byte[]>(16);
         for (String field : values.keySet()) {
             byteValues.put(field.getBytes(), SerializationUtils.serialize(values.get(field)));
         }
@@ -178,7 +178,7 @@ public class JedisMapTool extends JedisTool {
             byte[][] keyArr = new byte[keys.size()][];
             keyArr = keys.toArray(keyArr);
             List<byte[]> byteValues = jedis.hmget(key.getBytes(), keyArr);
-            Map<String, Serializable> values = new HashMap<String, Serializable>();
+            Map<String, Serializable> values = new HashMap<String, Serializable>(16);
             for (int i = 0; i < keyArr.length; i++) {
                 byte[] byteKey = keyArr[i];
                 byte[] byteValue = byteValues.get(i);
@@ -249,7 +249,7 @@ public class JedisMapTool extends JedisTool {
                 returnResource(jedis);
             }
         }
-        return new HashMap<String, String>();
+        return new HashMap<String, String>(16);
     }
 
     /**

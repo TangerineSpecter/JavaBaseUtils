@@ -1,6 +1,6 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
-import com.tangerineSpecter.javaBaseUtils.common.annotation.ClassInfo;
+import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,7 +68,7 @@ public class ZipUtils extends BaseUtils {
      * @return
      */
     @MethodInfo(Name = "解压数据", paramInfo = {"二进制数据"}, returnInfo = "解压结果")
-    public static byte[] unGZip(byte[] data) {
+    public static byte[] unZip(byte[] data) {
         ByteArrayInputStream bis = null;
         GZIPInputStream gzip = null;
         ByteArrayOutputStream baos = null;

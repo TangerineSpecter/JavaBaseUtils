@@ -79,7 +79,7 @@ public class DocumentInfo {
             }
             textInfo.add("---");
         } else {
-            log.info(String.format("【需要生成文档的类不存在】：%s", className));
+            log.info(String.format("【需要生成文档的类不存在】：{}", className));
         }
     }
 
@@ -108,6 +108,7 @@ public class DocumentInfo {
         for (String fileName : allFileName) {
             if (!IGNORE_SET.contains(fileName)) {
                 Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + fileName);
+                System.out.println(clazz);
                 String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
                 textInfo.add(String.format("    - [%s](#Geting_%s)", clazzAnno, fileName));
             }
@@ -140,7 +141,7 @@ public class DocumentInfo {
                 index++;
             } catch (Exception e) {
                 log.info(String.format("--------------------------------------------------------\r\n"
-                        + "【文档生成信息有误】\r\n Method	: %s \r\n"
+                        + "【文档生成信息有误】\r\n Method	: {} \r\n"
                         + "--------------------------------------------------------", method.getName()));
                 System.exit(0);
             }
@@ -157,6 +158,6 @@ public class DocumentInfo {
         IGNORE_SET.add("LollipopUtils");
         IGNORE_SET.add("FileTypeEnum");
         IGNORE_SET.add("BaseUtils");
-        IGNORE_SET.add("logWordPool");
+        IGNORE_SET.add("LoggerWordPool");
     }
 }

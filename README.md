@@ -2,7 +2,7 @@
 
 ## 简介
 	主要收集一些平时常用的Java开发工具类，内容在不断更新补充中...
-<img src="com/tangerineSpecter/javaBaseUtils/common/img/show_logo.gif">
+<img src="/src/main/java/com/tangerinespecter/javabaseutils/common/img/show_logo.gif">
 
 ### Java基本工具包：
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
@@ -77,13 +77,20 @@ createExcel | 创建Excel | String\[](表头),List(数据列表),boolean(新旧�
 ## <a id= "Geting_IkTokenizerTool"></a>分词工具类 -> [IkTokenizerTool](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/IkTokenizerTool.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-tokenizeKeyWordList | 切分分词 | String(关键词),boolean(智能切分) | List(分词结果)
 tokenizeKeyWord | 切分分词 | String(关键词),boolean(智能切分) | String(分词结果)
+tokenizeKeyWordList | 切分分词 | String(关键词),boolean(智能切分) | List(分词结果)
 ---
 ## <a id= "Geting_FileUtil"></a>文件工具类 -> [FileUtil](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/FileUtil.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
 decode | 把压缩过的base64串解码解压写入磁盘中 | String(压缩过的base64串),String(文件名),String(路径地址) | void(无)
+getAllFileName | 获取路径下的所有文件名 | String(需要遍历的文件夹路径),boolean(是否切割后缀) | List(文件名集合)
+deleteFile | 删除文件 | String(文件路径),String(文件名) | void(无)
+deleteFile | 删除文件 | String(文件路径) | void(无)
+createFile | 创建文件 | String(生成路径),List(文本内容),FileTypeEnum(文件类型) | void(无)
+createFile | 创建文件 | String(生成路径),String(文件名),List(文本内容),FileTypeEnum(文件类型) | void(无)
+createFile | 创建文件 | List(文本内容),FileTypeEnum(文件类型) | void(无)
+getAllFilePath | 获取路径下的所有文件/文件夹 | String(需要遍历的文件夹路径),boolean(是否将子文件夹的路径也添加到list集合中) | List(文件路径集合)
 base64 | 读取文件并压缩数据然后转Base64编码 | String(文件的绝对路径地址) | String(转码结果)
 base64 | 将二进制压缩数据转成Base64编码 | byte\[](二进制压缩数据) | String(base64编码)
 writeFile | 二进制文件写入文件 | byte\[](二进制数据),String(文件名),String(路径地址) | void(无)
@@ -93,13 +100,6 @@ moveFileDir | 转移文件目录 | String(文件名),String(旧路径),String(�
 moveFuzzyFileDir | 转移文件目录（包含名字） | String(文件名),String(旧路径),String(新路径),boolean(是否覆盖) | void(无)
 createDir | 创建文件夹 | String(文件夹路径) | void(无)
 loadingFile | 读取文件内容 | String(文件路径) | String(文件内容)
-getAllFileName | 获取路径下的所有文件名 | String(需要遍历的文件夹路径),boolean(是否切割后缀) | List(文件名集合)
-deleteFile | 删除文件 | String(文件路径) | void(无)
-deleteFile | 删除文件 | String(文件路径),String(文件名) | void(无)
-createFile | 创建文件 | String(生成路径),String(文件名),List(文本内容),FileTypeEnum(文件类型) | void(无)
-createFile | 创建文件 | String(生成路径),List(文本内容),FileTypeEnum(文件类型) | void(无)
-createFile | 创建文件 | List(文本内容),FileTypeEnum(文件类型) | void(无)
-getAllFilePath | 获取路径下的所有文件/文件夹 | String(需要遍历的文件夹路径),boolean(是否将子文件夹的路径也添加到list集合中) | List(文件路径集合)
 ---
 ## <a id= "Geting_DirUtils"></a>路径处理工具类 -> [DirUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/DirUtils.java)
 方法名     | 说明     | 参数     | 返回结果
@@ -111,10 +111,9 @@ getVideoDir | 获取系统视频的存放路径 | String(UUID) | String(视频�
 ## <a id= "Geting_TimeUtils"></a>时间处理工具类 -> [TimeUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/TimeUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-getSimpleFormat | 获取指定格式当前时间 | String(时间格式) | String(时间字符串)
-timeFormatToDay | 将时间格式精确到天 | Date(时间) | String(转换结果)
-timeFormat | 将时间转换成指定格式 | Date(时间) | String(转换结果)
+getWeekdays | 获取某天的星期 | String(时间字符串) | String(星期)
 timeFormat | 将时间转换成指定格式 | Date(时间),String(时间格式) | String(转换结果)
+timeFormat | 将时间转换成指定格式 | Date(时间) | String(转换结果)
 getCurrentTimes | 获取当前时间戳 | 无 | Long(时间戳)
 getDayBeginTimestamp | 获取当天开始时间戳 | 无 | Long(时间戳)
 getDayEndTimestamp | 获取当天结束时间戳 | 无 | Long(时间戳)
@@ -123,32 +122,33 @@ getCurrentYear | 获取当前年份 | 无 | String(年份)
 getTimestramp | 获取特定时间时间戳 | int(年份),int(月份),int(日期),int(小时),int(分钟),int(秒) | Long(时间戳)
 getDatemill | 将指定格式转换成毫秒 | String(时间字符串),String(时间格式) | Long(时间戳)
 getDisparityDay | 获取距离某个日期的天数 | String(时间字符串) | Integer(天数)
-getFinalDay | 获取某年某月第一天 | Date(时间) | Date(时间)
 getFinalDay | 获取某年某月最后一题 | int(年份),int(月份) | Integer(天数)
+getFinalDay | 获取某年某月第一天 | Date(时间) | Date(时间)
 getStartDay | 获取某年某月第一天 | Date(时间) | Date(时间)
 judgeLeapYear | 判断某一年是否闰年 | int(年份) | Boolean(判断结果)
 timeDifForYear | 时间差计算(年-月-日) | Long(开始时间戳),Long(结束时间戳) | String(返回时间格式：yy-MM-dd)
 timeDifForDay | 时间差计算(时：分：秒) | Long(开始时间戳),Long(结束时间戳) | String(返回时间格式：HH:mm:ss)
+timeFormatToDay | 将时间格式精确到天 | Date(时间) | String(转换结果)
+getSimpleFormat | 获取指定格式当前时间 | String(时间格式) | String(时间字符串)
 getDate | 将指定的日期字符串转化为日期对象 | String(日期字符串),String(日期格式) | Date(转换结果)
-getWeekdays | 获取某天的星期 | String(时间字符串) | String(星期)
 ---
 ## <a id= "Geting_ImageUtils"></a>图片处理工具类 -> [ImageUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ImageUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-base64 | 读取文件压缩后转Base64编码 | String(图片的绝对路径地址) | String(Base64编码)
-getPicData | 获取图片的二进制数据 | String(图片的绝对路径地址) | byte[](二进制数据)
-downloadPicture | 将Url图片下载到本地 | String(url地址),String(保存路径) | void(无)
 downloadPicture | 将Url图片下载到本地 | List(url列表) | void(无)
+downloadPicture | 将Url图片下载到本地 | String(url地址),String(保存路径) | void(无)
 addWaterMark | 给图片加水印 | String(需要处理的图片路径),String(图片保存路径),int(水印x坐标),int(水印y坐标),String(水印内容),Font(水印字体),Color(水印字体颜色) | void(无)
 getWatermarkLength | 获取水印文字总长度 | String(水印文字),Graphics2D(Graphics2D类) | int(水印文字总长度)
 getWebImage | 获取网页所有图片并下载 | String(网页地址),String(网页编码),String(存放路径) | void(无)
 getHtmlResourceByUrl | 获取网页源代码 | String(网页地址),String(编码集) | String(源代码)
+base64 | 读取文件压缩后转Base64编码 | String(图片的绝对路径地址) | String(Base64编码)
+getPicData | 获取图片的二进制数据 | String(图片的绝对路径地址) | byte[](二进制数据)
 ---
 ## <a id= "Geting_RandomUtils"></a>随机工具类 -> [RandomUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/RandomUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-getTel | 随机生成电话号码 | 无 | String(电话号码)
 getNum | 随机数 | int(起始数),int(结束数) | int(随机数字)
+getTel | 随机生成电话号码 | 无 | String(电话号码)
 getChineseName | 随机生成中文名字 | 无 | String(中文名)
 getEmail | 随机生成Email | int(最小长度),int(最大长度) | String(Email)
 getProvince | 随机生成省份 | 无 | String(省份)

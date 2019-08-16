@@ -8,12 +8,12 @@
 - 工具包地址：https://github.com/TangerineSpecter/JavaBaseUtils
 
 ### 版本号：
-- 项目版本：2.0.2
+- 项目版本：2.0.3
 
 - JDK版本：1.8
 
 ### 最后更新时间：
-> 2019-08-16
+> 2019-08-17
 
 ## <a id="Getting_Menu"></a> 目录 
 
@@ -111,9 +111,10 @@ getVideoDir | 获取系统视频的存放路径 | String(UUID) | String(视频�
 ## <a id= "Geting_TimeUtils"></a>时间处理工具类 -> [TimeUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/TimeUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
+timeFormatToDay | 将时间格式精确到天 | Date(时间) | String(转换结果)
 getSimpleFormat | 获取指定格式当前时间 | String(时间格式) | String(时间字符串)
-timeFormat | 将时间转换成指定格式 | Date(时间),String(时间格式) | String(转换结果)
 timeFormat | 将时间转换成指定格式 | Date(时间) | String(转换结果)
+timeFormat | 将时间转换成指定格式 | Date(时间),String(时间格式) | String(转换结果)
 getCurrentTimes | 获取当前时间戳 | 无 | Long(时间戳)
 getDayBeginTimestamp | 获取当天开始时间戳 | 无 | Long(时间戳)
 getDayEndTimestamp | 获取当天结束时间戳 | 无 | Long(时间戳)
@@ -122,27 +123,26 @@ getCurrentYear | 获取当前年份 | 无 | String(年份)
 getTimestramp | 获取特定时间时间戳 | int(年份),int(月份),int(日期),int(小时),int(分钟),int(秒) | Long(时间戳)
 getDatemill | 将指定格式转换成毫秒 | String(时间字符串),String(时间格式) | Long(时间戳)
 getDisparityDay | 获取距离某个日期的天数 | String(时间字符串) | Integer(天数)
-getFinalDay | 获取某年某月最后一题 | int(年份),int(月份) | Integer(天数)
 getFinalDay | 获取某年某月第一天 | Date(时间) | Date(时间)
+getFinalDay | 获取某年某月最后一题 | int(年份),int(月份) | Integer(天数)
 getStartDay | 获取某年某月第一天 | Date(时间) | Date(时间)
 judgeLeapYear | 判断某一年是否闰年 | int(年份) | Boolean(判断结果)
 timeDifForYear | 时间差计算(年-月-日) | Long(开始时间戳),Long(结束时间戳) | String(返回时间格式：yy-MM-dd)
 timeDifForDay | 时间差计算(时：分：秒) | Long(开始时间戳),Long(结束时间戳) | String(返回时间格式：HH:mm:ss)
-timeFormatToDay | 将时间格式精确到天 | Date(时间) | String(转换结果)
-getDate | 将指定的日期字符串转化为日期对象 | String(日期字符串),String(日期格式) | Date(转换结果)
 getWeekdays | 获取某天的星期 | String(时间字符串) | String(星期)
+getDate | 将指定的日期字符串转化为日期对象 | String(日期字符串),String(日期格式) | Date(转换结果)
 ---
 ## <a id= "Geting_ImageUtils"></a>图片处理工具类 -> [ImageUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/ImageUtils.java)
 方法名     | 说明     | 参数     | 返回结果
 ------|------|-----|-----
-downloadPicture | 将Url图片下载到本地 | List(url列表) | void(无)
+base64 | 读取文件压缩后转Base64编码 | String(图片的绝对路径地址) | String(Base64编码)
+getPicData | 获取图片的二进制数据 | String(图片的绝对路径地址) | byte[](二进制数据)
 downloadPicture | 将Url图片下载到本地 | String(url地址),String(保存路径) | void(无)
+downloadPicture | 将Url图片下载到本地 | List(url列表) | void(无)
 addWaterMark | 给图片加水印 | String(需要处理的图片路径),String(图片保存路径),int(水印x坐标),int(水印y坐标),String(水印内容),Font(水印字体),Color(水印字体颜色) | void(无)
 getWatermarkLength | 获取水印文字总长度 | String(水印文字),Graphics2D(Graphics2D类) | int(水印文字总长度)
 getWebImage | 获取网页所有图片并下载 | String(网页地址),String(网页编码),String(存放路径) | void(无)
 getHtmlResourceByUrl | 获取网页源代码 | String(网页地址),String(编码集) | String(源代码)
-base64 | 读取文件压缩后转Base64编码 | String(图片的绝对路径地址) | String(Base64编码)
-getPicData | 获取图片的二进制数据 | String(图片的绝对路径地址) | byte[](二进制数据)
 ---
 ## <a id= "Geting_RandomUtils"></a>随机工具类 -> [RandomUtils](https://github.com/TangerineSpecter/JavaBaseUtils/blob/master/src/common/util/RandomUtils.java)
 方法名     | 说明     | 参数     | 返回结果

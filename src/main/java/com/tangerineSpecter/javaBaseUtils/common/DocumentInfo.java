@@ -3,7 +3,7 @@ package com.tangerinespecter.javabaseutils.common;
 import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import com.tangerinespecter.javabaseutils.common.util.Constant;
-import com.tangerinespecter.javabaseutils.common.util.FileTypeEnum;
+import com.tangerinespecter.javabaseutils.common.util.enums.FileTypeEnum;
 import com.tangerinespecter.javabaseutils.common.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.tangerinespecter.javabaseutils.common.util;
+package com.tangerinespecter.javabaseutils.common.util.enums;
 
 /**
  * 文件类型枚举类

@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -380,7 +381,7 @@ public class FileUtil extends BaseUtils {
             throw new FileNotFoundException();
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String temp = null;
+        String temp;
         StringBuffer sb = new StringBuffer();
         temp = br.readLine();
         while (temp != null) {
@@ -408,7 +409,6 @@ public class FileUtil extends BaseUtils {
                 createMarkdownFile(path, fileName, text);
                 break;
             default:
-                return;
         }
     }
 
@@ -481,7 +481,7 @@ public class FileUtil extends BaseUtils {
         BufferedReader br = null;
         FileOutputStream fos = null;
         PrintWriter pw = null;
-        String temp = Constant.NULL_KEY_STR;
+        String temp;
 
         try {
             // 将文件读入输入流
@@ -492,10 +492,10 @@ public class FileUtil extends BaseUtils {
 
             // 文件原有内容并换行
             for (; (temp = br.readLine()) != null; ) {
-                buffer.append(temp + "\r\n");
+                buffer.append(temp).append("\r\n");
             }
             for (String strt : text) {
-                buffer.append(strt + "\r\n");
+                buffer.append(strt).append("\r\n");
             }
 
             fos = new FileOutputStream(file);
@@ -541,4 +541,66 @@ public class FileUtil extends BaseUtils {
                 return Constant.NULL_KEY_STR;
         }
     }
+
+    /**
+     * 根据Url下载文件到指定目录
+     *
+     * @param downloadUrlList 下载地址
+     * @param fileSavePath    文件存放目录
+     */
+    @MethodInfo(Name = "根据Url下载文件到指定目录", paramInfo = {"下载地址集合", "文件存放目录"})
+    public static void downloadFile2SavePath(List<String> downloadUrlList, String fileSavePath) throws IOException {
+        if (downloadUrlList.isEmpty()) {
+            log.info("下载地址列表为空");
+            return;
+        }
+        for (String downloadUrl : downloadUrlList) {
+            downloadFile2SavePath(downloadUrl, fileSavePath);
+        }
+    }
+
+    /**
+     * 根据Url下载文件到指定目录
+     *
+     * @param downloadUrl  下载地址
+     * @param fileSavePath 文件存放目录
+     * @return 存储文件名
+     */
+    @MethodInfo(Name = "根据Url下载文件到指定目录", paramInfo = {"下载地址", "文件存放目录"})
+    public static String downloadFile2SavePath(String downloadUrl, String fileSavePath) throws IOException {
+        if (StringUtils.isEmpty(downloadUrl)) {
+            log.info("下载地址为空");
+            return null;
+        }
+        InputStream inputStream = null;
+        FileOutputStream fileOutputStream = null;
+        File file = new File(downloadUrl);
+        String fileName = file.getName();
+        try {
+            URL summaryLink = new URL(downloadUrl);
+            inputStream = summaryLink.openStream();
+            FileUtil.createDir(fileSavePath);
+            fileOutputStream = new FileOutputStream(fileSavePath + fileName);
+            byte[] bf = new byte[1024];
+            int length;
+            while ((length = inputStream.read(bf, 0, 1024)) != -1) {
+                fileOutputStream.write(bf, 0, length);
+            }
+            inputStream.close();
+            fileOutputStream.close();
+        } catch (Exception e) {
+            log.warn("文件下载异常，异常文件地址：【{}】,异常信息：【{}】", downloadUrl, e);
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (fileOutputStream != null) {
+                fileOutputStream.close();
+            }
+        }
+        return fileName;
+    }
+
 }

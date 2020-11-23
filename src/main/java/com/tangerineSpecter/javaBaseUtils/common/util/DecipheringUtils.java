@@ -4,6 +4,9 @@ import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 解密工具类
  *
@@ -21,14 +24,13 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "加密摩斯密码", paramInfo = {"加密内容"}, returnInfo = "摩斯加密结果")
     public static String setMorseResult(String content) {
-        String result = Constant.NULL_KEY_STR;
-        String value = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         content = content.replaceAll("\\s*", "").toUpperCase();
         for (int index = 0; index < content.length(); index++) {
-            value = content.substring(index, index + 1);
+            String value = content.substring(index, index + 1);
             for (String getKey : MORSE_CODE_MAP.keySet()) {
                 if (MORSE_CODE_MAP.get(getKey).equals(value)) {
-                    result += getKey + "/";
+                    result.append(getKey).append("/");
                 }
             }
         }
@@ -43,19 +45,19 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "解密摩斯密码", paramInfo = {"摩斯密码"}, returnInfo = "摩斯解密结果")
     public static String getMorseResult(String morseCode) {
-        String result = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         String[] morseArray = morseCode.split("/");
         for (String morse : morseArray) {
             if (MORSE_CODE_MAP.get(morse) != null) {
-                result += MORSE_CODE_MAP.get(morse);
+                result.append(MORSE_CODE_MAP.get(morse));
             }
         }
-        if (Constant.NULL_KEY_STR.equals(result)) {
+        if (Constant.NULL_KEY_STR.equals(result.toString())) {
             if (ERROR_INFO) {
                 log.info(getErrorMessage(morseCode, Constant.Deciphering.MORSE_TYPE));
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -67,28 +69,35 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "栅栏密码解密", paramInfo = {"栅栏密码", "栅栏数"}, returnInfo = "栅栏解密结果")
     public static String getRailFenceResult(String railfence, int key) {
-        String result = Constant.NULL_KEY_STR;
-        String codes = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder();
         // 剔除所有空格
         String code = railfence.replaceAll("\\s*", "");
         if (StringUtils.isEmpty(code)) {
-            return result;
+            return result.toString();
         }
-        Integer length = code.length();
-        Integer cutPoint = length % key == 0 ? (length / key) : (length / key) + 1;
-        for (int index = 0; index < cutPoint; index++) {
-            Integer max = ((index + 1) * key) < length ? ((index + 1) * key) : length;
-            codes += code.substring(index * key, max) + ",";
+        //最小长度
+        int minLength = 2;
+        if (key < minLength) {
+            return code;
         }
-        String[] codeArrays = codes.substring(0, codes.length() - 1).split(",");
-        for (int index = 0; index < codeArrays[0].length(); index++) {
-            for (int count = 0; count < codeArrays.length; count++) {
-                if ((index + 1) <= codeArrays[count].length()) {
-                    result += codeArrays[count].substring(index, index + 1);
-                }
+        int length = railfence.length() % key == 0 ? railfence.length() / key : railfence.length() / key + 1;
+        List<StringBuilder> results = new ArrayList<>(length);
+        for (int index = 0; index < length; index++) {
+            results.add(new StringBuilder());
+        }
+        int index = 0;
+        for (char c : code.toCharArray()) {
+            results.get(index).append(c);
+            if (index == length - 1) {
+                index = 0;
+                continue;
             }
+            index++;
         }
-        return result;
+        for (StringBuilder row : results) {
+            result.append(row);
+        }
+        return result.toString();
     }
 
     /**
@@ -100,25 +109,34 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "栅栏密码加密", paramInfo = {"栅栏密码", "栅栏数"}, returnInfo = "栅栏加密结果")
     public static String setRailFenceResult(String railfence, int key) {
-        String result = Constant.NULL_KEY_STR;
-        String codes = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder();
         // 剔除所有空格
         String code = railfence.replaceAll("\\s*", "");
-        Integer length = code.length();
-        Integer cutPoint = length % key == 0 ? (length / key) : (length / key) + 1;
+        if (StringUtils.isEmpty(code)) {
+            return result.toString();
+        }
+        List<StringBuilder> results = new ArrayList<>(key);
+        //最小长度
+        int minLength = 2;
+        if (key < minLength) {
+            return code;
+        }
         for (int index = 0; index < key; index++) {
-            Integer max = ((index + 1) * cutPoint) < length ? ((index + 1) * cutPoint) : length;
-            codes += code.substring(index * cutPoint, max) + ",";
+            results.add(new StringBuilder());
         }
-        String[] codeArrays = codes.substring(0, codes.length() - 1).split(",");
-        for (int index = 0; index < codeArrays[0].length(); index++) {
-            for (int count = 0; count < codeArrays.length; count++) {
-                if ((index + 1) <= codeArrays[count].length()) {
-                    result += codeArrays[count].substring(index, index + 1);
-                }
+        int index = 0;
+        for (char c : code.toCharArray()) {
+            results.get(index).append(c);
+            if (index == key - 1) {
+                index = 0;
+                continue;
             }
+            index++;
         }
-        return result;
+        for (StringBuilder row : results) {
+            result.append(row);
+        }
+        return result.toString();
     }
 
     /**
@@ -148,18 +166,18 @@ public class DecipheringUtils extends DecipheringBaseUtils {
     @MethodInfo(Name = "unicode转字符串", paramInfo = {"unicode字符串"}, returnInfo = "字符串结果")
     public static String unicode2String(String str) {
         int start = 0;
-        int end = 0;
+        int end;
         final StringBuffer buffer = new StringBuffer();
         while (start > -1) {
             end = str.indexOf("\\u", start + 2);
-            String charStr = "";
+            String charStr;
             if (end == -1) {
-                charStr = str.substring(start + 2, str.length());
+                charStr = str.substring(start + 2);
             } else {
                 charStr = str.substring(start + 2, end);
             }
             char letter = (char) Integer.parseInt(charStr, 16);
-            buffer.append(new Character(letter).toString());
+            buffer.append(letter);
             start = end;
         }
         return buffer.toString();
@@ -173,16 +191,15 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "手机九宫格输入法解密", paramInfo = "解密内容", returnInfo = "解密结果")
     public static String getPhoneTypewritingResult(String content) {
-        String result = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         content = content.replaceAll("\\s*", "");
         boolean isNumber = content.matches("[0-9]+");
-        String key = Constant.NULL_KEY_STR;
         if (isNumber && content.length() % Constant.Number.HALF_NUMBER == 0) {
             try {
                 for (int index = 0; index < (content.length() / Constant.Number.HALF_NUMBER); index++) {
-                    key = content.substring(index * 2, (index * 2) + 2);
-                    result += TYPEWRITING_BOX[Integer
-                            .valueOf(key.substring(0, 1))][(Integer.valueOf(key.substring(1, 2)) - 1)];
+                    String key = content.substring(index * 2, (index * 2) + 2);
+                    result.append(TYPEWRITING_BOX[Integer
+                            .parseInt(key.substring(0, 1))][(Integer.parseInt(key.substring(1, 2)) - 1)]);
                 }
             } catch (Exception e) {
                 if (ERROR_INFO) {
@@ -190,12 +207,11 @@ public class DecipheringUtils extends DecipheringBaseUtils {
                 }
                 return Constant.NULL_KEY_STR;
             }
-        } else {
-            if (ERROR_INFO) {
-                log.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
-            }
         }
-        return result;
+        if (ERROR_INFO) {
+            log.info(getErrorMessage(content, Constant.Deciphering.PHONE_TYPEWRITING_TYPE));
+        }
+        return result.toString();
     }
 
     /**
@@ -206,18 +222,18 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "手机九宫格输入法加密", paramInfo = "解密内容", returnInfo = "加密结果")
     public static String setPhoneTypewritingResult(String content) {
-        String result = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         content = content.replaceAll("\\s*", "").toUpperCase();
         for (int i = 0; i < content.length(); i++) {
             for (int index = 0; index < TYPEWRITING_BOX.length; index++) {
                 for (int count = 0; count < TYPEWRITING_BOX[index].length; count++) {
                     if (TYPEWRITING_BOX[index][count].equals(content.substring(i, i + 1))) {
-                        result += String.valueOf(index) + String.valueOf(count + 1);
+                        result.append(index).append((count + 1));
                     }
                 }
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -228,20 +244,20 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "加密键盘密码", paramInfo = "加密内容", returnInfo = "加密结果")
     public static String setKeyboardResult(String content) {
-        String result = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         content = content.replaceAll("\\s*", "").toUpperCase();
         String[] keyboardArray = content.split("");
         for (String keyboard : keyboardArray) {
             if (KEYBOARD_CODE_MAP.get(keyboard) != null) {
-                result += KEYBOARD_CODE_MAP.get(keyboard);
+                result.append(KEYBOARD_CODE_MAP.get(keyboard));
             }
         }
-        if (Constant.NULL_KEY_STR.equals(result)) {
+        if (Constant.NULL_KEY_STR.equals(result.toString())) {
             if (ERROR_INFO) {
                 log.info(getErrorMessage(content, Constant.Deciphering.KEYBOARD_TYPE));
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -252,18 +268,17 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "解密键盘密码", paramInfo = "键盘密码", returnInfo = "解密结果")
     public static String getKeyboardResult(String keyboardCode) {
-        String result = Constant.NULL_KEY_STR;
-        String value = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         keyboardCode = keyboardCode.replaceAll("\\s*", "").toUpperCase();
         for (int index = 0; index < keyboardCode.length(); index++) {
-            value = keyboardCode.substring(index, index + 1);
+            String value = keyboardCode.substring(index, index + 1);
             for (String getKey : KEYBOARD_CODE_MAP.keySet()) {
                 if (KEYBOARD_CODE_MAP.get(getKey).equals(value)) {
-                    result += getKey;
+                    result.append(getKey);
                 }
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -274,20 +289,20 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "加密培根密码", paramInfo = "加密内容", returnInfo = "加密结果")
     public static String setBaconResult(String content) {
-        String result = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         content = content.replaceAll("\\s*", "").toUpperCase();
         String[] baconArray = content.split("");
         for (String bacon : baconArray) {
             if (BACON_CODE_MAP.get(bacon) != null) {
-                result += BACON_CODE_MAP.get(bacon);
+                result.append(BACON_CODE_MAP.get(bacon));
             }
         }
-        if (Constant.NULL_KEY_STR.equals(result)) {
+        if (Constant.NULL_KEY_STR.equals(result.toString())) {
             if (ERROR_INFO) {
                 log.info(getErrorMessage(content, Constant.Deciphering.BACON_TYPE));
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -298,18 +313,17 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      */
     @MethodInfo(Name = "解密培根密码", paramInfo = "培根密码", returnInfo = "解密结果")
     public static String getBaconResult(String baconCode) {
-        String result = Constant.NULL_KEY_STR;
-        String value = Constant.NULL_KEY_STR;
+        StringBuilder result = new StringBuilder(Constant.NULL_KEY_STR);
         baconCode = baconCode.replaceAll("\\s*", "").toUpperCase();
         for (int index = 0; index < baconCode.length(); index++) {
-            value = baconCode.substring(index, index + 1);
+            String value = baconCode.substring(index, index + 1);
             for (String getKey : BACON_CODE_MAP.keySet()) {
                 if (BACON_CODE_MAP.get(getKey).equals(value)) {
-                    result += getKey;
+                    result.append(getKey);
                 }
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -327,7 +341,6 @@ public class DecipheringUtils extends DecipheringBaseUtils {
      * 解密错误提示
      */
     private static String getErrorMessage(String content, String type) {
-        String message = String.format("【错误提示】：[%s]不符合[%s]方式", content, type);
-        return message;
+        return String.format("【错误提示】：[%s]不符合[%s]方式", content, type);
     }
 }

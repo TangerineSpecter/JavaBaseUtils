@@ -89,7 +89,7 @@ public class StringUtils {
      * @return
      */
     @MethodInfo(Name = "获取本机IP地址", returnInfo = "IP地址")
-    public static String getLocalHostIP() {
+    public static String getLocalHostIp() {
         String ip = Constant.NULL_KEY_STR;
         InetAddress address;
         try {

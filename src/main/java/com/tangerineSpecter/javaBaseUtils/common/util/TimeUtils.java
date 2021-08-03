@@ -153,6 +153,7 @@ public class TimeUtils {
         return new SimpleDateFormat(format).format(new Date());
     }
 
+
     /**
      * 获取当前年份
      */
@@ -183,16 +184,15 @@ public class TimeUtils {
      *
      * @param date   时间
      * @param format 格式
-     * @return
+     * @return 时间戳
      */
     @MethodInfo(Name = "将指定格式转换成毫秒", paramInfo = {"时间字符串", "时间格式"}, returnInfo = "时间戳")
-    public static Long getDatemill(String date, String format) {
+    public static Long getDateMillion(String date, String format) {
         Long time = null;
         if (null != date && !date.isEmpty()) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat(format);
-                long millionSeconds = sdf.parse(date.toString()).getTime();
-                time = millionSeconds;
+                time = sdf.parse(date).getTime();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -279,7 +279,7 @@ public class TimeUtils {
      *
      * @param date 时间
      */
-    @MethodInfo(Name = "获取某年某月第一天", paramInfo = {"时间"}, returnInfo = "时间")
+    @MethodInfo(Name = "获取某年某月最后一天", paramInfo = {"时间"}, returnInfo = "时间")
     public static Date getFinalDay(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -304,14 +304,14 @@ public class TimeUtils {
     /**
      * 时间差计算(年-月-日)
      *
-     * @param stime 开始时间戳
-     * @param etime 结束时间戳
+     * @param startTime 开始时间戳
+     * @param endTime   结束时间戳
      * @return yy-MM-dd
      */
     @MethodInfo(Name = "时间差计算(年-月-日)", paramInfo = {"开始时间戳", "结束时间戳"}, returnInfo = "返回时间格式：yy-MM-dd")
-    public static String timeDifForYear(Long stime, Long etime) {
-        LocalDate endDate = Instant.ofEpochMilli(etime).atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate startDate = Instant.ofEpochMilli(stime).atZone(ZoneId.systemDefault()).toLocalDate();
+    public static String timeDifForYear(Long startTime, Long endTime) {
+        LocalDate endDate = Instant.ofEpochMilli(endTime).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate startDate = Instant.ofEpochMilli(startTime).atZone(ZoneId.systemDefault()).toLocalDate();
         Period period = Period.between(startDate, endDate);
         return period.getYears() + "-" + period.getMonths() + "-" + period.getDays();
     }

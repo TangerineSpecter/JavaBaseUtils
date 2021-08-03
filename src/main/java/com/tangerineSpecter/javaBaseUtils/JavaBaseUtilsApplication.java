@@ -1,5 +1,6 @@
 package com.tangerinespecter.javabaseutils;
 
+import com.tangerinespecter.javabaseutils.common.DocumentInfo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,7 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JavaBaseUtilsApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        DocumentInfo.createDocInfo();
         SpringApplication.run(JavaBaseUtilsApplication.class, args);
     }
 

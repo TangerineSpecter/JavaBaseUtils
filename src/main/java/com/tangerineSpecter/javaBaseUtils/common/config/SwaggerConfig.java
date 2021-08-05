@@ -27,9 +27,6 @@ public class SwaggerConfig {
 
     @Bean
     public Docket customDocket() {
-        log.info("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
-        log.info(" 欢迎使用橘子工具包，工具文档访问地址：http://localhost:{}/doc.html ", port);
-        log.info("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 //选择那些路径和api会生成document

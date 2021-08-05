@@ -92,7 +92,7 @@ public class ExcelUtils {
         String dateName = TimeUtils.getSimpleFormat("yyyy-MM-dd");
         String uuid = UUID.randomUUID().toString();
         String savePath = Constant.FILE_SAVE_PATH + dateName + "/" + uuid + "/";
-        String excelPath = Constant.NULL_KEY_STR;
+        String excelPath;
         if (dataList.isEmpty()) {
             return null;
         }

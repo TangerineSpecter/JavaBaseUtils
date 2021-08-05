@@ -10,7 +10,7 @@ public class LoggerWordPool {
     /**
      * 文件工具类相关日志信息
      */
-    class FileLogger {
+    static class FileLogger {
         /**
          * 文件写入错误
          */

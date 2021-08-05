@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JavaBaseUtilsApplication {
 
     public static void main(String[] args) throws Exception {
-        DocumentInfo.createDocInfo();
+//        DocumentInfo.createDocInfo();
         SpringApplication.run(JavaBaseUtilsApplication.class, args);
     }
 

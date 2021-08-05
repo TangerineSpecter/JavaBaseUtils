@@ -24,7 +24,7 @@ public class LollipopUtils extends DecipheringUtils {
      */
     @MethodInfo(Name = "暴力破解密码", paramInfo = {"破解内容", "破解层数", "错误信息输出"})
     public static void rceAttack(String content, int plies, boolean isInfo) {
-        String result = Constant.NULL_KEY_STR;
+        String result;
         ERROR_INFO = isInfo;
         // 初始化破解列表
         List<List<Integer>> lists = NumberUtils.getFullPermutation(PASSWORD_INDEX, plies);
@@ -75,31 +75,31 @@ public class LollipopUtils extends DecipheringUtils {
      * @return
      */
     private static String getProcessInfo(List<Integer> numbers) {
-        String info = Constant.NULL_KEY_STR;
+        StringBuilder info = new StringBuilder(Constant.NULL_KEY_STR);
         for (int number : numbers) {
             switch (number) {
                 case 0:
-                    info += Constant.Deciphering.MORSE_TYPE + "->";
+                    info.append(Constant.Deciphering.MORSE_TYPE + "->");
                     break;
                 case 1:
-                    info += Constant.Deciphering.RAILFENCE_TYPE + "->";
+                    info.append(Constant.Deciphering.RAILFENCE_TYPE + "->");
                     break;
                 case 2:
-                    info += Constant.Deciphering.PHONE_TYPEWRITING_TYPE + "->";
+                    info.append(Constant.Deciphering.PHONE_TYPEWRITING_TYPE + "->");
                     break;
                 case 3:
-                    info += Constant.Deciphering.KEYBOARD_TYPE + "->";
+                    info.append(Constant.Deciphering.KEYBOARD_TYPE + "->");
                     break;
                 case 4:
-                    info += Constant.Deciphering.BACON_TYPE + "->";
+                    info.append(Constant.Deciphering.BACON_TYPE + "->");
                     break;
                 case 5:
-                    info += Constant.Deciphering.REVERSE_ORDER_TYPE + "->";
+                    info.append(Constant.Deciphering.REVERSE_ORDER_TYPE + "->");
                     break;
                 default:
                     break;
             }
         }
-        return info;
+        return info.toString();
     }
 }

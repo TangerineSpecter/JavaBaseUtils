@@ -1,7 +1,9 @@
 package com.tangerinespecter.javabaseutils.common.util;
 
+import cn.hutool.poi.excel.ExcelUtil;
 import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
+import com.tangerinespecter.javabaseutils.common.exception.GlobalException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,10 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -196,4 +195,28 @@ public class ExcelUtils {
         }
     }
 
+    public static List<List<Object>> readExcel(InputStream in) {
+        final List<List<Object>> result = new ArrayList<>();
+        try {
+            ExcelUtil.readBySax(in, -1, (sheetIndex, rowIndex, rowList) -> {
+                if (rowList.size() < 1) {
+                    return;
+                }
+                ArrayList<Object> objects = new ArrayList<>(rowList);
+                result.add(objects);
+            });
+        } catch (Exception e) {
+            log.error("读取EXCEL数据流失败...", e);
+            throw new GlobalException("读取EXCEL数据流失败...", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+
+                }
+            }
+        }
+        return result;
+    }
 }

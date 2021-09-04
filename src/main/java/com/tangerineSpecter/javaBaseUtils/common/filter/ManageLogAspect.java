@@ -47,7 +47,7 @@ public class ManageLogAspect {
             String userStr = "【TangerineSpecter】";
             log.info("接口日志记录, 请求url: {}, 用户信息: {}, 请求参数: {}, token：{}", url, userStr, JSON.toJSONString(args), token);
         } catch (Exception e) {
-            log.error("记录用户访问信息出错", e);
+            log.warn("记录用户访问信息出错", e);
         }
     }
 }

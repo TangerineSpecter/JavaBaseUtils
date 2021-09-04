@@ -3,8 +3,8 @@ package com.tangerinespecter.javabaseutils.common;
 import com.tangerinespecter.javabaseutils.common.annotation.ClassInfo;
 import com.tangerinespecter.javabaseutils.common.annotation.MethodInfo;
 import com.tangerinespecter.javabaseutils.common.util.Constant;
-import com.tangerinespecter.javabaseutils.common.util.enums.FileTypeEnum;
 import com.tangerinespecter.javabaseutils.common.util.FileUtil;
+import com.tangerinespecter.javabaseutils.common.util.enums.FileTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
@@ -64,8 +64,11 @@ public class DocumentInfo {
         }
         if (flag) {
             Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + className);
-            String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
-            textInfo.add(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno, className,
+            ClassInfo clazzAnno = clazz.getAnnotation(ClassInfo.class);
+            if (clazzAnno == null) {
+                return;
+            }
+            textInfo.add(String.format("## <a id= \"Geting_%s\"></a>%s -> [%s](%s)", className, clazzAnno.Name(), className,
                     Constant.GIT_HUB_BLOB_URL + className + ".java"));
             Method[] methods = clazz.getMethods();
             getDocUtilHead(textInfo);
@@ -108,9 +111,11 @@ public class DocumentInfo {
         for (String fileName : allFileName) {
             if (!IGNORE_SET.contains(fileName)) {
                 Class<?> clazz = Class.forName(Constant.UTIL_QUALIFIED_HEAD + fileName);
-                System.out.println(clazz);
-                String clazzAnno = clazz.getAnnotation(ClassInfo.class).Name();
-                textInfo.add(String.format("    - [%s](#Geting_%s)", clazzAnno, fileName));
+                ClassInfo annotation = clazz.getAnnotation(ClassInfo.class);
+                if (annotation == null) {
+                    continue;
+                }
+                textInfo.add(String.format("    - [%s](#Geting_%s)", annotation.Name(), fileName));
             }
         }
         textInfo.add("---");
@@ -129,7 +134,7 @@ public class DocumentInfo {
      * @return
      */
     private static String getParamInfo(Method method, String[] params) {
-        String paramInfo = Constant.NULL_KEY_STR;
+        StringBuilder paramInfo = new StringBuilder(Constant.NULL_KEY_STR);
         int index = Constant.Number.COMMON_NUMBER_ZERO;
         Class<?>[] paramTypes = method.getParameterTypes();
         if (params[index].equals(Constant.Chinese.NOTHING)) {
@@ -137,7 +142,7 @@ public class DocumentInfo {
         }
         for (Class<?> param : paramTypes) {
             try {
-                paramInfo += param.getSimpleName() + "(" + params[index] + "),";
+                paramInfo.append(param.getSimpleName()).append("(").append(params[index]).append("),");
                 index++;
             } catch (Exception e) {
                 log.info(String.format("--------------------------------------------------------\r\n"
